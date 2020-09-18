@@ -85,7 +85,8 @@ namespace ImpedanceCalculator
 		/// <param name="frequence"></param>
 		/// <returns></returns>
 		public Complex CalculateZ(double frequence)
-		{
+		{ 
+
 			double resistance = -(1 / (2 * Math.PI * frequence * Value));
 			Complex complexResistance = new Complex(0, resistance);
 
