@@ -8,7 +8,6 @@ using System.Numerics;
 
 namespace ImpedanceCalculator
 {
-
 	public class Resistor : IElement
 	{
 		/// <summary>
@@ -96,6 +95,17 @@ namespace ImpedanceCalculator
 			return resistance;
 		}
 
+		/// <summary>
+		/// событие изменения значения элемента цепи
+		/// </summary>
 		public event EventHandler ValueChanged;
+
+		/// <summary>
+		/// Метод проверки наличия подписчиков у события ValueChanged
+		/// </summary>
+		public bool HasSubscribers()
+		{
+			return ValueChanged == null;
+		}
 	}
 }

@@ -15,21 +15,16 @@ namespace ImpedanceCalculator
 
         public event EventHandler CircuitChanged;
 
-        Complex[] CalculateZ(double[] frequences)
+       
+        public Complex CalculateZ(double frequency)
         {
-            Complex[] impedance = new Complex[frequences.Length];
-
-            int i = 0;
-            foreach (double frequence in frequences)
+            Complex impedance = new Complex();
+           
+            foreach (IElement element in Elements)
             {
-                foreach (IElement element in Elements)
-                {
-                    element.ValueChanged += OnCircuitChange;
-                    impedance[i] += element.CalculateZ(frequences[i]);
-                }
-                i++;
+                impedance += element.CalculateZ(frequency);
             }
-
+            
 
             return impedance;
         }
@@ -37,6 +32,17 @@ namespace ImpedanceCalculator
         private void OnCircuitChange(object sender, EventArgs e)
         {
             CircuitChanged?.Invoke(sender, e);
+        }
+
+        public void SubcribeToCircuitChange()
+        {
+            foreach(IElement element in Elements)
+            {
+                if (element.HasSubscribers())
+                {
+                    element.ValueChanged += OnCircuitChange;
+                }  
+            }
         }
 
         public object Clone()
@@ -52,5 +58,7 @@ namespace ImpedanceCalculator
 
             return circuit;
         }
+
+
     }
 }

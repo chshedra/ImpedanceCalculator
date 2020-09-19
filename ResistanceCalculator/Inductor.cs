@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Numerics;
 
+
 namespace ImpedanceCalculator
 {
 	class Inductor : IElement
@@ -91,7 +92,17 @@ namespace ImpedanceCalculator
 			return complexResistance;
 		}
 
+		/// <summary>
+		/// Метод проверки наличия подписчиков у события ValueChanged
+		/// </summary>
+		public bool HasSubscribers()
+		{
+			return ValueChanged == null;
+		}
 
+		/// <summary>
+		/// событие изменения значения элемента цепи
+		/// </summary>
 		public event EventHandler ValueChanged;
 	}
 }

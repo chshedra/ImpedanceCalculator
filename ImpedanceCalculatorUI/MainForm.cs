@@ -17,8 +17,8 @@ namespace ImpedanceCalculatorUI
 	{
 
 		private List<Circuit> _circuits;
-		private double[] _frequencies;
-		private Complex[] _impedancies;
+		private List<double> _frequencies;
+		private List<Complex> _impedancies = new List<Complex>();
 
 		private Image[] _circuitsImage;
 
@@ -28,6 +28,11 @@ namespace ImpedanceCalculatorUI
 		{
 			InitializeComponent();
 			_circuits = Project.CreateCircuits();
+
+			foreach(Circuit circuit in _circuits)
+			{
+				circuit.CircuitChanged += ElementChangeMessage;
+			}
 
 			for(int i = 0; i < 5; i++)
 			{
@@ -43,11 +48,13 @@ namespace ImpedanceCalculatorUI
 				j++;
 			}
 
-			
+			_frequencies = new List<double>();
+			FrequenceListBox.DataSource = _frequencies;
 		}
 
 		private void MainForm_Load(object sender, EventArgs e)
 		{
+			CircuitsListBox.SelectedIndex = 0;
 
 		}
 
@@ -129,13 +136,25 @@ namespace ImpedanceCalculatorUI
 
 		private void CalculateButton_Click(object sender, EventArgs e)
 		{
-			
-			if(R1TextBox != null)
+			if (R1TextBox.BackColor == Color.IndianRed ||
+				R2TextBox.BackColor == Color.IndianRed ||
+				C1TextBox.BackColor == Color.IndianRed ||
+				C2TextBox.BackColor == Color.IndianRed ||
+				L1TextBox.BackColor == Color.IndianRed ||
+				L2TextBox.BackColor == Color.IndianRed ||
+				FrequenceTextBox.BackColor != Color.White)
 			{
-				foreach(IElement element in _circuits[CircuitsListBox.SelectedIndex].Elements)
-				{
+				MessageBox.Show("Incorrect values", "Values must be contains positive numbers",
+					MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			else
+			{
+				MessageTextBox.Clear();
+				_frequencies.Add(double.Parse(FrequenceTextBox.Text));
 
-					if(element.Name == "R1")
+				foreach (IElement element in _circuits[CircuitsListBox.SelectedIndex].Elements)
+				{
+					if (element.Name == "R1")
 					{
 						element.Value = double.Parse(R1TextBox.Text);
 					}
@@ -159,9 +178,102 @@ namespace ImpedanceCalculatorUI
 					{
 						element.Value = double.Parse(L2TextBox.Text);
 					}
+				}
 
+				_impedancies.Add(_circuits[CircuitsListBox.SelectedIndex].CalculateZ(double.Parse(FrequenceTextBox.Text)));
+
+				FrequenceListBox.DataSource = null;
+				FrequenceListBox.DataSource = _frequencies;
+
+				ImpedanceListBox.Items.Clear();
+				foreach (Complex imp in _impedancies)
+				{
+					ImpedanceListBox.Items.Add(Convert.ToString(Math.Round(imp.Real, 2) + "+" + Math.Round(imp.Imaginary, 2) + "i"));
 				}
 			}
+		}
+
+		private void R1TextBox_TextChanged(object sender, EventArgs e)
+		{
+			TextBoxCheck(R1TextBox);
+		}
+
+		private void C1TextBox_TextChanged(object sender, EventArgs e)
+		{
+			TextBoxCheck(C1TextBox);
+		}
+
+		private void L1TextBox_TextChanged(object sender, EventArgs e)
+		{
+			TextBoxCheck(L1TextBox);
+		}
+
+		private void R2TextBox_TextChanged(object sender, EventArgs e)
+		{
+			TextBoxCheck(R2TextBox);
+		}
+
+		private void C2TextBox_TextChanged(object sender, EventArgs e)
+		{
+			TextBoxCheck(C2TextBox);
+		}
+
+		private void L2TextBox_TextChanged(object sender, EventArgs e)
+		{
+			TextBoxCheck(L2TextBox);
+		}
+
+		private void FrequenceTextBox_TextChanged(object sender, EventArgs e)
+		{
+			TextBoxCheck(FrequenceTextBox);
+		}
+
+		private void FrequenceListBox_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			ImpedanceListBox.SelectedIndex = FrequenceListBox.SelectedIndex;
+		}
+
+		private void ImpedanceListBox_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			FrequenceListBox.SelectedIndex = ImpedanceListBox.SelectedIndex;
+		}
+
+		/// <summary>
+		/// Метод проверки ввода значений 
+		/// </summary>
+		/// <param name="textBox"></param>
+		private void TextBoxCheck(TextBox textBox)
+		{
+			double num = 0.0;
+
+			textBox.BackColor = (textBox.Text == null || !double.TryParse(textBox.Text, out num))
+				? Color.IndianRed
+				: Color.White;
+		}
+
+		private void EditButton_Click(object sender, EventArgs e)
+		{
+			if(FrequenceListBox.SelectedItem == null)
+			{
+				MessageBox.Show("Message", "Choose the frequence from the listbox", 
+					MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			}
+			else
+			{
+				
+				
+			}
+		}
+
+		/// <summary>
+		/// Обработчик события измененения цепи
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void ElementChangeMessage(object sender, EventArgs e)
+		{
+			IElement element = (IElement)sender;
+			MessageTextBox.Text += element.Name + " new value is " + element.Value + Environment.NewLine;
 		}
 	}
 }

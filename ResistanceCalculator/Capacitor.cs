@@ -93,6 +93,17 @@ namespace ImpedanceCalculator
 			return complexResistance;
 		}
 
+		/// <summary>
+		/// Метод проверки наличия подписчиков у события ValueChanged
+		/// </summary>
+		public bool HasSubscribers()
+		{
+			return ValueChanged == null;
+		}
+
+		/// <summary>
+		/// Событие изменения значения элемента
+		/// </summary>
 		public event EventHandler ValueChanged;
 	}
 }

@@ -27,30 +27,35 @@ namespace ImpedanceCalculator
 			circuit1.Elements.Add(R1);
 			circuit1.Elements.Add(C1);
 			circuit1.Elements.Add(L1);
+			circuit1.SubcribeToCircuitChange();
 
 			var circuit2 = new Circuit();
 			circuit2.Elements.Add(R1);
 			circuit2.Elements.Add(C1);
 			circuit2.Elements.Add(L1);
 			circuit2.Elements.Add(C2);
+			circuit2.SubcribeToCircuitChange();
 
 			var circuit3 = new Circuit();
 			circuit3.Elements.Add(R1);
 			circuit3.Elements.Add(L1);
 			circuit3.Elements.Add(L2);
 			circuit3.Elements.Add(C1);
+			circuit3.SubcribeToCircuitChange();
 
 			var circuit4 = new Circuit();
 			circuit4.Elements.Add(R1);
 			circuit4.Elements.Add(L1);
 			circuit4.Elements.Add(L2);
 			circuit4.Elements.Add(R2);
+			circuit4.SubcribeToCircuitChange();
 
 			var circuit5 = new Circuit();
 			circuit5.Elements.Add(C1);
 			circuit5.Elements.Add(L1);
 			circuit5.Elements.Add(L2);
 			circuit5.Elements.Add(C2);
+			circuit5.SubcribeToCircuitChange();
 
 
 			circuits.Add(circuit1);
