@@ -42,13 +42,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Capacitor.cs" />
-    <Compile Include="Circuit.cs" />
+    <Compile Include="CircuitFabric.cs" />
+    <Compile Include="Elements\Capacitor.cs" />
+    <Compile Include="Circuits\Circuit.cs" />
     <Compile Include="IElement.cs" />
-    <Compile Include="Inductor.cs" />
-    <Compile Include="Project.cs" />
+    <Compile Include="Elements\Inductor.cs" />
+    <Compile Include="ISegment.cs" />
+    <Compile Include="Circuits\ParallelCircuit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resistor.cs" />
+    <Compile Include="Elements\Resistor.cs" />
+    <Compile Include="Circuits\SerialCircuit.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

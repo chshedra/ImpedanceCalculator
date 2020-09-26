@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Numerics;
-
 
 namespace ImpedanceCalculator
 {
-	class Inductor : IElement
+	/// <summary>
+	/// Класс катушки индуктивности
+	/// </summary>
+	public class Inductor : IElement
 	{
 		/// <summary>
 		/// Название катушки индуктивности
@@ -19,7 +18,12 @@ namespace ImpedanceCalculator
 		/// Индуктивность катушки 
 		/// </summary>
 		private double _value;
-		
+
+		/// <inheritdoc/>
+		public event EventHandler SegmentChanged;
+
+		/// <inheritdoc/>
+		public List<ISegment> SubSegments { get; } = null;
 
 		/// <summary>
 		/// Возвращает и устанавливает название катушки индуктивности 
@@ -34,7 +38,7 @@ namespace ImpedanceCalculator
 			{
 				if (value.Length == 0)
 				{
-					throw new ArgumentException("The name must have a value");
+					throw new ArgumentException("Inductor name must have a value");
 				}
 				_name = value;
 			}
@@ -53,12 +57,13 @@ namespace ImpedanceCalculator
 			{
 				if(value < 0)
 				{
-					throw new ArgumentException("Industance must be positive");
+					throw new ArgumentException($"Inductor {nameof(Name)} " +
+						$"must have positive value");
 				}
 
 				_value = value;
 
-				ValueChanged?.Invoke(this, EventArgs.Empty);
+				SegmentChanged?.Invoke(this, EventArgs.Empty);
 			}
 		}
 
@@ -78,6 +83,9 @@ namespace ImpedanceCalculator
 			Value = value;
 		}
 
+		/// <inheritdoc/>
+		public override string ToString() 
+			=> ($"Name: {nameof(Name)}. Value is {nameof(Value)}");
 
 		/// <summary>
 		/// Метод, вычисляющий индуктивность катушки в комплексной форме
@@ -86,23 +94,10 @@ namespace ImpedanceCalculator
 		/// <returns></returns>
 		public Complex CalculateZ(double frequence)
 		{
-			double resistance = 2 * Math.PI * frequence * Value;
-			Complex complexResistance = new Complex(0, resistance);
+			double result = 2 * Math.PI * frequence * Value;
+			Complex complexFormResult = new Complex(0, result);
 
-			return complexResistance;
+			return complexFormResult;
 		}
-
-		/// <summary>
-		/// Метод проверки наличия подписчиков у события ValueChanged
-		/// </summary>
-		public bool HasSubscribers()
-		{
-			return ValueChanged == null;
-		}
-
-		/// <summary>
-		/// событие изменения значения элемента цепи
-		/// </summary>
-		public event EventHandler ValueChanged;
 	}
 }

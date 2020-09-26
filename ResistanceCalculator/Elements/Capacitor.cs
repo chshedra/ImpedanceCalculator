@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Numerics;
 
 namespace ImpedanceCalculator
 {
-	class Capacitor : IElement
+	/// <summary>
+	/// Класс конденсатора 
+	/// </summary>
+	public class Capacitor : IElement
 	{
 		/// <summary>
 		/// Название конденсатора
@@ -19,6 +19,11 @@ namespace ImpedanceCalculator
 		/// </summary>
 		private double _value;
 
+		/// <inheritdoc/>
+		public event EventHandler SegmentChanged;
+
+		/// <inheritdoc/>
+		public List<ISegment> SubSegments { get; } = null;
 
 		/// <summary>
 		/// Устанавливает и возвращает название конденсатора
@@ -38,7 +43,6 @@ namespace ImpedanceCalculator
 
 				_name = value;
 			}
-
 		}
 
 		/// <summary>
@@ -54,11 +58,12 @@ namespace ImpedanceCalculator
 			{
 				if (value < 0)
 				{
-					throw new ArgumentException("Resistance must be positive");
+					throw new ArgumentException($"Resistor {nameof(Name)} " +
+						$"must have positive value");
 				}
 				_value = value;
 
-				ValueChanged?.Invoke(this, EventArgs.Empty);
+				SegmentChanged?.Invoke(this, EventArgs.Empty);
 			}
 		}
 
@@ -78,6 +83,9 @@ namespace ImpedanceCalculator
 			Value = value;
 		}
 
+		/// <inheritdoc/>
+		public override string ToString() 
+			=> ($"Name: {nameof(Name)}. Value is {nameof(Value)}");
 
 		/// <summary>
 		/// Метод, расчитывающий емкость конденсатора в комплексной форме
@@ -86,24 +94,10 @@ namespace ImpedanceCalculator
 		/// <returns></returns>
 		public Complex CalculateZ(double frequence)
 		{ 
+			double result = (1 / (2 * Math.PI * frequence * Value));
+			Complex complexFormResult = new Complex(0, result);
 
-			double resistance = -(1 / (2 * Math.PI * frequence * Value));
-			Complex complexResistance = new Complex(0, resistance);
-
-			return complexResistance;
+			return complexFormResult;
 		}
-
-		/// <summary>
-		/// Метод проверки наличия подписчиков у события ValueChanged
-		/// </summary>
-		public bool HasSubscribers()
-		{
-			return ValueChanged == null;
-		}
-
-		/// <summary>
-		/// Событие изменения значения элемента
-		/// </summary>
-		public event EventHandler ValueChanged;
 	}
 }

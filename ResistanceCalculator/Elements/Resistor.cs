@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Numerics;
 
 
 namespace ImpedanceCalculator
 {
+	/// <summary>
+	/// Класс резистора 
+	/// </summary>
 	public class Resistor : IElement
 	{
 		/// <summary>
@@ -20,6 +20,11 @@ namespace ImpedanceCalculator
 		/// </summary>
 		private double _value;
 
+		/// <inheritdoc/>
+		public event EventHandler SegmentChanged;
+
+		/// <inheritdoc/>
+		public List<ISegment> SubSegments { get; } = null;
 
 		/// <summary>
 		/// Устанавливает и возвращает название резистора
@@ -34,7 +39,7 @@ namespace ImpedanceCalculator
 			{
 				if(value.Length == 0)
 				{
-					throw new ArgumentException("The name must have a value");
+					throw new ArgumentException($"The {nameof(Name)} must have a value");
 				}
 
 				_name = value;
@@ -55,11 +60,11 @@ namespace ImpedanceCalculator
 			{
 				if(value < 0)
 				{
-					throw new ArgumentException("Resistance must be positive");
+					throw new ArgumentException($"Value of {nameof(Name)} must be positive");
 				}
 				_value = value;
 
-				ValueChanged?.Invoke(this, EventArgs.Empty);
+				SegmentChanged?.Invoke(this, EventArgs.Empty);
 			}
 		}
 
@@ -79,9 +84,12 @@ namespace ImpedanceCalculator
 			Value = value;
 		}
 
+		/// <inheritdoc/>
+		public override string ToString() 
+			=> ($"Name: {nameof(Name)}. Value is {nameof(Value)}");
 
 		/// <summary>
-		/// Метод, расчитывающий сопротивление сопротивление в комплексной форме
+		/// Метод, расчитывающий сопротивление в комплексной форме
 		/// </summary>
 		/// <param name="frequence"></param>
 		/// <returns></returns>
@@ -93,19 +101,6 @@ namespace ImpedanceCalculator
 			}
 			Complex resistance = new Complex(Value, 0);
 			return resistance;
-		}
-
-		/// <summary>
-		/// событие изменения значения элемента цепи
-		/// </summary>
-		public event EventHandler ValueChanged;
-
-		/// <summary>
-		/// Метод проверки наличия подписчиков у события ValueChanged
-		/// </summary>
-		public bool HasSubscribers()
-		{
-			return ValueChanged == null;
-		}
+		}		
 	}
 }
