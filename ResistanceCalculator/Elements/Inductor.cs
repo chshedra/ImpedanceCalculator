@@ -7,66 +7,8 @@ namespace ImpedanceCalculator
 	/// <summary>
 	/// Класс катушки индуктивности
 	/// </summary>
-	public class Inductor : IElement
+	public class Inductor : Element
 	{
-		/// <summary>
-		/// Название катушки индуктивности
-		/// </summary>
-		private string _name;
-
-		/// <summary>
-		/// Индуктивность катушки 
-		/// </summary>
-		private double _value;
-
-		/// <inheritdoc/>
-		public event EventHandler SegmentChanged;
-
-		/// <inheritdoc/>
-		public List<ISegment> SubSegments { get; } = null;
-
-		/// <summary>
-		/// Возвращает и устанавливает название катушки индуктивности 
-		/// </summary>
-		public string Name
-		{
-			get
-			{
-				return _name;
-			}
-			set
-			{
-				if (value.Length == 0)
-				{
-					throw new ArgumentException("Inductor name must have a value");
-				}
-				_name = value;
-			}
-		}
-
-		/// <summary>
-		/// Возвращает и устанавливает индуктивность катушки 
-		/// </summary>
-		public double Value
-		{
-			get
-			{
-				return _value;
-			}
-			set
-			{
-				if(value < 0)
-				{
-					throw new ArgumentException($"Inductor {nameof(Name)} " +
-						$"must have positive value");
-				}
-
-				_value = value;
-
-				SegmentChanged?.Invoke(this, EventArgs.Empty);
-			}
-		}
-
 		/// <summary>
 		/// Конструктор без параметров. Устанавливает значеия названия и индуктивности катушки
 		/// </summary>
@@ -77,23 +19,19 @@ namespace ImpedanceCalculator
 		/// </summary>
 		/// <param name="name"></param>
 		/// <param name="value"></param>
-		public Inductor(string name, double value)
-		{
-			Name = name;
-			Value = value;
-		}
-
-		/// <inheritdoc/>
-		public override string ToString() 
-			=> ($"Name: {nameof(Name)}. Value is {nameof(Value)}");
+		public Inductor(string name, double value) : base(name, value) { }
 
 		/// <summary>
 		/// Метод, вычисляющий индуктивность катушки в комплексной форме
 		/// </summary>
 		/// <param name="frequence"></param>
 		/// <returns></returns>
-		public Complex CalculateZ(double frequence)
+		public override Complex CalculateZ(double frequence)
 		{
+			if (frequence < 0)
+			{
+				throw new ArgumentException("The frequence must be positive");
+			}
 			double result = 2 * Math.PI * frequence * Value;
 			Complex complexFormResult = new Complex(0, result);
 

@@ -42,10 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CircuitFabric.cs" />
+    <Compile Include="Project.cs" />
     <Compile Include="Elements\Capacitor.cs" />
     <Compile Include="Circuits\Circuit.cs" />
-    <Compile Include="IElement.cs" />
+    <Compile Include="Elements\Element.cs" />
+    <Compile Include="Elements\IElement.cs" />
     <Compile Include="Elements\Inductor.cs" />
     <Compile Include="ISegment.cs" />
     <Compile Include="Circuits\ParallelCircuit.cs" />

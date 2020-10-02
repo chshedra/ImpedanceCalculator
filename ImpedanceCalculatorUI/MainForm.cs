@@ -8,37 +8,16 @@ namespace ImpedanceCalculatorUI
 {
 	public partial class MainForm : Form
 	{
-		CircuitFabric _circuitFabric;
+		Project _project;
 
 		public MainForm()
 		{
 			InitializeComponent();
-			_circuitFabric = new CircuitFabric();
-			_circuitFabric.Circuits = _circuitFabric.CreateCircuits();
-			CircuitsListBox.DataSource = _circuitFabric.Circuits;
+			_project = new Project();
+			_project.Circuits = _project.CreateCircuits();
+
+			CircuitsListBox.DataSource = _project.Circuits;
 			CircuitsListBox.DisplayMember = "Name";
-
-			FrequenceListBox.DataSource = _circuitFabric.Frequencies;
-
-			CircuitsListBox.SelectedIndex = 0;
-		}
-
-		private void CalculateButton_Click(object sender, EventArgs e)
-		{
-			MessageTextBox.Clear();
-
-			CircuitTreeTraversal(_circuitFabric.Circuits);
-
-			var impedance = _circuitFabric.Circuits[CircuitsListBox.SelectedIndex].CalculateZ
-				(double.Parse(FrequencyTextBox.Text));
-
-			_circuitFabric.Frequencies.Add(double.Parse(FrequencyTextBox.Text));
-
-			_circuitFabric.Impendances.Add(impedance);
-			ImpedanceListBox.Items.Add(impedance);
-
-			FrequenceListBox.DataSource = null;
-			FrequenceListBox.DataSource = _circuitFabric.Frequencies;
 		}
 		
 		private void FrequenceListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -49,48 +28,6 @@ namespace ImpedanceCalculatorUI
 		private void ImpedanceListBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			FrequenceListBox.SelectedIndex = ImpedanceListBox.SelectedIndex;
-		}
-
-		private void CircuitsListBox_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			foreach (Circuit circuit in _circuitFabric.Circuits)
-			{
-				circuit.CircuitChanged -= ElementChangeMessage;
-			}
-
-			((Circuit)(_circuitFabric.Circuits[CircuitsListBox.SelectedIndex])).CircuitChanged +=
-				ElementChangeMessage;
-		}
-
-
-		/// <summary>
-		/// Метод обхода дерева цепей и установки значений
-		/// </summary>
-		/// <param name="segments"></param>
-		private void CircuitTreeTraversal(List<ISegment> segments)
-		{
-			foreach (var segment in segments)
-			{
-				if (segment is IElement)
-				{
-					if (segment is Resistor)
-					{
-						((Resistor)segment).Value = double.Parse(R1TextBox.Text);
-					}
-					if (segment is Capacitor)
-					{
-						((Capacitor)segment).Value = double.Parse(C1TextBox.Text);
-					}
-					if (segment is Inductor)
-					{
-						((Inductor)segment).Value = double.Parse(L1TextBox.Text);
-					}
-				}
-				else if (segment is Circuit)
-				{
-					CircuitTreeTraversal(segment.SubSegments);
-				}
-			}
 		}
 
 		/// <summary>
@@ -106,22 +43,99 @@ namespace ImpedanceCalculatorUI
 				: Color.White;
 		}
 
-		/// <summary>
-		/// Обработчик события измененения цепи
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void ElementChangeMessage(object sender, EventArgs e)
+		private void CircuitTreeViewDataBind(TreeNode treeNode, List<ISegment> segments)
 		{
-			if(sender is IElement)
+			foreach (var segment in segments)
 			{
-				MessageTextBox.Text += ((IElement)sender).Name + " new value is " + 
-					((IElement)sender).Value + Environment.NewLine;
+				if (segment is Element)
+				{
+					treeNode.Nodes.Add(segment.Name);
+				}
+				else if(segment is Circuit)
+				{
+					var node = new TreeNode(segment.Name);
+					treeNode.Nodes.Add(node);
+					CircuitTreeViewDataBind(node, segment.SubSegments);
+				}
 			}
-			else if (sender is Circuit)
+		}
+
+
+		private void AddButton_Click(object sender, EventArgs e)
+		{
+			ElementForm addForm = new ElementForm();
+			addForm.ShowDialog();
+			
+			if(addForm.DialogResult == DialogResult.OK)
 			{
-				MessageTextBox.Text += ($"Segment {((Circuit)sender).Name} has been changed");
+				var circuitIndex = CircuitsListBox.SelectedIndex;
+				ISegment baseSegment;
+				var segment = FindSegment(CircuitTreeView.SelectedNode.Text,
+					_project.Circuits[circuitIndex], out baseSegment);
+
+				if (addForm.IsSerial == true)
+				{
+					if (baseSegment is SerialCircuit)
+					{
+						baseSegment.SubSegments.Insert(baseSegment.SubSegments.IndexOf(segment) + 1,
+							addForm.Element);
+					}
+					else if(baseSegment is ParallelCircuit)
+					{
+						
+					}
+				
+				}
+			
 			}
+		}
+
+		private void MainFormSplitContainer_Panel2_Paint(object sender, PaintEventArgs e)
+		{
+
+		}
+
+		private void CircuitTreeView_AfterSelect(object sender, TreeViewEventArgs e)
+		{
+
+		}
+
+		private void CircuitsListBox_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			CircuitTreeView.Nodes.Clear();
+			var baseNode = new TreeNode(_project.Circuits[CircuitsListBox.SelectedIndex].Name);
+			CircuitTreeViewDataBind(baseNode, _project.Circuits[CircuitsListBox.SelectedIndex].SubSegments);
+
+			CircuitTreeView.Nodes.Add(baseNode);
+		}
+
+		private ISegment FindSegment(string name, ISegment segments, out ISegment baseSegment)
+		{
+			foreach(var segment in segments.SubSegments)
+			{
+				if(segment is Element)
+				{
+					if(segment.Name == name)
+					{
+						baseSegment = segments;
+						return segment;
+					}
+				}
+				else if(segment is Circuit)
+				{
+					if(segment.Name == name)
+					{
+						baseSegment = segments;
+						return segment;
+					}
+					else
+					{
+						return FindSegment(name, segment, out baseSegment);
+					}
+				}
+			}
+			baseSegment = null;
+			return null;
 		}
 	}
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Numerics;
 
 namespace ImpedanceCalculator
@@ -10,7 +6,7 @@ namespace ImpedanceCalculator
     /// <summary>
 	/// Класс параллельной цепи
 	/// </summary>
-    class ParallelCircuit : Circuit
+    public class ParallelCircuit : Circuit
     {
         public ParallelCircuit() : base() { }
 

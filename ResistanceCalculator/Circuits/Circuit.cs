@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 
-
 namespace ImpedanceCalculator
 {
     /// <summary>
@@ -13,13 +12,55 @@ namespace ImpedanceCalculator
     /// </summary>
     public abstract class Circuit : ISegment, IList<ISegment>
     {
+        /// <summary>
+        /// Хранит значение имени цепи
+        /// </summary>
+        private string _name;
+
+        /// <summary>
+        /// Хранит список сегментов цепи
+        /// </summary>
+        private List<ISegment> _segments;
+
         /// <inheritdoc/>
-        public string Name { get; set; }
+        public string Name 
+        { 
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                if (String.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException($"The {nameof(Name)} must have a value");
+                }
+
+                _name = value;
+                SegmentChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
 
        /// <summary>
        /// Возвращает и устанавливает список элементов цепи
        /// </summary>
-        public List<ISegment> SubSegments { get; private set; }
+        public List<ISegment> SubSegments 
+        { 
+            get
+            {
+                return _segments;
+            }
+            private set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException($"The {nameof(Name)} must have a value");
+                }
+
+                _segments = value;
+                SegmentChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
 
         /// <inheritdoc/>
         public event EventHandler CircuitChanged;
@@ -27,15 +68,12 @@ namespace ImpedanceCalculator
         /// <inheritdoc/>
         public event EventHandler SegmentChanged;
 
-        /// <inheritdoc />
-        public virtual Complex CalculateZ(double frequency) => new Complex(0, 0);
-
         /// <summary>
         /// Метод, вызывающий событие CircuitChanged
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnCircuitChange(object sender, EventArgs e)
+        private void OnCircuitChanged(object sender, EventArgs e)
         {
             CircuitChanged?.Invoke(sender, e);
         }
@@ -56,33 +94,34 @@ namespace ImpedanceCalculator
             Name = name;
         }
 
-		#region IList members
+        /// <inheritdoc />
+        public abstract Complex CalculateZ(double frequency) ;
 
-		/// <inheritdoc/>
-		public void Add(ISegment segment)
+        #region IList members
+
+        /// <inheritdoc/>
+        public void Add(ISegment segment)
         {
             if (segment == null)
             {
-                throw new ArgumentException(" ");
+                throw new ArgumentException($"{nameof(Name)} must not be null");
             }
 
             if (segment is IElement)
             {
-                segment.SegmentChanged += OnCircuitChange;
+                segment.SegmentChanged += OnCircuitChanged;
             }
             else
             {
                 foreach(var element in segment.SubSegments)
                 {
-                    element.SegmentChanged -= ((Circuit)segment).OnCircuitChange;
-                    element.SegmentChanged += OnCircuitChange;
+                    element.SegmentChanged -= ((Circuit)segment).OnCircuitChanged;
+                    element.SegmentChanged += OnCircuitChanged;
                 }
-                segment.SegmentChanged += OnCircuitChange;
+                segment.SegmentChanged += OnCircuitChanged;
             }
             
-            SubSegments.Add(segment);
-
-            
+            SubSegments.Add(segment);            
         }
 
         /// <inheritdoc/>
@@ -90,7 +129,7 @@ namespace ImpedanceCalculator
         {
             if (segment == null)
             {
-                throw new ArgumentException(" ");
+                throw new ArgumentException($"{nameof(Name)} must not be null");
             }
 
             if (!SubSegments.Contains(segment))
@@ -101,13 +140,13 @@ namespace ImpedanceCalculator
             
             if (segment is IElement)
             {
-                segment.SegmentChanged -= OnCircuitChange;
+                segment.SegmentChanged -= OnCircuitChanged;
             }
             else
             {
                 foreach(var removeSegment in segment.SubSegments)
                 {
-                    removeSegment.SegmentChanged -= OnCircuitChange;
+                    removeSegment.SegmentChanged -= OnCircuitChanged;
                 }
             }
 
@@ -138,10 +177,7 @@ namespace ImpedanceCalculator
         /// <inheritdoc/>
         public void Clear()
         {
-            foreach(var segment in SubSegments)
-            {
-                this.Remove(segment);
-            }
+            SubSegments.Clear();    
         }
 
         /// <inheritdoc/>
@@ -166,7 +202,7 @@ namespace ImpedanceCalculator
         {
             if (segment == null)
             {
-                throw new ArgumentException(" ");
+                throw new ArgumentException($"{ nameof(Name) } must not be null");
             }
             if (SubSegments.Contains(segment))
             {
@@ -174,7 +210,7 @@ namespace ImpedanceCalculator
             }
             if (segment is IElement)
             {
-                segment.SegmentChanged += OnCircuitChange;
+                segment.SegmentChanged += OnCircuitChanged;
             }
 
             SubSegments.Insert(index, segment);

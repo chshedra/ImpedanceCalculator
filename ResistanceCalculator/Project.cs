@@ -4,9 +4,9 @@ using System.Numerics;
 namespace ImpedanceCalculator
 {
 	/// <summary>
-	/// Класс-фабрика создания цепей
+	/// Класс для хранения цепи
 	/// </summary>
-	public class CircuitFabric
+	public class Project
 	{
 		/// <summary>
 		/// Устанавливает и возвращает список цепей
@@ -32,6 +32,7 @@ namespace ImpedanceCalculator
 
 			circuits.Add(Circuit1());
 			circuits.Add(Circuit2());
+			circuits.Add(Circuit3());
 			return circuits;
 		}
 
@@ -69,6 +70,19 @@ namespace ImpedanceCalculator
 			circuit2.Add(L1);
 			circuit.Add(circuit2);
 			circuit.Add(C1);
+
+			return circuit;
+		}
+
+		private ISegment Circuit3()
+		{
+			var circuit = new ParallelCircuit();
+
+			var C1 = new Capacitor("C1", 2e-06);
+			var C2 = new Capacitor("C2", 6e-06);
+
+			circuit.Add(C1);
+			circuit.Add(C2);
 
 			return circuit;
 		}

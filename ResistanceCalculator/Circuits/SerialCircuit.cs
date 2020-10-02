@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Numerics;
 
 namespace ImpedanceCalculator
@@ -10,7 +6,7 @@ namespace ImpedanceCalculator
 	/// <summary>
 	/// Класс последовательной цепи
 	/// </summary>
-	class SerialCircuit : Circuit
+	public class SerialCircuit : Circuit
 	{
 		public SerialCircuit() : base() { }
 
@@ -29,6 +25,5 @@ namespace ImpedanceCalculator
 
 			return result;
 		}
-
 	}
 }

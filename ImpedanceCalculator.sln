@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImpedanceCalculator", "Resi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImpedanceCalculatorUI", "ImpedanceCalculatorUI\ImpedanceCalculatorUI.csproj", "{263ADE6A-D05D-43C4-93DC-EC9EFCCD7D34}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImpedanceCalculator.UnitTests", "ImpedanceCalculator.UnitTests\ImpedanceCalculator.UnitTests.csproj", "{0BBEB68F-2BCD-474B-98C5-C727713E047B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{263ADE6A-D05D-43C4-93DC-EC9EFCCD7D34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{263ADE6A-D05D-43C4-93DC-EC9EFCCD7D34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{263ADE6A-D05D-43C4-93DC-EC9EFCCD7D34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BBEB68F-2BCD-474B-98C5-C727713E047B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BBEB68F-2BCD-474B-98C5-C727713E047B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BBEB68F-2BCD-474B-98C5-C727713E047B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BBEB68F-2BCD-474B-98C5-C727713E047B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

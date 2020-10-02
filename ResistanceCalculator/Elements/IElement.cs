@@ -1,7 +1,4 @@
-﻿
-
-
-namespace ImpedanceCalculator
+﻿namespace ImpedanceCalculator
 {
 	/// <summary>
 	/// Интерфейс д
@@ -11,10 +8,6 @@ namespace ImpedanceCalculator
 		/// <summary>
 		///  Устанавливает и возвращает значение элемента
 		/// </summary>
-		double Value
-		{
-			get;
-			set;
-		}
+		double Value { get; set; }
 	}
 }

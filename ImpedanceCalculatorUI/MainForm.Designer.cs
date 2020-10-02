@@ -29,169 +29,105 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			this.MainFormSplitContainer = new System.Windows.Forms.SplitContainer();
-			this.MessageTextBox = new System.Windows.Forms.TextBox();
-			this.CircuitsListBox = new System.Windows.Forms.ListBox();
-			this.CalculateButton = new System.Windows.Forms.Button();
-			this.FrequencyTextBox = new System.Windows.Forms.TextBox();
+			this.projectBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.CircuitPictureBox = new System.Windows.Forms.PictureBox();
+			this.CircuitTreeView = new System.Windows.Forms.TreeView();
+			this.AddButton = new System.Windows.Forms.Button();
+			this.EditButton = new System.Windows.Forms.Button();
 			this.FrequencyLabel = new System.Windows.Forms.Label();
-			this.C1Label = new System.Windows.Forms.Label();
-			this.L1Label = new System.Windows.Forms.Label();
-			this.C1TextBox = new System.Windows.Forms.TextBox();
-			this.L1TextBox = new System.Windows.Forms.TextBox();
-			this.R1TextBox = new System.Windows.Forms.TextBox();
-			this.R1Label = new System.Windows.Forms.Label();
-			this.ImpedanceLabel = new System.Windows.Forms.Label();
+			this.FrequenceTextBox = new System.Windows.Forms.TextBox();
+			this.RemoveButton = new System.Windows.Forms.Button();
+			this.FrequenceListBox = new System.Windows.Forms.ListBox();
 			this.FrequenciesLabel = new System.Windows.Forms.Label();
 			this.ImpedanceListBox = new System.Windows.Forms.ListBox();
-			this.FrequenceListBox = new System.Windows.Forms.ListBox();
-			this.CircuitPictureBox = new System.Windows.Forms.PictureBox();
-			this.projectBindingSource = new System.Windows.Forms.BindingSource(this.components);
-			((System.ComponentModel.ISupportInitialize)(this.MainFormSplitContainer)).BeginInit();
-			this.MainFormSplitContainer.Panel1.SuspendLayout();
-			this.MainFormSplitContainer.Panel2.SuspendLayout();
-			this.MainFormSplitContainer.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.CircuitPictureBox)).BeginInit();
+			this.CalculateButton = new System.Windows.Forms.Button();
+			this.ImpedanceLabel = new System.Windows.Forms.Label();
+			this.CircuitsListBox = new System.Windows.Forms.ListBox();
+			this.ElementInfoTextbox = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.projectBindingSource)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.CircuitPictureBox)).BeginInit();
 			this.SuspendLayout();
 			// 
-			// MainFormSplitContainer
+			// projectBindingSource
 			// 
-			this.MainFormSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.MainFormSplitContainer.Location = new System.Drawing.Point(0, 0);
-			this.MainFormSplitContainer.Name = "MainFormSplitContainer";
+			this.projectBindingSource.DataSource = typeof(ImpedanceCalculator.Project);
 			// 
-			// MainFormSplitContainer.Panel1
+			// CircuitPictureBox
 			// 
-			this.MainFormSplitContainer.Panel1.Controls.Add(this.MessageTextBox);
-			this.MainFormSplitContainer.Panel1.Controls.Add(this.CircuitsListBox);
+			this.CircuitPictureBox.BackColor = System.Drawing.Color.White;
+			this.CircuitPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.CircuitPictureBox.Location = new System.Drawing.Point(195, 12);
+			this.CircuitPictureBox.Name = "CircuitPictureBox";
+			this.CircuitPictureBox.Size = new System.Drawing.Size(633, 305);
+			this.CircuitPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.CircuitPictureBox.TabIndex = 0;
+			this.CircuitPictureBox.TabStop = false;
 			// 
-			// MainFormSplitContainer.Panel2
+			// CircuitTreeView
 			// 
-			this.MainFormSplitContainer.Panel2.Controls.Add(this.CalculateButton);
-			this.MainFormSplitContainer.Panel2.Controls.Add(this.FrequencyTextBox);
-			this.MainFormSplitContainer.Panel2.Controls.Add(this.FrequencyLabel);
-			this.MainFormSplitContainer.Panel2.Controls.Add(this.C1Label);
-			this.MainFormSplitContainer.Panel2.Controls.Add(this.L1Label);
-			this.MainFormSplitContainer.Panel2.Controls.Add(this.C1TextBox);
-			this.MainFormSplitContainer.Panel2.Controls.Add(this.L1TextBox);
-			this.MainFormSplitContainer.Panel2.Controls.Add(this.R1TextBox);
-			this.MainFormSplitContainer.Panel2.Controls.Add(this.R1Label);
-			this.MainFormSplitContainer.Panel2.Controls.Add(this.ImpedanceLabel);
-			this.MainFormSplitContainer.Panel2.Controls.Add(this.FrequenciesLabel);
-			this.MainFormSplitContainer.Panel2.Controls.Add(this.ImpedanceListBox);
-			this.MainFormSplitContainer.Panel2.Controls.Add(this.FrequenceListBox);
-			this.MainFormSplitContainer.Panel2.Controls.Add(this.CircuitPictureBox);
-			this.MainFormSplitContainer.Size = new System.Drawing.Size(784, 402);
-			this.MainFormSplitContainer.SplitterDistance = 261;
-			this.MainFormSplitContainer.TabIndex = 0;
+			this.CircuitTreeView.Location = new System.Drawing.Point(12, 12);
+			this.CircuitTreeView.Name = "CircuitTreeView";
+			this.CircuitTreeView.Size = new System.Drawing.Size(177, 348);
+			this.CircuitTreeView.TabIndex = 0;
+			this.CircuitTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.CircuitTreeView_AfterSelect);
 			// 
-			// MessageTextBox
+			// AddButton
 			// 
-			this.MessageTextBox.Location = new System.Drawing.Point(9, 278);
-			this.MessageTextBox.Multiline = true;
-			this.MessageTextBox.Name = "MessageTextBox";
-			this.MessageTextBox.ReadOnly = true;
-			this.MessageTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.MessageTextBox.Size = new System.Drawing.Size(249, 115);
-			this.MessageTextBox.TabIndex = 1;
+			this.AddButton.Location = new System.Drawing.Point(12, 422);
+			this.AddButton.Name = "AddButton";
+			this.AddButton.Size = new System.Drawing.Size(55, 22);
+			this.AddButton.TabIndex = 1;
+			this.AddButton.Text = "Add";
+			this.AddButton.UseVisualStyleBackColor = true;
+			this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
 			// 
-			// CircuitsListBox
+			// EditButton
 			// 
-			this.CircuitsListBox.FormattingEnabled = true;
-			this.CircuitsListBox.Location = new System.Drawing.Point(9, 10);
-			this.CircuitsListBox.Name = "CircuitsListBox";
-			this.CircuitsListBox.Size = new System.Drawing.Size(249, 121);
-			this.CircuitsListBox.TabIndex = 0;
-			this.CircuitsListBox.SelectedIndexChanged += new System.EventHandler(this.CircuitsListBox_SelectedIndexChanged);
-			// 
-			// CalculateButton
-			// 
-			this.CalculateButton.Location = new System.Drawing.Point(18, 327);
-			this.CalculateButton.Name = "CalculateButton";
-			this.CalculateButton.Size = new System.Drawing.Size(122, 20);
-			this.CalculateButton.TabIndex = 14;
-			this.CalculateButton.Text = "Calculate";
-			this.CalculateButton.UseVisualStyleBackColor = true;
-			this.CalculateButton.Click += new System.EventHandler(this.CalculateButton_Click);
-			// 
-			// FrequencyTextBox
-			// 
-			this.FrequencyTextBox.Location = new System.Drawing.Point(83, 291);
-			this.FrequencyTextBox.Name = "FrequencyTextBox";
-			this.FrequencyTextBox.Size = new System.Drawing.Size(58, 20);
-			this.FrequencyTextBox.TabIndex = 13;
+			this.EditButton.Location = new System.Drawing.Point(73, 422);
+			this.EditButton.Name = "EditButton";
+			this.EditButton.Size = new System.Drawing.Size(55, 22);
+			this.EditButton.TabIndex = 2;
+			this.EditButton.Text = "Edit";
+			this.EditButton.UseVisualStyleBackColor = true;
 			// 
 			// FrequencyLabel
 			// 
 			this.FrequencyLabel.AutoSize = true;
-			this.FrequencyLabel.Location = new System.Drawing.Point(14, 294);
+			this.FrequencyLabel.Location = new System.Drawing.Point(656, 383);
 			this.FrequencyLabel.Name = "FrequencyLabel";
 			this.FrequencyLabel.Size = new System.Drawing.Size(63, 13);
-			this.FrequencyLabel.TabIndex = 12;
+			this.FrequencyLabel.TabIndex = 7;
 			this.FrequencyLabel.Text = "Frequency=";
 			// 
-			// C1Label
+			// FrequenceTextBox
 			// 
-			this.C1Label.AutoSize = true;
-			this.C1Label.Location = new System.Drawing.Point(14, 256);
-			this.C1Label.Name = "C1Label";
-			this.C1Label.Size = new System.Drawing.Size(26, 13);
-			this.C1Label.TabIndex = 11;
-			this.C1Label.Text = "C1=";
+			this.FrequenceTextBox.Location = new System.Drawing.Point(725, 380);
+			this.FrequenceTextBox.Name = "FrequenceTextBox";
+			this.FrequenceTextBox.Size = new System.Drawing.Size(91, 20);
+			this.FrequenceTextBox.TabIndex = 6;
 			// 
-			// L1Label
+			// RemoveButton
 			// 
-			this.L1Label.AutoSize = true;
-			this.L1Label.Location = new System.Drawing.Point(15, 230);
-			this.L1Label.Name = "L1Label";
-			this.L1Label.Size = new System.Drawing.Size(25, 13);
-			this.L1Label.TabIndex = 10;
-			this.L1Label.Text = "L1=";
+			this.RemoveButton.Location = new System.Drawing.Point(134, 422);
+			this.RemoveButton.Name = "RemoveButton";
+			this.RemoveButton.Size = new System.Drawing.Size(55, 22);
+			this.RemoveButton.TabIndex = 3;
+			this.RemoveButton.Text = "Remove";
+			this.RemoveButton.UseVisualStyleBackColor = true;
 			// 
-			// C1TextBox
+			// FrequenceListBox
 			// 
-			this.C1TextBox.Location = new System.Drawing.Point(47, 253);
-			this.C1TextBox.Name = "C1TextBox";
-			this.C1TextBox.Size = new System.Drawing.Size(44, 20);
-			this.C1TextBox.TabIndex = 9;
-			// 
-			// L1TextBox
-			// 
-			this.L1TextBox.Location = new System.Drawing.Point(48, 227);
-			this.L1TextBox.Name = "L1TextBox";
-			this.L1TextBox.Size = new System.Drawing.Size(43, 20);
-			this.L1TextBox.TabIndex = 8;
-			// 
-			// R1TextBox
-			// 
-			this.R1TextBox.Location = new System.Drawing.Point(48, 201);
-			this.R1TextBox.Name = "R1TextBox";
-			this.R1TextBox.Size = new System.Drawing.Size(43, 20);
-			this.R1TextBox.TabIndex = 7;
-			// 
-			// R1Label
-			// 
-			this.R1Label.AutoSize = true;
-			this.R1Label.Location = new System.Drawing.Point(15, 204);
-			this.R1Label.Name = "R1Label";
-			this.R1Label.Size = new System.Drawing.Size(27, 13);
-			this.R1Label.TabIndex = 6;
-			this.R1Label.Text = "R1=";
-			// 
-			// ImpedanceLabel
-			// 
-			this.ImpedanceLabel.AutoSize = true;
-			this.ImpedanceLabel.Location = new System.Drawing.Point(294, 189);
-			this.ImpedanceLabel.Name = "ImpedanceLabel";
-			this.ImpedanceLabel.Size = new System.Drawing.Size(60, 13);
-			this.ImpedanceLabel.TabIndex = 5;
-			this.ImpedanceLabel.Text = "Impedance";
+			this.FrequenceListBox.FormattingEnabled = true;
+			this.FrequenceListBox.Location = new System.Drawing.Point(328, 336);
+			this.FrequenceListBox.Name = "FrequenceListBox";
+			this.FrequenceListBox.Size = new System.Drawing.Size(155, 108);
+			this.FrequenceListBox.TabIndex = 2;
+			this.FrequenceListBox.SelectedIndexChanged += new System.EventHandler(this.FrequenceListBox_SelectedIndexChanged);
 			// 
 			// FrequenciesLabel
 			// 
 			this.FrequenciesLabel.AutoSize = true;
-			this.FrequenciesLabel.Location = new System.Drawing.Point(144, 189);
+			this.FrequenciesLabel.Location = new System.Drawing.Point(325, 320);
 			this.FrequenciesLabel.Name = "FrequenciesLabel";
 			this.FrequenciesLabel.Size = new System.Drawing.Size(65, 13);
 			this.FrequenciesLabel.TabIndex = 4;
@@ -200,76 +136,91 @@
 			// ImpedanceListBox
 			// 
 			this.ImpedanceListBox.FormattingEnabled = true;
-			this.ImpedanceListBox.Location = new System.Drawing.Point(297, 207);
+			this.ImpedanceListBox.Location = new System.Drawing.Point(489, 336);
 			this.ImpedanceListBox.Name = "ImpedanceListBox";
-			this.ImpedanceListBox.Size = new System.Drawing.Size(209, 186);
+			this.ImpedanceListBox.Size = new System.Drawing.Size(161, 108);
 			this.ImpedanceListBox.TabIndex = 3;
 			this.ImpedanceListBox.SelectedIndexChanged += new System.EventHandler(this.ImpedanceListBox_SelectedIndexChanged);
 			// 
-			// FrequenceListBox
+			// CalculateButton
 			// 
-			this.FrequenceListBox.FormattingEnabled = true;
-			this.FrequenceListBox.Location = new System.Drawing.Point(147, 207);
-			this.FrequenceListBox.Name = "FrequenceListBox";
-			this.FrequenceListBox.Size = new System.Drawing.Size(144, 186);
-			this.FrequenceListBox.TabIndex = 2;
-			this.FrequenceListBox.SelectedIndexChanged += new System.EventHandler(this.FrequenceListBox_SelectedIndexChanged);
+			this.CalculateButton.Location = new System.Drawing.Point(659, 422);
+			this.CalculateButton.Name = "CalculateButton";
+			this.CalculateButton.Size = new System.Drawing.Size(157, 21);
+			this.CalculateButton.TabIndex = 8;
+			this.CalculateButton.Text = "Calculate";
+			this.CalculateButton.UseVisualStyleBackColor = true;
 			// 
-			// CircuitPictureBox
+			// ImpedanceLabel
 			// 
-			this.CircuitPictureBox.BackColor = System.Drawing.Color.White;
-			this.CircuitPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.CircuitPictureBox.Location = new System.Drawing.Point(3, 12);
-			this.CircuitPictureBox.Name = "CircuitPictureBox";
-			this.CircuitPictureBox.Size = new System.Drawing.Size(504, 171);
-			this.CircuitPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-			this.CircuitPictureBox.TabIndex = 0;
-			this.CircuitPictureBox.TabStop = false;
+			this.ImpedanceLabel.AutoSize = true;
+			this.ImpedanceLabel.Location = new System.Drawing.Point(486, 320);
+			this.ImpedanceLabel.Name = "ImpedanceLabel";
+			this.ImpedanceLabel.Size = new System.Drawing.Size(60, 13);
+			this.ImpedanceLabel.TabIndex = 5;
+			this.ImpedanceLabel.Text = "Impedance";
 			// 
-			// projectBindingSource
+			// CircuitsListBox
 			// 
-			this.projectBindingSource.DataSource = typeof(ImpedanceCalculator.CircuitFabric);
+			this.CircuitsListBox.FormattingEnabled = true;
+			this.CircuitsListBox.Location = new System.Drawing.Point(195, 336);
+			this.CircuitsListBox.Name = "CircuitsListBox";
+			this.CircuitsListBox.Size = new System.Drawing.Size(127, 108);
+			this.CircuitsListBox.TabIndex = 9;
+			this.CircuitsListBox.SelectedIndexChanged += new System.EventHandler(this.CircuitsListBox_SelectedIndexChanged);
+			// 
+			// ElementInfoTextbox
+			// 
+			this.ElementInfoTextbox.Location = new System.Drawing.Point(13, 366);
+			this.ElementInfoTextbox.Multiline = true;
+			this.ElementInfoTextbox.Name = "ElementInfoTextbox";
+			this.ElementInfoTextbox.Size = new System.Drawing.Size(176, 50);
+			this.ElementInfoTextbox.TabIndex = 10;
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(784, 402);
-			this.Controls.Add(this.MainFormSplitContainer);
+			this.ClientSize = new System.Drawing.Size(836, 456);
+			this.Controls.Add(this.ElementInfoTextbox);
+			this.Controls.Add(this.CircuitsListBox);
+			this.Controls.Add(this.FrequenceTextBox);
+			this.Controls.Add(this.CalculateButton);
+			this.Controls.Add(this.FrequencyLabel);
+			this.Controls.Add(this.ImpedanceLabel);
+			this.Controls.Add(this.RemoveButton);
+			this.Controls.Add(this.FrequenciesLabel);
+			this.Controls.Add(this.AddButton);
+			this.Controls.Add(this.EditButton);
+			this.Controls.Add(this.CircuitTreeView);
+			this.Controls.Add(this.ImpedanceListBox);
+			this.Controls.Add(this.FrequenceListBox);
+			this.Controls.Add(this.CircuitPictureBox);
 			this.Name = "MainForm";
 			this.Text = "ImpedanceCalculator";
-			this.MainFormSplitContainer.Panel1.ResumeLayout(false);
-			this.MainFormSplitContainer.Panel1.PerformLayout();
-			this.MainFormSplitContainer.Panel2.ResumeLayout(false);
-			this.MainFormSplitContainer.Panel2.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.MainFormSplitContainer)).EndInit();
-			this.MainFormSplitContainer.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.CircuitPictureBox)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.projectBindingSource)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.CircuitPictureBox)).EndInit();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
 		#endregion
-
-		private System.Windows.Forms.SplitContainer MainFormSplitContainer;
-		private System.Windows.Forms.ListBox CircuitsListBox;
-		public System.Windows.Forms.PictureBox CircuitPictureBox;
 		private System.Windows.Forms.BindingSource projectBindingSource;
-		private System.Windows.Forms.ListBox ImpedanceListBox;
-		private System.Windows.Forms.ListBox FrequenceListBox;
-		private System.Windows.Forms.Label ImpedanceLabel;
-		private System.Windows.Forms.Label FrequenciesLabel;
-		private System.Windows.Forms.TextBox MessageTextBox;
-		private System.Windows.Forms.Button CalculateButton;
-		private System.Windows.Forms.TextBox FrequencyTextBox;
+		public System.Windows.Forms.PictureBox CircuitPictureBox;
+		private System.Windows.Forms.TreeView CircuitTreeView;
+		private System.Windows.Forms.Button AddButton;
+		private System.Windows.Forms.Button EditButton;
 		private System.Windows.Forms.Label FrequencyLabel;
-		private System.Windows.Forms.Label C1Label;
-		private System.Windows.Forms.Label L1Label;
-		private System.Windows.Forms.TextBox C1TextBox;
-		private System.Windows.Forms.TextBox L1TextBox;
-		private System.Windows.Forms.TextBox R1TextBox;
-		private System.Windows.Forms.Label R1Label;
+		private System.Windows.Forms.TextBox FrequenceTextBox;
+		private System.Windows.Forms.Button RemoveButton;
+		private System.Windows.Forms.ListBox FrequenceListBox;
+		private System.Windows.Forms.Label FrequenciesLabel;
+		private System.Windows.Forms.ListBox ImpedanceListBox;
+		private System.Windows.Forms.Button CalculateButton;
+		private System.Windows.Forms.Label ImpedanceLabel;
+		private System.Windows.Forms.ListBox CircuitsListBox;
+		private System.Windows.Forms.TextBox ElementInfoTextbox;
 	}
 }
 

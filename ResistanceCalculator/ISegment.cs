@@ -26,6 +26,5 @@ namespace ImpedanceCalculator
 		/// Событие изменения сегмента цепи
 		/// </summary>
 		event EventHandler SegmentChanged;
-
 	}
 }
