@@ -29,28 +29,25 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			this.projectBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.CircuitPictureBox = new System.Windows.Forms.PictureBox();
 			this.CircuitTreeView = new System.Windows.Forms.TreeView();
 			this.AddButton = new System.Windows.Forms.Button();
 			this.EditButton = new System.Windows.Forms.Button();
 			this.FrequencyLabel = new System.Windows.Forms.Label();
-			this.FrequenceTextBox = new System.Windows.Forms.TextBox();
+			this.FrequencyTextBox = new System.Windows.Forms.TextBox();
 			this.RemoveButton = new System.Windows.Forms.Button();
-			this.FrequenceListBox = new System.Windows.Forms.ListBox();
+			this.FrequenciesListBox = new System.Windows.Forms.ListBox();
 			this.FrequenciesLabel = new System.Windows.Forms.Label();
 			this.ImpedanceListBox = new System.Windows.Forms.ListBox();
 			this.CalculateButton = new System.Windows.Forms.Button();
 			this.ImpedanceLabel = new System.Windows.Forms.Label();
 			this.CircuitsListBox = new System.Windows.Forms.ListBox();
 			this.ElementInfoTextbox = new System.Windows.Forms.TextBox();
-			((System.ComponentModel.ISupportInitialize)(this.projectBindingSource)).BeginInit();
+			this.projectBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.CircuitsLabel = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.CircuitPictureBox)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.projectBindingSource)).BeginInit();
 			this.SuspendLayout();
-			// 
-			// projectBindingSource
-			// 
-			this.projectBindingSource.DataSource = typeof(ImpedanceCalculator.Project);
 			// 
 			// CircuitPictureBox
 			// 
@@ -93,18 +90,19 @@
 			// FrequencyLabel
 			// 
 			this.FrequencyLabel.AutoSize = true;
-			this.FrequencyLabel.Location = new System.Drawing.Point(656, 383);
+			this.FrequencyLabel.Location = new System.Drawing.Point(340, 336);
 			this.FrequencyLabel.Name = "FrequencyLabel";
 			this.FrequencyLabel.Size = new System.Drawing.Size(63, 13);
 			this.FrequencyLabel.TabIndex = 7;
 			this.FrequencyLabel.Text = "Frequency=";
 			// 
-			// FrequenceTextBox
+			// FrequencyTextBox
 			// 
-			this.FrequenceTextBox.Location = new System.Drawing.Point(725, 380);
-			this.FrequenceTextBox.Name = "FrequenceTextBox";
-			this.FrequenceTextBox.Size = new System.Drawing.Size(91, 20);
-			this.FrequenceTextBox.TabIndex = 6;
+			this.FrequencyTextBox.Location = new System.Drawing.Point(409, 336);
+			this.FrequencyTextBox.Name = "FrequencyTextBox";
+			this.FrequencyTextBox.Size = new System.Drawing.Size(91, 20);
+			this.FrequencyTextBox.TabIndex = 6;
+			this.FrequencyTextBox.TextChanged += new System.EventHandler(this.FrequencyTextBox_TextChanged);
 			// 
 			// RemoveButton
 			// 
@@ -115,19 +113,19 @@
 			this.RemoveButton.Text = "Remove";
 			this.RemoveButton.UseVisualStyleBackColor = true;
 			// 
-			// FrequenceListBox
+			// FrequenciesListBox
 			// 
-			this.FrequenceListBox.FormattingEnabled = true;
-			this.FrequenceListBox.Location = new System.Drawing.Point(328, 336);
-			this.FrequenceListBox.Name = "FrequenceListBox";
-			this.FrequenceListBox.Size = new System.Drawing.Size(155, 108);
-			this.FrequenceListBox.TabIndex = 2;
-			this.FrequenceListBox.SelectedIndexChanged += new System.EventHandler(this.FrequenceListBox_SelectedIndexChanged);
+			this.FrequenciesListBox.FormattingEnabled = true;
+			this.FrequenciesListBox.Location = new System.Drawing.Point(506, 336);
+			this.FrequenciesListBox.Name = "FrequenciesListBox";
+			this.FrequenciesListBox.Size = new System.Drawing.Size(155, 108);
+			this.FrequenciesListBox.TabIndex = 2;
+			this.FrequenciesListBox.SelectedIndexChanged += new System.EventHandler(this.FrequenceListBox_SelectedIndexChanged);
 			// 
 			// FrequenciesLabel
 			// 
 			this.FrequenciesLabel.AutoSize = true;
-			this.FrequenciesLabel.Location = new System.Drawing.Point(325, 320);
+			this.FrequenciesLabel.Location = new System.Drawing.Point(503, 320);
 			this.FrequenciesLabel.Name = "FrequenciesLabel";
 			this.FrequenciesLabel.Size = new System.Drawing.Size(65, 13);
 			this.FrequenciesLabel.TabIndex = 4;
@@ -136,7 +134,7 @@
 			// ImpedanceListBox
 			// 
 			this.ImpedanceListBox.FormattingEnabled = true;
-			this.ImpedanceListBox.Location = new System.Drawing.Point(489, 336);
+			this.ImpedanceListBox.Location = new System.Drawing.Point(667, 336);
 			this.ImpedanceListBox.Name = "ImpedanceListBox";
 			this.ImpedanceListBox.Size = new System.Drawing.Size(161, 108);
 			this.ImpedanceListBox.TabIndex = 3;
@@ -144,17 +142,18 @@
 			// 
 			// CalculateButton
 			// 
-			this.CalculateButton.Location = new System.Drawing.Point(659, 422);
+			this.CalculateButton.Location = new System.Drawing.Point(343, 422);
 			this.CalculateButton.Name = "CalculateButton";
 			this.CalculateButton.Size = new System.Drawing.Size(157, 21);
 			this.CalculateButton.TabIndex = 8;
 			this.CalculateButton.Text = "Calculate";
 			this.CalculateButton.UseVisualStyleBackColor = true;
+			this.CalculateButton.Click += new System.EventHandler(this.CalculateButton_Click);
 			// 
 			// ImpedanceLabel
 			// 
 			this.ImpedanceLabel.AutoSize = true;
-			this.ImpedanceLabel.Location = new System.Drawing.Point(486, 320);
+			this.ImpedanceLabel.Location = new System.Drawing.Point(664, 320);
 			this.ImpedanceLabel.Name = "ImpedanceLabel";
 			this.ImpedanceLabel.Size = new System.Drawing.Size(60, 13);
 			this.ImpedanceLabel.TabIndex = 5;
@@ -177,14 +176,28 @@
 			this.ElementInfoTextbox.Size = new System.Drawing.Size(176, 50);
 			this.ElementInfoTextbox.TabIndex = 10;
 			// 
+			// projectBindingSource
+			// 
+			this.projectBindingSource.DataSource = typeof(ImpedanceCalculator.Project);
+			// 
+			// CircuitsLabel
+			// 
+			this.CircuitsLabel.AutoSize = true;
+			this.CircuitsLabel.Location = new System.Drawing.Point(195, 320);
+			this.CircuitsLabel.Name = "CircuitsLabel";
+			this.CircuitsLabel.Size = new System.Drawing.Size(41, 13);
+			this.CircuitsLabel.TabIndex = 11;
+			this.CircuitsLabel.Text = "Circuits";
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(836, 456);
+			this.Controls.Add(this.CircuitsLabel);
 			this.Controls.Add(this.ElementInfoTextbox);
 			this.Controls.Add(this.CircuitsListBox);
-			this.Controls.Add(this.FrequenceTextBox);
+			this.Controls.Add(this.FrequencyTextBox);
 			this.Controls.Add(this.CalculateButton);
 			this.Controls.Add(this.FrequencyLabel);
 			this.Controls.Add(this.ImpedanceLabel);
@@ -194,12 +207,12 @@
 			this.Controls.Add(this.EditButton);
 			this.Controls.Add(this.CircuitTreeView);
 			this.Controls.Add(this.ImpedanceListBox);
-			this.Controls.Add(this.FrequenceListBox);
+			this.Controls.Add(this.FrequenciesListBox);
 			this.Controls.Add(this.CircuitPictureBox);
 			this.Name = "MainForm";
 			this.Text = "ImpedanceCalculator";
-			((System.ComponentModel.ISupportInitialize)(this.projectBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.CircuitPictureBox)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.projectBindingSource)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -212,15 +225,16 @@
 		private System.Windows.Forms.Button AddButton;
 		private System.Windows.Forms.Button EditButton;
 		private System.Windows.Forms.Label FrequencyLabel;
-		private System.Windows.Forms.TextBox FrequenceTextBox;
+		private System.Windows.Forms.TextBox FrequencyTextBox;
 		private System.Windows.Forms.Button RemoveButton;
-		private System.Windows.Forms.ListBox FrequenceListBox;
+		private System.Windows.Forms.ListBox FrequenciesListBox;
 		private System.Windows.Forms.Label FrequenciesLabel;
 		private System.Windows.Forms.ListBox ImpedanceListBox;
 		private System.Windows.Forms.Button CalculateButton;
 		private System.Windows.Forms.Label ImpedanceLabel;
 		private System.Windows.Forms.ListBox CircuitsListBox;
 		private System.Windows.Forms.TextBox ElementInfoTextbox;
+		private System.Windows.Forms.Label CircuitsLabel;
 	}
 }
 

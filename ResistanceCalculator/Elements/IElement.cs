@@ -1,7 +1,7 @@
 ﻿namespace ImpedanceCalculator
 {
 	/// <summary>
-	/// Интерфейс д
+	/// Интерфейс элемента цепи
 	/// </summary>
 	public interface IElement : ISegment
 	{

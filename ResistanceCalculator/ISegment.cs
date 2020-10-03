@@ -4,6 +4,9 @@ using System.Numerics;
 
 namespace ImpedanceCalculator
 {
+	/// <summary>
+	/// Интерфейс сегмента цепи
+	/// </summary>
 	public interface ISegment
 	{
 		/// <summary>

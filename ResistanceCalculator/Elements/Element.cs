@@ -6,6 +6,9 @@ using System.Numerics;
 
 namespace ImpedanceCalculator
 {
+	/// <summary>
+	/// Абстрактный класс элемента цепи
+	/// </summary>
 	public abstract class Element : IElement
 	{
 		/// <summary>
@@ -82,6 +85,11 @@ namespace ImpedanceCalculator
 		public override string ToString()
 			=> ($"Name: {Name}. Value: {Value}");
 
+		/// <summary>
+		/// Метод расчета импеданса элемента
+		/// </summary>
+		/// <param name="frequence"></param>
+		/// <returns></returns>
 		public abstract Complex CalculateZ(double frequence);
 	}
 }

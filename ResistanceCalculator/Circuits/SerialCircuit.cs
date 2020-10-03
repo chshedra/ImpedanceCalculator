@@ -8,6 +8,7 @@ namespace ImpedanceCalculator
 	/// </summary>
 	public class SerialCircuit : Circuit
 	{
+		/// <inheritdoc/>
 		public SerialCircuit() : base() { }
 
 		/// <inheritdoc/>

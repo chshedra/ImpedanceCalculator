@@ -77,6 +77,7 @@
 			this.EditValueTextBox.Name = "EditValueTextBox";
 			this.EditValueTextBox.Size = new System.Drawing.Size(86, 20);
 			this.EditValueTextBox.TabIndex = 3;
+			this.EditValueTextBox.TextChanged += new System.EventHandler(this.EditValueTextBox_TextChanged);
 			// 
 			// OkButton
 			// 
@@ -184,7 +185,7 @@
 			this.AddSerialRadioButton.Text = "Serial";
 			this.AddSerialRadioButton.UseVisualStyleBackColor = true;
 			// 
-			// AddEditForm
+			// ElementForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -198,7 +199,7 @@
 			this.Controls.Add(this.EditNameTextBox);
 			this.Controls.Add(this.EditValueLabel);
 			this.Controls.Add(this.EditNameLabel);
-			this.Name = "AddEditForm";
+			this.Name = "ElementForm";
 			this.Text = "AddEditForm";
 			this.ElementTypeGroupBox.ResumeLayout(false);
 			this.ElementTypeGroupBox.PerformLayout();

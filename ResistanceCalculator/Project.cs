@@ -42,9 +42,9 @@ namespace ImpedanceCalculator
 		private ISegment Circuit1()
 		{
 			SerialCircuit circuit = new SerialCircuit(new List<ISegment>(), "Circuit 1");
-			Resistor R1 = new Resistor("R1", 0);
-			Capacitor C1 = new Capacitor("C1", 0);
-			Inductor L1 = new Inductor("L1", 0);
+			Resistor R1 = new Resistor("R1", 5);
+			Capacitor C1 = new Capacitor("C1", 0.05);
+			Inductor L1 = new Inductor("L1", 0.01);
 
 			ParallelCircuit circuit2 = new ParallelCircuit();
 			circuit2.Add(R1);
@@ -62,8 +62,8 @@ namespace ImpedanceCalculator
 		{
 			ParallelCircuit circuit = new ParallelCircuit(new List<ISegment>(), "Circuit2");
 			Resistor R1 = new Resistor("R1", 0);
-			Capacitor C1 = new Capacitor("C1", 0);
-			Inductor L1 = new Inductor("L1", 0);
+			Capacitor C1 = new Capacitor("C1", 1);
+			Inductor L1 = new Inductor("L1", 1);
 
 			ParallelCircuit circuit2 = new ParallelCircuit();
 			circuit2.Add(R1);

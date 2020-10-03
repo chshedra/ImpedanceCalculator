@@ -52,6 +52,8 @@
   <ItemGroup>
     <Compile Include="CircuitTests\CircuitInheritor.cs" />
     <Compile Include="CircuitTests\CircuitTest.cs" />
+    <Compile Include="CircuitTests\ParallelCircuitTest.cs" />
+    <Compile Include="CircuitTests\SerialCircuitTest.cs" />
     <Compile Include="ElementTests\CapacitorTest.cs" />
     <Compile Include="ElementTests\ElementInheritor.cs" />
     <Compile Include="ElementTests\ElementTest.cs" />

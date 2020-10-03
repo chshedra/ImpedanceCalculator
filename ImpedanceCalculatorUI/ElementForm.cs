@@ -53,43 +53,59 @@ namespace ImpedanceCalculatorUI
 
 		private void OkButton_Click(object sender, EventArgs e)
 		{
-			if(String.IsNullOrWhiteSpace(EditNameTextBox.Text) ||
+			double etalon = 0.0;
+			if (!double.TryParse(EditValueTextBox.Text, out etalon) ||
 				String.IsNullOrWhiteSpace(EditValueTextBox.Text))
 			{
-				MessageBox.Show("Enter the name and value of element", "Warning",
-					MessageBoxButtons.OK, MessageBoxIcon.Warning);	
+				MessageBox.Show("Value must have numerical format", "Incorrect format",
+					MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
+			else if (double.Parse(EditValueTextBox.Text) < 0)
+			{
+				MessageBox.Show("Value must have positive value", "Negative value",
+				MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			}
+			else
+			{
+				if (AddSerialRadioButton.Checked == true)
+				{
+					IsSerial = true;
+				}
+				else if (AddParallelRadioButton.Checked == true)
+				{
+					IsSerial = false;
+				}
 
-			if(AddSerialRadioButton.Checked == true)
-			{
-				IsSerial = true;
-			}
-			else if (AddParallelRadioButton.Checked == true)
-			{
-				IsSerial = false;
-			}
+				if (RRadioButton.Checked == true)
+				{
+					_element = new Resistor(EditNameTextBox.Text, double.Parse(EditValueTextBox.Text));
+				}
+				else if (LRadioButton.Checked == true)
+				{
+					_element = new Inductor(EditNameTextBox.Text, double.Parse(EditValueTextBox.Text));
+				}
+				else if (CRadioButton.Checked == true)
+				{
+					_element = new Capacitor(EditNameTextBox.Text, double.Parse(EditValueTextBox.Text));
+				}
 
-			if (RRadioButton.Checked == true)
-			{
-				_element = new Resistor(EditNameTextBox.Text, double.Parse(EditValueTextBox.Text));
+				DialogResult = DialogResult.OK;
+				this.Close();
 			}
-			else if (LRadioButton.Checked == true)
-			{
-				_element = new Inductor(EditNameTextBox.Text, double.Parse(EditValueTextBox.Text));
-			}
-			else if (CRadioButton.Checked == true)
-			{
-				_element = new Capacitor(EditNameTextBox.Text, double.Parse(EditValueTextBox.Text));
-			}
-
-			DialogResult = DialogResult.OK;
-			this.Close();
 		}
 
 		private void CancelEditButton_Click(object sender, EventArgs e)
 		{
 			DialogResult = DialogResult.Cancel;
 			this.Close();
+		}
+
+		private void EditValueTextBox_TextChanged(object sender, EventArgs e)
+		{
+			double etalon = 0.0;
+			EditValueTextBox.BackColor = (double.TryParse(EditValueTextBox.Text, out etalon))
+			 ? Color.White
+			 : Color.IndianRed;
 		}
 	}
 }

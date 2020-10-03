@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using ImpedanceCalculator;
+using System.Numerics;
 
 namespace ImpedanceCalculatorUI
 {
@@ -18,16 +19,18 @@ namespace ImpedanceCalculatorUI
 
 			CircuitsListBox.DataSource = _project.Circuits;
 			CircuitsListBox.DisplayMember = "Name";
+
+			FrequenciesListBox.DataSource = _project.Frequencies;
 		}
 		
 		private void FrequenceListBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			ImpedanceListBox.SelectedIndex = FrequenceListBox.SelectedIndex;
+			ImpedanceListBox.SelectedIndex = FrequenciesListBox.SelectedIndex;
 		}
 
 		private void ImpedanceListBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			FrequenceListBox.SelectedIndex = ImpedanceListBox.SelectedIndex;
+			FrequenciesListBox.SelectedIndex = ImpedanceListBox.SelectedIndex;
 		}
 
 		/// <summary>
@@ -137,5 +140,66 @@ namespace ImpedanceCalculatorUI
 			baseSegment = null;
 			return null;
 		}
+
+		private void CalculateButton_Click(object sender, EventArgs e)
+		{
+			double etalon = 0.0;
+
+			if (!double.TryParse(FrequencyTextBox.Text, out etalon))
+			{
+				MessageBox.Show("Frequency must have numerical format", "Incorrect format",
+					MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			}
+			else if (double.Parse(FrequencyTextBox.Text) < 0)
+			{
+				MessageBox.Show("Frequency must have positive value", "Negative value",
+				MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			}
+			else
+			{
+				if (!String.IsNullOrEmpty(FrequencyTextBox.Text))
+				{
+					_project.Frequencies.Add(double.Parse(FrequencyTextBox.Text));
+				} 
+				if(_project.Frequencies.Count > 0)
+				{
+					var result = new Complex();
+					_project.Impendances.Clear();
+					foreach(var frequency in _project.Frequencies)
+					{
+						result = _project.Circuits[CircuitsListBox.SelectedIndex].
+							CalculateZ(frequency);
+						_project.Impendances.Add(result);
+					}
+					RefreshLists();
+				}
+			}
+		}
+
+		private void FrequencyTextBox_TextChanged(object sender, EventArgs e)
+		{
+			double etalon = 0.0;
+			FrequencyTextBox.BackColor = (double.TryParse(FrequencyTextBox.Text, out etalon))
+			 ? Color.White
+			 : Color.IndianRed;
+		}
+
+		/// <summary>
+		/// Метод обновления списков
+		/// </summary>
+		private void RefreshLists()
+		{
+			FrequenciesListBox.DataSource = null;
+			FrequenciesListBox.DataSource = _project.Frequencies;
+
+			ImpedanceListBox.Items.Clear();
+			foreach(var impedance in _project.Impendances)
+			{
+				ImpedanceListBox.Items.Add($"{impedance.Real} + {impedance.Imaginary} i");
+			}
+		}
+
+
+
 	}
 }
