@@ -31,22 +31,30 @@
 			this.components = new System.ComponentModel.Container();
 			this.CircuitPictureBox = new System.Windows.Forms.PictureBox();
 			this.CircuitTreeView = new System.Windows.Forms.TreeView();
-			this.AddButton = new System.Windows.Forms.Button();
-			this.EditButton = new System.Windows.Forms.Button();
 			this.FrequencyLabel = new System.Windows.Forms.Label();
 			this.FrequencyTextBox = new System.Windows.Forms.TextBox();
-			this.RemoveButton = new System.Windows.Forms.Button();
 			this.FrequenciesListBox = new System.Windows.Forms.ListBox();
-			this.FrequenciesLabel = new System.Windows.Forms.Label();
 			this.ImpedanceListBox = new System.Windows.Forms.ListBox();
 			this.CalculateButton = new System.Windows.Forms.Button();
-			this.ImpedanceLabel = new System.Windows.Forms.Label();
-			this.CircuitsListBox = new System.Windows.Forms.ListBox();
 			this.ElementInfoTextbox = new System.Windows.Forms.TextBox();
-			this.projectBindingSource = new System.Windows.Forms.BindingSource(this.components);
-			this.CircuitsLabel = new System.Windows.Forms.Label();
+			this.CircuitsComboBox = new System.Windows.Forms.ComboBox();
+			this.NodeContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.AddToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.EditToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.RemoveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.FrequenciesGroupBox = new System.Windows.Forms.GroupBox();
+			this.ImpendancesGroupBox = new System.Windows.Forms.GroupBox();
+			this.ElementInfoGroupBox = new System.Windows.Forms.GroupBox();
+			this.AddCircuitButton = new System.Windows.Forms.Button();
+			this.RemoveCircuitButton = new System.Windows.Forms.Button();
+			this.FrequencyContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.RemoveFrequencyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.CircuitPictureBox)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.projectBindingSource)).BeginInit();
+			this.NodeContextMenu.SuspendLayout();
+			this.FrequenciesGroupBox.SuspendLayout();
+			this.ImpendancesGroupBox.SuspendLayout();
+			this.ElementInfoGroupBox.SuspendLayout();
+			this.FrequencyContextMenuStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// CircuitPictureBox
@@ -62,30 +70,13 @@
 			// 
 			// CircuitTreeView
 			// 
-			this.CircuitTreeView.Location = new System.Drawing.Point(12, 12);
+			this.CircuitTreeView.Location = new System.Drawing.Point(12, 39);
 			this.CircuitTreeView.Name = "CircuitTreeView";
-			this.CircuitTreeView.Size = new System.Drawing.Size(177, 348);
+			this.CircuitTreeView.Size = new System.Drawing.Size(177, 340);
 			this.CircuitTreeView.TabIndex = 0;
 			this.CircuitTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.CircuitTreeView_AfterSelect);
-			// 
-			// AddButton
-			// 
-			this.AddButton.Location = new System.Drawing.Point(12, 422);
-			this.AddButton.Name = "AddButton";
-			this.AddButton.Size = new System.Drawing.Size(55, 22);
-			this.AddButton.TabIndex = 1;
-			this.AddButton.Text = "Add";
-			this.AddButton.UseVisualStyleBackColor = true;
-			this.AddButton.Click += new System.EventHandler(this.AddButton_Click);
-			// 
-			// EditButton
-			// 
-			this.EditButton.Location = new System.Drawing.Point(73, 422);
-			this.EditButton.Name = "EditButton";
-			this.EditButton.Size = new System.Drawing.Size(55, 22);
-			this.EditButton.TabIndex = 2;
-			this.EditButton.Text = "Edit";
-			this.EditButton.UseVisualStyleBackColor = true;
+			this.CircuitTreeView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.CircuitTreeView_MouseDown);
+			this.CircuitTreeView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.CircuitTreeView_MouseUp);
 			// 
 			// FrequencyLabel
 			// 
@@ -98,43 +89,26 @@
 			// 
 			// FrequencyTextBox
 			// 
-			this.FrequencyTextBox.Location = new System.Drawing.Point(409, 336);
+			this.FrequencyTextBox.Location = new System.Drawing.Point(409, 333);
 			this.FrequencyTextBox.Name = "FrequencyTextBox";
 			this.FrequencyTextBox.Size = new System.Drawing.Size(91, 20);
 			this.FrequencyTextBox.TabIndex = 6;
 			this.FrequencyTextBox.TextChanged += new System.EventHandler(this.FrequencyTextBox_TextChanged);
 			// 
-			// RemoveButton
-			// 
-			this.RemoveButton.Location = new System.Drawing.Point(134, 422);
-			this.RemoveButton.Name = "RemoveButton";
-			this.RemoveButton.Size = new System.Drawing.Size(55, 22);
-			this.RemoveButton.TabIndex = 3;
-			this.RemoveButton.Text = "Remove";
-			this.RemoveButton.UseVisualStyleBackColor = true;
-			// 
 			// FrequenciesListBox
 			// 
 			this.FrequenciesListBox.FormattingEnabled = true;
-			this.FrequenciesListBox.Location = new System.Drawing.Point(506, 336);
+			this.FrequenciesListBox.Location = new System.Drawing.Point(0, 15);
 			this.FrequenciesListBox.Name = "FrequenciesListBox";
 			this.FrequenciesListBox.Size = new System.Drawing.Size(155, 108);
 			this.FrequenciesListBox.TabIndex = 2;
 			this.FrequenciesListBox.SelectedIndexChanged += new System.EventHandler(this.FrequenceListBox_SelectedIndexChanged);
-			// 
-			// FrequenciesLabel
-			// 
-			this.FrequenciesLabel.AutoSize = true;
-			this.FrequenciesLabel.Location = new System.Drawing.Point(503, 320);
-			this.FrequenciesLabel.Name = "FrequenciesLabel";
-			this.FrequenciesLabel.Size = new System.Drawing.Size(65, 13);
-			this.FrequenciesLabel.TabIndex = 4;
-			this.FrequenciesLabel.Text = "Frequencies";
+			this.FrequenciesListBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FrequenciesListBox_MouseDown);
 			// 
 			// ImpedanceListBox
 			// 
 			this.ImpedanceListBox.FormattingEnabled = true;
-			this.ImpedanceListBox.Location = new System.Drawing.Point(667, 336);
+			this.ImpedanceListBox.Location = new System.Drawing.Point(0, 15);
 			this.ImpedanceListBox.Name = "ImpedanceListBox";
 			this.ImpedanceListBox.Size = new System.Drawing.Size(161, 108);
 			this.ImpedanceListBox.TabIndex = 3;
@@ -142,99 +116,175 @@
 			// 
 			// CalculateButton
 			// 
-			this.CalculateButton.Location = new System.Drawing.Point(343, 422);
+			this.CalculateButton.Location = new System.Drawing.Point(343, 359);
 			this.CalculateButton.Name = "CalculateButton";
-			this.CalculateButton.Size = new System.Drawing.Size(157, 21);
+			this.CalculateButton.Size = new System.Drawing.Size(157, 23);
 			this.CalculateButton.TabIndex = 8;
 			this.CalculateButton.Text = "Calculate";
 			this.CalculateButton.UseVisualStyleBackColor = true;
 			this.CalculateButton.Click += new System.EventHandler(this.CalculateButton_Click);
 			// 
-			// ImpedanceLabel
-			// 
-			this.ImpedanceLabel.AutoSize = true;
-			this.ImpedanceLabel.Location = new System.Drawing.Point(664, 320);
-			this.ImpedanceLabel.Name = "ImpedanceLabel";
-			this.ImpedanceLabel.Size = new System.Drawing.Size(60, 13);
-			this.ImpedanceLabel.TabIndex = 5;
-			this.ImpedanceLabel.Text = "Impedance";
-			// 
-			// CircuitsListBox
-			// 
-			this.CircuitsListBox.FormattingEnabled = true;
-			this.CircuitsListBox.Location = new System.Drawing.Point(195, 336);
-			this.CircuitsListBox.Name = "CircuitsListBox";
-			this.CircuitsListBox.Size = new System.Drawing.Size(127, 108);
-			this.CircuitsListBox.TabIndex = 9;
-			this.CircuitsListBox.SelectedIndexChanged += new System.EventHandler(this.CircuitsListBox_SelectedIndexChanged);
-			// 
 			// ElementInfoTextbox
 			// 
-			this.ElementInfoTextbox.Location = new System.Drawing.Point(13, 366);
+			this.ElementInfoTextbox.Location = new System.Drawing.Point(0, 14);
 			this.ElementInfoTextbox.Multiline = true;
 			this.ElementInfoTextbox.Name = "ElementInfoTextbox";
-			this.ElementInfoTextbox.Size = new System.Drawing.Size(176, 50);
+			this.ElementInfoTextbox.Size = new System.Drawing.Size(175, 57);
 			this.ElementInfoTextbox.TabIndex = 10;
 			// 
-			// projectBindingSource
+			// CircuitsComboBox
 			// 
-			this.projectBindingSource.DataSource = typeof(ImpedanceCalculator.Project);
+			this.CircuitsComboBox.FormattingEnabled = true;
+			this.CircuitsComboBox.Location = new System.Drawing.Point(13, 12);
+			this.CircuitsComboBox.Name = "CircuitsComboBox";
+			this.CircuitsComboBox.Size = new System.Drawing.Size(176, 21);
+			this.CircuitsComboBox.TabIndex = 13;
+			this.CircuitsComboBox.SelectedIndexChanged += new System.EventHandler(this.CircuitsComboBox_SelectedIndexChanged);
 			// 
-			// CircuitsLabel
+			// NodeContextMenu
 			// 
-			this.CircuitsLabel.AutoSize = true;
-			this.CircuitsLabel.Location = new System.Drawing.Point(195, 320);
-			this.CircuitsLabel.Name = "CircuitsLabel";
-			this.CircuitsLabel.Size = new System.Drawing.Size(41, 13);
-			this.CircuitsLabel.TabIndex = 11;
-			this.CircuitsLabel.Text = "Circuits";
+			this.NodeContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.AddToolStripMenuItem,
+            this.EditToolStripMenuItem,
+            this.RemoveToolStripMenuItem});
+			this.NodeContextMenu.Name = "NodeContextMenu";
+			this.NodeContextMenu.Size = new System.Drawing.Size(118, 70);
+			// 
+			// AddToolStripMenuItem
+			// 
+			this.AddToolStripMenuItem.Name = "AddToolStripMenuItem";
+			this.AddToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+			this.AddToolStripMenuItem.Text = "Add";
+			this.AddToolStripMenuItem.Click += new System.EventHandler(this.AddToolStripMenuItem_Click);
+			// 
+			// EditToolStripMenuItem
+			// 
+			this.EditToolStripMenuItem.Name = "EditToolStripMenuItem";
+			this.EditToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+			this.EditToolStripMenuItem.Text = "Edit";
+			this.EditToolStripMenuItem.Click += new System.EventHandler(this.EditToolStripMenuItem_Click);
+			// 
+			// RemoveToolStripMenuItem
+			// 
+			this.RemoveToolStripMenuItem.Name = "RemoveToolStripMenuItem";
+			this.RemoveToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+			this.RemoveToolStripMenuItem.Text = "Remove";
+			this.RemoveToolStripMenuItem.Click += new System.EventHandler(this.RemoveToolStripMenuItem_Click);
+			// 
+			// FrequenciesGroupBox
+			// 
+			this.FrequenciesGroupBox.Controls.Add(this.FrequenciesListBox);
+			this.FrequenciesGroupBox.Location = new System.Drawing.Point(506, 320);
+			this.FrequenciesGroupBox.Name = "FrequenciesGroupBox";
+			this.FrequenciesGroupBox.Size = new System.Drawing.Size(155, 124);
+			this.FrequenciesGroupBox.TabIndex = 15;
+			this.FrequenciesGroupBox.TabStop = false;
+			this.FrequenciesGroupBox.Text = "Frequencies";
+			// 
+			// ImpendancesGroupBox
+			// 
+			this.ImpendancesGroupBox.Controls.Add(this.ImpedanceListBox);
+			this.ImpendancesGroupBox.Location = new System.Drawing.Point(667, 320);
+			this.ImpendancesGroupBox.Name = "ImpendancesGroupBox";
+			this.ImpendancesGroupBox.Size = new System.Drawing.Size(161, 123);
+			this.ImpendancesGroupBox.TabIndex = 16;
+			this.ImpendancesGroupBox.TabStop = false;
+			this.ImpendancesGroupBox.Text = "Impednces";
+			// 
+			// ElementInfoGroupBox
+			// 
+			this.ElementInfoGroupBox.Controls.Add(this.ElementInfoTextbox);
+			this.ElementInfoGroupBox.Location = new System.Drawing.Point(195, 374);
+			this.ElementInfoGroupBox.Name = "ElementInfoGroupBox";
+			this.ElementInfoGroupBox.Size = new System.Drawing.Size(176, 70);
+			this.ElementInfoGroupBox.TabIndex = 17;
+			this.ElementInfoGroupBox.TabStop = false;
+			this.ElementInfoGroupBox.Text = "Element";
+			// 
+			// AddCircuitButton
+			// 
+			this.AddCircuitButton.Location = new System.Drawing.Point(11, 385);
+			this.AddCircuitButton.Name = "AddCircuitButton";
+			this.AddCircuitButton.Size = new System.Drawing.Size(90, 25);
+			this.AddCircuitButton.TabIndex = 18;
+			this.AddCircuitButton.Text = "Add circuit";
+			this.AddCircuitButton.UseVisualStyleBackColor = true;
+			this.AddCircuitButton.Click += new System.EventHandler(this.AddCircuitButton_Click);
+			// 
+			// RemoveCircuitButton
+			// 
+			this.RemoveCircuitButton.Location = new System.Drawing.Point(12, 418);
+			this.RemoveCircuitButton.Name = "RemoveCircuitButton";
+			this.RemoveCircuitButton.Size = new System.Drawing.Size(89, 25);
+			this.RemoveCircuitButton.TabIndex = 19;
+			this.RemoveCircuitButton.Text = "Remove circuit";
+			this.RemoveCircuitButton.UseVisualStyleBackColor = true;
+			// 
+			// FrequencyContextMenuStrip
+			// 
+			this.FrequencyContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.RemoveFrequencyToolStripMenuItem});
+			this.FrequencyContextMenuStrip.Name = "FrequencyContextMenuStrip";
+			this.FrequencyContextMenuStrip.Size = new System.Drawing.Size(118, 26);
+			// 
+			// RemoveFrequencyToolStripMenuItem
+			// 
+			this.RemoveFrequencyToolStripMenuItem.Name = "RemoveFrequencyToolStripMenuItem";
+			this.RemoveFrequencyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.RemoveFrequencyToolStripMenuItem.Text = "Remove";
+			this.RemoveFrequencyToolStripMenuItem.Click += new System.EventHandler(this.RemoveFrequencyToolStripMenuItem_Click);
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(836, 456);
-			this.Controls.Add(this.CircuitsLabel);
-			this.Controls.Add(this.ElementInfoTextbox);
-			this.Controls.Add(this.CircuitsListBox);
+			this.Controls.Add(this.RemoveCircuitButton);
+			this.Controls.Add(this.AddCircuitButton);
+			this.Controls.Add(this.ElementInfoGroupBox);
+			this.Controls.Add(this.ImpendancesGroupBox);
+			this.Controls.Add(this.FrequenciesGroupBox);
+			this.Controls.Add(this.CircuitsComboBox);
 			this.Controls.Add(this.FrequencyTextBox);
 			this.Controls.Add(this.CalculateButton);
 			this.Controls.Add(this.FrequencyLabel);
-			this.Controls.Add(this.ImpedanceLabel);
-			this.Controls.Add(this.RemoveButton);
-			this.Controls.Add(this.FrequenciesLabel);
-			this.Controls.Add(this.AddButton);
-			this.Controls.Add(this.EditButton);
 			this.Controls.Add(this.CircuitTreeView);
-			this.Controls.Add(this.ImpedanceListBox);
-			this.Controls.Add(this.FrequenciesListBox);
 			this.Controls.Add(this.CircuitPictureBox);
 			this.Name = "MainForm";
 			this.Text = "ImpedanceCalculator";
 			((System.ComponentModel.ISupportInitialize)(this.CircuitPictureBox)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.projectBindingSource)).EndInit();
+			this.NodeContextMenu.ResumeLayout(false);
+			this.FrequenciesGroupBox.ResumeLayout(false);
+			this.ImpendancesGroupBox.ResumeLayout(false);
+			this.ElementInfoGroupBox.ResumeLayout(false);
+			this.ElementInfoGroupBox.PerformLayout();
+			this.FrequencyContextMenuStrip.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
 		}
 
 		#endregion
-		private System.Windows.Forms.BindingSource projectBindingSource;
 		public System.Windows.Forms.PictureBox CircuitPictureBox;
 		private System.Windows.Forms.TreeView CircuitTreeView;
-		private System.Windows.Forms.Button AddButton;
-		private System.Windows.Forms.Button EditButton;
 		private System.Windows.Forms.Label FrequencyLabel;
 		private System.Windows.Forms.TextBox FrequencyTextBox;
-		private System.Windows.Forms.Button RemoveButton;
 		private System.Windows.Forms.ListBox FrequenciesListBox;
-		private System.Windows.Forms.Label FrequenciesLabel;
 		private System.Windows.Forms.ListBox ImpedanceListBox;
 		private System.Windows.Forms.Button CalculateButton;
-		private System.Windows.Forms.Label ImpedanceLabel;
-		private System.Windows.Forms.ListBox CircuitsListBox;
 		private System.Windows.Forms.TextBox ElementInfoTextbox;
-		private System.Windows.Forms.Label CircuitsLabel;
+		private System.Windows.Forms.ComboBox CircuitsComboBox;
+		private System.Windows.Forms.ContextMenuStrip NodeContextMenu;
+		private System.Windows.Forms.ToolStripMenuItem AddToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem EditToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem RemoveToolStripMenuItem;
+		private System.Windows.Forms.GroupBox FrequenciesGroupBox;
+		private System.Windows.Forms.GroupBox ImpendancesGroupBox;
+		private System.Windows.Forms.GroupBox ElementInfoGroupBox;
+		private System.Windows.Forms.Button AddCircuitButton;
+		private System.Windows.Forms.Button RemoveCircuitButton;
+		private System.Windows.Forms.ContextMenuStrip FrequencyContextMenuStrip;
+		private System.Windows.Forms.ToolStripMenuItem RemoveFrequencyToolStripMenuItem;
 	}
 }
 

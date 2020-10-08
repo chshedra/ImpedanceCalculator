@@ -32,8 +32,21 @@ namespace ImpedanceCalculatorUI
 				_element = value;
 				if (_element != null)
 				{
-					_element.Name = EditNameTextBox.Text;
-					_element.Value = double.Parse(EditValueTextBox.Text);
+					EditNameTextBox.Text = _element.Name;
+					EditValueTextBox.Text = _element.Value.ToString();
+
+					if(_element is Resistor)
+					{
+						RRadioButton.Checked = true;
+					}
+					else if(_element is Capacitor)
+					{
+						CRadioButton.Checked = true;
+					}
+					else if(_element is Inductor)
+					{
+						LRadioButton.Checked = true;
+					}
 				}
 			}
 		}

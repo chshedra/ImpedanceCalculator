@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace ImpedanceCalculator.UnitTests
+namespace ImpedanceCalculator.UnitTests.CircuitTests
 {
 	class CircuitInheritor : Circuit
 	{

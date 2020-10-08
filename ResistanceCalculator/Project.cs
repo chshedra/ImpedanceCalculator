@@ -64,9 +64,15 @@ namespace ImpedanceCalculator
 			Resistor R1 = new Resistor("R1", 0);
 			Capacitor C1 = new Capacitor("C1", 1);
 			Inductor L1 = new Inductor("L1", 1);
+			Capacitor C2 = new Capacitor("C2", 0.05);
 
 			ParallelCircuit circuit2 = new ParallelCircuit();
-			circuit2.Add(R1);
+			circuit2.Name = "ParallelSegment";
+			SerialCircuit circuit3 = new SerialCircuit();
+			circuit3.Name = "SerialSegment";
+			circuit3.Add(C2);
+			circuit3.Add(R1);
+			circuit2.Add(circuit3);
 			circuit2.Add(L1);
 			circuit.Add(circuit2);
 			circuit.Add(C1);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 
-namespace ImpedanceCalculator.UnitTests
+namespace ImpedanceCalculator.UnitTests.ElementTests
 {
 	[TestFixture]
 	class ElementTest

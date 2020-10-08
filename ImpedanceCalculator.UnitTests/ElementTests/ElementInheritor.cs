@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Numerics;
 
-namespace ImpedanceCalculator.UnitTests
+namespace ImpedanceCalculator.UnitTests.ElementTests
 {
 	class ElementInheritor : Element
 	{

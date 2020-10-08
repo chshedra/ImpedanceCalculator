@@ -3,7 +3,7 @@ using System.Numerics;
 using NUnit.Framework;
 using ImpedanceCalculator;
 
-namespace ImpedanceCalculator.UnitTests
+namespace ImpedanceCalculator.UnitTests.ElementTests
 {
 	[TestFixture]
 	class ResistorTest

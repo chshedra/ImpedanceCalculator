@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using System.Numerics;
 
-namespace ImpedanceCalculator.UnitTests
+namespace ImpedanceCalculator.UnitTests.CircuitTests
 {
 	[TestFixture]
 	class CircuitTest

@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using System.Numerics;
 
-namespace ImpedanceCalculator.UnitTests
+namespace ImpedanceCalculator.UnitTests.ElementTests
 {
 	class CapacitorTest
 	{
