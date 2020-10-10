@@ -19,6 +19,20 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 			return C;
 		}
 
+		[Test(Description = "Позитивный тест конструктора Capacitor ")]
+		public void TestConstructor_PositiveTest()
+		{
+			var expectedName = "C";
+			double expectedValue = 0;
+
+			var actualCapacitor = new Capacitor();
+
+			Assert.AreEqual(expectedName, actualCapacitor.Name,
+				"Конструктор Capacitor неправильно устанавливает значение имени");
+			Assert.AreEqual(expectedValue, actualCapacitor.Value,
+				"Конструктор Capacitor неправильно устанавливает значение ");
+		}
+
 		[Test(Description = "Позитивный тест метода CalculateZ")]
 		public void TestCalculateZ_CorrectValue()
 		{

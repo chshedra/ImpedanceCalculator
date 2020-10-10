@@ -11,7 +11,7 @@ namespace ImpedanceCalculator
 		/// <summary>
 		/// Конструктор без параметров. Устанавливает значеия названия и емкости конденсатора
 		/// </summary>
-		public Capacitor() : this("L", 0) { }
+		public Capacitor() : this("C", 0) { }
 
 		/// <summary>
 		/// Конструктор, устанавливающий значеия названия и емкости конденсатора

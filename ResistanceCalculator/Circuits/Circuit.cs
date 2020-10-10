@@ -50,7 +50,7 @@ namespace ImpedanceCalculator
             {
                 return _segments;
             }
-            private set
+            set
             {
                 if (value == null)
                 {
@@ -215,9 +215,6 @@ namespace ImpedanceCalculator
 
             SubSegments.Insert(index, segment);
         }
-
-        /// <inheritdoc/>
-        public bool IsFixedSize => false;
 
         /// <inheritdoc/>
         public bool IsReadOnly => false;

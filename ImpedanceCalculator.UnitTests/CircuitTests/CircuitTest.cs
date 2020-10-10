@@ -238,5 +238,13 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 			Assert.Throws<ArgumentException>(() =>
 			{ _circuit.Insert(0,null); }, "Должно возникать исключение, если элемент равен null");
 		}
+
+		[Test(Description = "Позитивный тест метода ISReadOnly")]
+		public void TestIsReadOnly_PositiveTest()
+		{
+			InitCircuit();
+			var expected = false;
+			Assert.AreEqual(expected, _circuit.IsReadOnly, "Метод Insert некорректно вставляет элементы");
+		}
 	}
 }

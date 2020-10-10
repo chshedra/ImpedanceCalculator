@@ -20,6 +20,20 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 			return L;
 		}
 
+		[Test(Description = "Позитивный тест конструктора Inductor ")]
+		public void TestConstructor_PositiveTest()
+		{
+			var expectedName = "L";
+			double expectedValue = 0;
+
+			var actualCapacitor = new Inductor();
+
+			Assert.AreEqual(expectedName, actualCapacitor.Name,
+				"Конструктор Inductor неправильно устанавливает значение имени");
+			Assert.AreEqual(expectedValue, actualCapacitor.Value,
+				"Конструктор Inductor неправильно устанавливает значение ");
+		}
+
 		[Test(Description = "Позитивный тест vметода CalculateZ")]
 		public void TestCalculateZ_CorrectValue()
 		{

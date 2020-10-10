@@ -9,23 +9,19 @@ namespace ImpedanceCalculatorUI
 {
 	public partial class MainForm : Form
 	{
-		Project _project;
-		SegmentTreeNode _replacingTreeNode = new SegmentTreeNode();
+		private readonly Project _project;
+		private SegmentTreeNode _replacingTreeNode;
 
 		public MainForm()
 		{
 			InitializeComponent();
 			_project = new Project();
-			_project.Circuits = _project.CreateCircuits();
 
 			CircuitsComboBox.DataSource = _project.Circuits;
 			CircuitsComboBox.DisplayMember = "Name";
 
 			FrequenciesListBox.DataSource = _project.Frequencies;
-
 		}
-
-
 
 		private void FrequenceListBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
@@ -69,6 +65,11 @@ namespace ImpedanceCalculatorUI
 				MessageBox.Show("Frequency must have positive value", "Negative value",
 				MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
+			else if (CircuitsComboBox.SelectedIndex < 0)
+			{
+				MessageBox.Show("Select the circuit", "Any circuit selected",
+					MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			}
 			else
 			{
 				if (!String.IsNullOrEmpty(FrequencyTextBox.Text))
@@ -85,7 +86,10 @@ namespace ImpedanceCalculatorUI
 							CalculateZ(frequency);
 						_project.Impendances.Add(result);
 					}
+
+					var index = CircuitsComboBox.SelectedIndex;
 					RefreshLists();
+					CircuitsComboBox.SelectedIndex = index;
 				}
 			}
 		}
@@ -98,42 +102,30 @@ namespace ImpedanceCalculatorUI
 			 : Color.IndianRed;
 		}
 
-		/// <summary>
-		/// Метод обновления списков
-		/// </summary>
-		private void RefreshLists()
-		{
-			FrequenciesListBox.DataSource = null;
-			FrequenciesListBox.DataSource = _project.Frequencies;
-
-			ImpedanceListBox.Items.Clear();
-			foreach(var impedance in _project.Impendances)
-			{
-				ImpedanceListBox.Items.Add($"{impedance.Real} + {impedance.Imaginary} i");
-			}
-		}
-
 		private void CircuitsComboBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			CircuitTreeView.Nodes.Clear();
-			var baseNode = new SegmentTreeNode(_project.Circuits[CircuitsComboBox.SelectedIndex]);
-			CircuitTreeViewDataBind(baseNode, _project.Circuits[CircuitsComboBox.SelectedIndex].SubSegments);
 
-			CircuitTreeView.Nodes.Add(baseNode);
+			if (CircuitsComboBox.SelectedIndex > -1)
+			{
+				RefreshCircuitTree();
+			}
 		}
-
 
 		private void AddToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ElementForm addForm = new ElementForm();
+			var addForm = new ElementForm()
+			{
+				IsAdd = true
+			};
 			addForm.ShowDialog();
 
 			if (addForm.DialogResult == DialogResult.OK)
 			{
-				SegmentTreeNode node = new SegmentTreeNode(addForm.Element);
+				var node = new SegmentTreeNode(addForm.Element);
 
-				SegmentTreeNode selectedNode = (SegmentTreeNode)CircuitTreeView.SelectedNode;
-				SegmentTreeNode selectedNodeParent =
+				var selectedNode = (SegmentTreeNode)CircuitTreeView.SelectedNode;
+				var selectedNodeParent =
 					(SegmentTreeNode)CircuitTreeView.SelectedNode.Parent;
 
 				if (selectedNode.Segment is Circuit)
@@ -144,6 +136,20 @@ namespace ImpedanceCalculatorUI
 						{
 							selectedNode.Segment.SubSegments.Add(addForm.Element);
 							selectedNode.Nodes.Add(node);
+						}
+						else if (selectedNode.Segment == _project.Circuits[CircuitsComboBox.SelectedIndex])
+						{
+							var parallelCircuit = new ParallelCircuit()
+							{
+								Name = selectedNode.Segment.Name,
+								SubSegments = selectedNode.Segment.SubSegments
+							};
+							parallelCircuit.Add(addForm.Element);
+
+							var index = _project.Circuits.IndexOf(selectedNode.Segment);
+							_project.Circuits.Remove(selectedNode.Segment);
+							_project.Circuits.Insert(index, parallelCircuit);
+							RefreshCircuitTree();
 						}
 						else
 						{
@@ -156,6 +162,20 @@ namespace ImpedanceCalculatorUI
 						{
 							selectedNode.Segment.SubSegments.Add(addForm.Element);
 							selectedNode.Nodes.Add(node);
+						}
+						else if (selectedNode.Segment == _project.Circuits[CircuitsComboBox.SelectedIndex])
+						{
+							var serialCircuit = new SerialCircuit()
+							{
+								Name = selectedNode.Segment.Name,
+								SubSegments = selectedNode.Segment.SubSegments
+							};
+							serialCircuit.Add(addForm.Element);
+
+							var index = _project.Circuits.IndexOf(selectedNode.Segment);
+							_project.Circuits.Remove(selectedNode.Segment);
+							_project.Circuits.Insert(index, serialCircuit);
+							RefreshCircuitTree();
 						}
 						else
 						{
@@ -195,109 +215,99 @@ namespace ImpedanceCalculatorUI
 
 		private void EditToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			SegmentTreeNode selectedNode = (SegmentTreeNode)CircuitTreeView.SelectedNode;
-			Element editElement = (Element)selectedNode.Segment;
-
-			ElementForm editForm = new ElementForm();
-			editForm.Element = editElement;
-			editForm.ShowDialog();
-
-			if (editForm.DialogResult == DialogResult.OK)
+			var selectedNode = (SegmentTreeNode)CircuitTreeView.SelectedNode;
+			if (selectedNode.Segment is Element)
 			{
-				editElement.Name = editForm.Element.Name;
-				editElement.Value = editForm.Element.Value;
+				var editElement = (Element) selectedNode.Segment;
+				var editForm = new ElementForm()
+				{
+					Element = editElement,
+					IsAdd = false
+				};
+				editForm.ShowDialog();
 
+				if (editForm.DialogResult == DialogResult.OK)
+				{
+					editElement.Name = editForm.Element.Name;
+					editElement.Value = editForm.Element.Value;
+					RefreshCircuitTree();
+				}
 			}
-		}
+			else if (selectedNode.Segment is Circuit)
+			{
+				var editCircuit = (Circuit) selectedNode.Segment;
+				var circuitForm = new CircuitForm()
+				{
+					Circuit = editCircuit,
+					IsAdd = false
+				};
+				circuitForm.ShowDialog();
 
-		/// <summary>
-		/// Метод добавления нового элемента к последовательной цепи параллельно
-		/// </summary>
-		/// <param name="element"></param>
-		/// <param name="selectedSegment"></param>
-		/// <param name="nodeParent"></param>
-		private void AddParallel(Element element, SegmentTreeNode selectedSegment, SegmentTreeNode nodeParent)
-		{
-			ParallelCircuit parallelSegment = new ParallelCircuit();
-			parallelSegment.Name = "ParallelSegment";
-			parallelSegment.SubSegments.Add(element);
-			parallelSegment.SubSegments.Add(selectedSegment.Segment);
-			SegmentTreeNode newNode = new SegmentTreeNode(parallelSegment);
+				if (circuitForm.DialogResult == DialogResult.OK)
+				{
+					editCircuit.Name = circuitForm.Circuit.Name;
+					RefreshCircuitTree();
+				}
+			}
 
-			nodeParent.Segment.SubSegments.Remove(selectedSegment.Segment);
-			nodeParent.Segment.SubSegments.Add(parallelSegment);
-
-			CircuitTreeViewDataBind(newNode, parallelSegment.SubSegments);
-			nodeParent.Nodes.Remove(selectedSegment);
-			nodeParent.Nodes.Add(newNode);
-		}
-
-		/// <summary>
-		/// Метод добавления нового элемента в параллельную цеь последовательно
-		/// </summary>
-		/// <param name="element"></param>
-		/// <param name="selectedSegment"></param>
-		/// <param name="nodeParent"></param>
-		private void AddSerial(Element element, SegmentTreeNode selectedSegment, SegmentTreeNode nodeParent)
-		{
-			SerialCircuit serialSegment = new SerialCircuit();
-			serialSegment.Name = "SerialSegment";
-			serialSegment.SubSegments.Add(element);
-			serialSegment.SubSegments.Add(selectedSegment.Segment);
-			SegmentTreeNode newNode = new SegmentTreeNode(serialSegment);
-
-			nodeParent.Segment.SubSegments.Remove(selectedSegment.Segment);
-			nodeParent.Segment.SubSegments.Add(serialSegment);
-
-			CircuitTreeViewDataBind(newNode, serialSegment.SubSegments);
-			nodeParent.Nodes.Remove(selectedSegment);
-			nodeParent.Nodes.Add(newNode);
 		}
 
 		private void CircuitTreeView_AfterSelect(object sender, TreeViewEventArgs e)
 		{
-			SegmentTreeNode selectedNode = (SegmentTreeNode)CircuitTreeView.SelectedNode;
-
-
+			var selectedNode = (SegmentTreeNode)CircuitTreeView.SelectedNode;
 
 			if (selectedNode.Segment is Element)
 			{
-				Element selectedElement = (Element)selectedNode.Segment;
+				var selectedElement = (Element)selectedNode.Segment;
 				ElementInfoTextbox.Text = "Name = " + selectedElement.Name + Environment.NewLine +
 					"Value = " + selectedElement.Value;
-			}
+			} else if (selectedNode.Segment is Circuit)
+			{
+				string type = "";
+				if (selectedNode.Segment is SerialCircuit)
+				{
+					type = "Serial";
+				}
+				else if(selectedNode.Segment is ParallelCircuit)
+				{
+					type = "Parallel";
+				}
 
+				ElementInfoTextbox.Text = ($"Name: {selectedNode.Segment.Name}" + Environment.NewLine +
+				                           $"Type: {type}");
+			}
 		}
 
 		private void RemoveToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			
+			RemoveNode((SegmentTreeNode)CircuitTreeView.SelectedNode);
 		}
 
 		private void AddCircuitButton_Click(object sender, EventArgs e)
 		{
+			var circuitForm = new CircuitForm();
+			circuitForm.IsAdd = true;
 			
+			circuitForm.ShowDialog();
+			if(circuitForm.DialogResult == DialogResult.OK)
+			{
+				Circuit circuit = circuitForm.Circuit;
+				_project.Circuits.Add(circuit);
+				RefreshLists();
+				CircuitsComboBox.SelectedIndex = _project.Circuits.IndexOf(circuit);
+			}
 		}
 
 		private void CircuitTreeView_MouseDown(object sender, MouseEventArgs e)
 		{
 			if (e.Button == MouseButtons.Right)
 			{
-				SegmentTreeNode selectedNode = (SegmentTreeNode)CircuitTreeView.GetNodeAt(e.X, e.Y);
+				var selectedNode = (SegmentTreeNode)CircuitTreeView.GetNodeAt(e.X, e.Y);
 				CircuitTreeView.SelectedNode = selectedNode;
 
 				if (selectedNode == null)
 				{
 					return;
-				}
-
-				if (selectedNode.Segment is Circuit)
-				{
-					EditToolStripMenuItem.Visible = false;
-				}
-				else if (selectedNode.Segment is Element)
-				{
-					EditToolStripMenuItem.Visible = true;
 				}
 				NodeContextMenu.Show(PointToScreen(e.Location));
 			}
@@ -312,15 +322,19 @@ namespace ImpedanceCalculatorUI
 		{
 			if (_replacingTreeNode != null)
 			{
-				SegmentTreeNode selectedNode = (SegmentTreeNode)CircuitTreeView.GetNodeAt(e.X, e.Y);
+				var selectedNode = (SegmentTreeNode)CircuitTreeView.GetNodeAt(e.X, e.Y);
+				var replacingNodeParent = (SegmentTreeNode)_replacingTreeNode.Parent;
 
-				if (selectedNode.Segment is Circuit && selectedNode != _replacingTreeNode)
+				if (selectedNode.Segment is Circuit 
+					&& selectedNode != _replacingTreeNode 
+					&& selectedNode != replacingNodeParent 
+					&& !IsNodeContains(_replacingTreeNode.Segment.SubSegments, selectedNode.Segment))
 				{
-					SegmentTreeNode replacingNodeParent = (SegmentTreeNode)_replacingTreeNode.Parent;
+					CircuitTreeView.SelectedNode = selectedNode;
 					var replacingNode = _replacingTreeNode;
 
-					replacingNodeParent.Nodes.Remove(_replacingTreeNode);
 					replacingNodeParent.Segment.SubSegments.Remove(_replacingTreeNode.Segment);
+					replacingNodeParent.Nodes.Remove(_replacingTreeNode);
 
 					selectedNode.Segment.SubSegments.Add(replacingNode.Segment);
 					selectedNode.Nodes.Add(replacingNode);
@@ -361,31 +375,152 @@ namespace ImpedanceCalculatorUI
 
 		private void RemoveNode(SegmentTreeNode removingNode)
 		{
-			SegmentTreeNode selectedNode = (SegmentTreeNode)CircuitTreeView.SelectedNode;
-			SegmentTreeNode selectedNodeParent =
-				(SegmentTreeNode)CircuitTreeView.SelectedNode.Parent;
+			var selectedNode = (SegmentTreeNode)CircuitTreeView.SelectedNode;
 
-			selectedNodeParent.Segment.SubSegments.Remove(selectedNode.Segment);
-			CircuitTreeView.Nodes.Remove(selectedNode);
-
-			SegmentTreeNode selectedNodeGrandParent =
-				(SegmentTreeNode)selectedNodeParent.Parent;
-
-			if (selectedNodeParent.Segment.SubSegments.Count < 2)
+			if(selectedNode.Segment == _project.Circuits[CircuitsComboBox.SelectedIndex])
 			{
-				var lastElement = selectedNodeParent.Segment.SubSegments[0];
-				var lastNode = selectedNodeParent.Nodes[0];
-
-				selectedNodeGrandParent.Segment.SubSegments.Remove(lastElement);
-				selectedNodeGrandParent.Nodes.Remove(lastNode);
-
-				selectedNodeGrandParent.Segment.SubSegments.Add(lastElement);
-				selectedNodeGrandParent.Nodes.Add(lastNode);
-
-				_project.Circuits[CircuitsComboBox.SelectedIndex].SubSegments.Remove(selectedNodeParent.Segment);
-				CircuitTreeView.Nodes.Remove(selectedNodeParent);
+				if (MessageBox.Show($"Do you really want remove circuit{selectedNode.Text}?", "Circuit removing",
+					MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+				{
+					_project.Circuits.RemoveAt(CircuitsComboBox.SelectedIndex);
+					RefreshLists();
+					if (_project.Circuits.Count > 0)
+					{
+						CircuitsComboBox.SelectedIndex = 0;
+					}
+				}
+				else
+				{
+					return;
+				}
 			}
+			else
+			{
+				var selectedNodeParent = 
+					(SegmentTreeNode)CircuitTreeView.SelectedNode.Parent;
+
+				selectedNodeParent.Segment.SubSegments.Remove(selectedNode.Segment);
+				selectedNodeParent.Nodes.Remove(selectedNode);
+
+				if(selectedNodeParent.Nodes.Count < 2)
+				{
+					var selectedNodeGrandParent = (SegmentTreeNode)selectedNodeParent.Parent;
+
+					if(selectedNodeGrandParent != null)
+					{
+						var lastElement = (SegmentTreeNode)selectedNodeParent.Nodes[0];
+
+						selectedNodeGrandParent.Segment.SubSegments.Remove(selectedNodeParent.Segment);
+						selectedNodeGrandParent.Nodes.Remove(selectedNodeParent);
+
+						selectedNodeGrandParent.Segment.SubSegments.Add(lastElement.Segment);
+						selectedNodeGrandParent.Nodes.Add(lastElement);
+					}
+				}
+			}			
 		}
 
+		/// <summary>
+		/// Метод, определяющий содержится в узле другой узел
+		/// </summary>
+		/// <param name="parentSegment"></param>
+		/// <param name="foundSegment"></param>
+		/// <returns></returns>
+		private bool IsNodeContains(List<ISegment> parentSegment, ISegment foundSegment)
+		{
+			if (parentSegment != null)
+			{
+				foreach (var segment in parentSegment)
+				{
+					if (segment is Element)
+					{
+						if (segment == foundSegment)
+						{
+							return true;
+						}
+					}
+					else
+					{
+						IsNodeContains(segment.SubSegments, foundSegment);
+					}
+				}
+			}
+			return false;
+		}
+
+		/// <summary>
+		/// Метод обновления дерева цепей
+		/// </summary>
+		private void RefreshCircuitTree()
+		{
+			CircuitTreeView.Nodes.Clear();
+
+			var baseNode = new SegmentTreeNode(_project.Circuits[CircuitsComboBox.SelectedIndex]);
+			CircuitTreeViewDataBind(baseNode, _project.Circuits[CircuitsComboBox.SelectedIndex].SubSegments);
+			CircuitTreeView.Nodes.Add(baseNode);
+		}
+
+		/// <summary>
+		/// Метод добавления нового элемента к последовательной цепи параллельно
+		/// </summary>
+		/// <param name="element"></param>
+		/// <param name="selectedSegment"></param>
+		/// <param name="nodeParent"></param>
+		private void AddParallel(Element element, SegmentTreeNode selectedSegment, SegmentTreeNode nodeParent)
+		{
+			ParallelCircuit parallelSegment = new ParallelCircuit();
+			parallelSegment.Name = "ParallelSegment";
+			parallelSegment.SubSegments.Add(element);
+			parallelSegment.SubSegments.Add(selectedSegment.Segment);
+			SegmentTreeNode newNode = new SegmentTreeNode(parallelSegment);
+
+			nodeParent.Segment.SubSegments.Remove(selectedSegment.Segment);
+			nodeParent.Segment.SubSegments.Add(parallelSegment);
+
+			CircuitTreeViewDataBind(newNode, parallelSegment.SubSegments);
+			nodeParent.Nodes.Remove(selectedSegment);
+			nodeParent.Nodes.Add(newNode);
+		}
+
+		/// <summary>
+		/// Метод добавления нового элемента в параллельную цеь последовательно
+		/// </summary>
+		/// <param name="element"></param>
+		/// <param name="selectedSegment"></param>
+		/// <param name="nodeParent"></param>
+		private void AddSerial(Element element, SegmentTreeNode selectedSegment, SegmentTreeNode nodeParent)
+		{
+			var serialSegment = new SerialCircuit();
+			serialSegment.Name = "SerialSegment";
+			serialSegment.SubSegments.Add(element);
+			serialSegment.SubSegments.Add(selectedSegment.Segment);
+			var newNode = new SegmentTreeNode(serialSegment);
+
+			nodeParent.Segment.SubSegments.Remove(selectedSegment.Segment);
+			nodeParent.Segment.SubSegments.Add(serialSegment);
+
+			CircuitTreeViewDataBind(newNode, serialSegment.SubSegments);
+			nodeParent.Nodes.Remove(selectedSegment);
+			nodeParent.Nodes.Add(newNode);
+		}
+
+		/// <summary>
+		/// Метод обновления списков
+		/// </summary>
+		private void RefreshLists()
+		{
+			FrequenciesListBox.DataSource = null;
+			FrequenciesListBox.DataSource = _project.Frequencies;
+
+			CircuitsComboBox.DataSource = null;
+			CircuitsComboBox.DataSource = _project.Circuits;
+			CircuitsComboBox.DisplayMember = "Name";
+
+			ImpedanceListBox.Items.Clear();
+			foreach (var impedance in _project.Impendances)
+			{
+				ImpedanceListBox.Items.Add($"{impedance.Real} + {impedance.Imaginary} i");
+			}
+		}
 	}
 }

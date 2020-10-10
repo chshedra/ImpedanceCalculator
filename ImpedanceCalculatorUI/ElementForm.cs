@@ -18,6 +18,8 @@ namespace ImpedanceCalculatorUI
 		/// </summary>
 		private Element _element;
 
+		private bool _isAdd;
+
 		/// <summary>
 		/// Возвращает и устанавливает значение _element
 		/// </summary>
@@ -55,6 +57,22 @@ namespace ImpedanceCalculatorUI
 		/// Возвращает и устанавливает булеву переменную, проверяющую тип соединения
 		/// </summary>
 		public bool IsSerial { get; set; }
+
+		/// <summary>
+		/// Возвращает и устанавливает булеву переменную, проверяющую для какого действия вызвана форма
+		/// </summary>
+		public bool IsAdd
+		{
+			get
+			{
+				return _isAdd;
+			}
+			set
+			{
+				_isAdd = value;
+				AddGroupBox.Visible = _isAdd;
+			}
+		}
 
 		public ElementForm()
 		{
