@@ -59,6 +59,7 @@
     <Compile Include="ElementForm.Designer.cs">
       <DependentUpon>ElementForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InputValidation.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -35,13 +35,11 @@
 			this.OkButton = new System.Windows.Forms.Button();
 			this.CancelEditButton = new System.Windows.Forms.Button();
 			this.ElementTypeGroupBox = new System.Windows.Forms.GroupBox();
-			this.CRadioButton = new System.Windows.Forms.RadioButton();
-			this.LRadioButton = new System.Windows.Forms.RadioButton();
-			this.RRadioButton = new System.Windows.Forms.RadioButton();
 			this.MeasurementLabel = new System.Windows.Forms.Label();
 			this.AddGroupBox = new System.Windows.Forms.GroupBox();
 			this.AddParallelRadioButton = new System.Windows.Forms.RadioButton();
 			this.AddSerialRadioButton = new System.Windows.Forms.RadioButton();
+			this.ElementTypeComboBox = new System.Windows.Forms.ComboBox();
 			this.ElementTypeGroupBox.SuspendLayout();
 			this.AddGroupBox.SuspendLayout();
 			this.SuspendLayout();
@@ -101,48 +99,13 @@
 			// 
 			// ElementTypeGroupBox
 			// 
-			this.ElementTypeGroupBox.Controls.Add(this.CRadioButton);
-			this.ElementTypeGroupBox.Controls.Add(this.LRadioButton);
-			this.ElementTypeGroupBox.Controls.Add(this.RRadioButton);
+			this.ElementTypeGroupBox.Controls.Add(this.ElementTypeComboBox);
 			this.ElementTypeGroupBox.Location = new System.Drawing.Point(16, 11);
 			this.ElementTypeGroupBox.Name = "ElementTypeGroupBox";
-			this.ElementTypeGroupBox.Size = new System.Drawing.Size(222, 40);
+			this.ElementTypeGroupBox.Size = new System.Drawing.Size(129, 40);
 			this.ElementTypeGroupBox.TabIndex = 7;
 			this.ElementTypeGroupBox.TabStop = false;
 			this.ElementTypeGroupBox.Text = "Type";
-			// 
-			// CRadioButton
-			// 
-			this.CRadioButton.AutoSize = true;
-			this.CRadioButton.Location = new System.Drawing.Point(146, 17);
-			this.CRadioButton.Name = "CRadioButton";
-			this.CRadioButton.Size = new System.Drawing.Size(32, 17);
-			this.CRadioButton.TabIndex = 2;
-			this.CRadioButton.TabStop = true;
-			this.CRadioButton.Text = "C";
-			this.CRadioButton.UseVisualStyleBackColor = true;
-			// 
-			// LRadioButton
-			// 
-			this.LRadioButton.AutoSize = true;
-			this.LRadioButton.Location = new System.Drawing.Point(82, 17);
-			this.LRadioButton.Name = "LRadioButton";
-			this.LRadioButton.Size = new System.Drawing.Size(31, 17);
-			this.LRadioButton.TabIndex = 1;
-			this.LRadioButton.TabStop = true;
-			this.LRadioButton.Text = "L";
-			this.LRadioButton.UseVisualStyleBackColor = true;
-			// 
-			// RRadioButton
-			// 
-			this.RRadioButton.AutoSize = true;
-			this.RRadioButton.Location = new System.Drawing.Point(8, 17);
-			this.RRadioButton.Name = "RRadioButton";
-			this.RRadioButton.Size = new System.Drawing.Size(33, 17);
-			this.RRadioButton.TabIndex = 0;
-			this.RRadioButton.TabStop = true;
-			this.RRadioButton.Text = "R";
-			this.RRadioButton.UseVisualStyleBackColor = true;
 			// 
 			// MeasurementLabel
 			// 
@@ -185,6 +148,14 @@
 			this.AddSerialRadioButton.Text = "Serial";
 			this.AddSerialRadioButton.UseVisualStyleBackColor = true;
 			// 
+			// ElementTypeComboBox
+			// 
+			this.ElementTypeComboBox.FormattingEnabled = true;
+			this.ElementTypeComboBox.Location = new System.Drawing.Point(0, 19);
+			this.ElementTypeComboBox.Name = "ElementTypeComboBox";
+			this.ElementTypeComboBox.Size = new System.Drawing.Size(129, 21);
+			this.ElementTypeComboBox.TabIndex = 0;
+			// 
 			// ElementForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -202,7 +173,6 @@
 			this.Name = "ElementForm";
 			this.Text = "AddEditForm";
 			this.ElementTypeGroupBox.ResumeLayout(false);
-			this.ElementTypeGroupBox.PerformLayout();
 			this.AddGroupBox.ResumeLayout(false);
 			this.AddGroupBox.PerformLayout();
 			this.ResumeLayout(false);
@@ -219,12 +189,10 @@
 		private System.Windows.Forms.Button OkButton;
 		private System.Windows.Forms.Button CancelEditButton;
 		private System.Windows.Forms.GroupBox ElementTypeGroupBox;
-		private System.Windows.Forms.RadioButton CRadioButton;
-		private System.Windows.Forms.RadioButton LRadioButton;
-		private System.Windows.Forms.RadioButton RRadioButton;
 		private System.Windows.Forms.Label MeasurementLabel;
 		private System.Windows.Forms.GroupBox AddGroupBox;
 		private System.Windows.Forms.RadioButton AddParallelRadioButton;
 		private System.Windows.Forms.RadioButton AddSerialRadioButton;
+		private System.Windows.Forms.ComboBox ElementTypeComboBox;
 	}
 }

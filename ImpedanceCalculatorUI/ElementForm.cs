@@ -7,12 +7,15 @@ namespace ImpedanceCalculatorUI
 {
 	public partial class ElementForm : Form
 	{
+		private readonly InputValidation _inputValidation = new InputValidation();
 		/// <summary>
 		/// Объект класса Element для добавлеия или редактирования элемента цепи
 		/// </summary>
 		private Element _element;
 
-		 //TODO: RSDN
+		 /// <summary>
+		 /// Определяющая для чего была создана форма
+		 /// </summary>
 		private bool _isAdd;
 
 		/// <summary>
@@ -35,17 +38,17 @@ namespace ImpedanceCalculatorUI
 					{
 						case Resistor resistor:
 						{
-							RRadioButton.Checked = true;
+							ElementTypeComboBox.SelectedItem = "R";
 							break;
 						}
 						case Capacitor capacitor:
 						{
-							CRadioButton.Checked = true;
-							break;
+							ElementTypeComboBox.SelectedItem = "C";
+								break;
 						}
 						case Inductor inductor:
 						{
-							LRadioButton.Checked = true;
+							ElementTypeComboBox.SelectedItem = "L";
 							break;
 						}
 					}
@@ -78,24 +81,28 @@ namespace ImpedanceCalculatorUI
 		{
 			InitializeComponent();
 
-			RRadioButton.Checked = true;
+			ElementTypeComboBox.Items.Add("R");
+			ElementTypeComboBox.Items.Add("L");
+			ElementTypeComboBox.Items.Add("C");
+
+			ElementTypeComboBox.SelectedIndex = 0;
 			AddSerialRadioButton.Checked = true;
 		}
 
 		private void OkButton_Click(object sender, EventArgs e)
 		{
 			double etalon = 0.0;
-			//TODO: Duplication
+			//TODO: +Duplication
 			if (!double.TryParse(EditValueTextBox.Text, out etalon) ||
 				String.IsNullOrWhiteSpace(EditValueTextBox.Text))
 			{
-				MessageBox.Show("Value must have numerical format", "Incorrect format",
-					MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				_inputValidation.ShowWarningMessageBox("Value must have numerical format",
+					"Incorrect format");
 			}
 			else if (double.Parse(EditValueTextBox.Text) < 0)
 			{
-				MessageBox.Show("Value must have positive value", "Negative value",
-				MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				_inputValidation.ShowWarningMessageBox("Value must have positive value",
+					"Negative value");
 			}
 			else
 			{
@@ -109,17 +116,29 @@ namespace ImpedanceCalculatorUI
 					IsSerial = false;
 				}
 
-				if (RRadioButton.Checked)
+				switch (ElementTypeComboBox.SelectedItem.ToString())
 				{
-					_element = new Resistor(EditNameTextBox.Text, double.Parse(EditValueTextBox.Text));
-				}
-				else if (LRadioButton.Checked)
-				{
-					_element = new Inductor(EditNameTextBox.Text, double.Parse(EditValueTextBox.Text));
-				}
-				else if (CRadioButton.Checked)
-				{
-					_element = new Capacitor(EditNameTextBox.Text, double.Parse(EditValueTextBox.Text));
+					case "R":
+					{
+						_element = new Resistor(EditNameTextBox.Text, 
+							double.Parse(EditValueTextBox.Text));
+
+						break;
+					}
+					case "L":
+					{
+						_element = new Inductor(EditNameTextBox.Text, 
+							double.Parse(EditValueTextBox.Text));
+
+						break;
+					}
+					case "C":
+					{
+						_element = new Capacitor(EditNameTextBox.Text, 
+							double.Parse(EditValueTextBox.Text));
+
+						break;
+					}
 				}
 
 				DialogResult = DialogResult.OK;
@@ -135,11 +154,8 @@ namespace ImpedanceCalculatorUI
 
 		private void EditValueTextBox_TextChanged(object sender, EventArgs e)
 		{
-			//TODO: Дубль
-			double etalon = 0.0;
-			EditValueTextBox.BackColor = (double.TryParse(EditValueTextBox.Text, out etalon))
-			 ? Color.White
-			 : Color.IndianRed;
+			//TODO: +Дубль
+			_inputValidation.CheckTextBoxValue(EditValueTextBox);
 		}
 	}
 }

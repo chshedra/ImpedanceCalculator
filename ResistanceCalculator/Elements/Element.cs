@@ -53,10 +53,7 @@ namespace ImpedanceCalculator
 		/// </summary>
 		public double Value
 		{
-			get
-			{
-				return _value;
-			}
+			get => _value;
 			set
 			{
 				if (value < 0)

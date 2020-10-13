@@ -101,7 +101,7 @@
 			this.FrequenciesListBox.Name = "FrequenciesListBox";
 			this.FrequenciesListBox.Size = new System.Drawing.Size(186, 95);
 			this.FrequenciesListBox.TabIndex = 2;
-			this.FrequenciesListBox.SelectedIndexChanged += new System.EventHandler(this.FrequenceListBox_SelectedIndexChanged);
+			this.FrequenciesListBox.SelectedIndexChanged += new System.EventHandler(this.ListBoxes_SelectedIndexChanged);
 			this.FrequenciesListBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FrequenciesListBox_MouseDown);
 			// 
 			// ImpedanceListBox
@@ -111,7 +111,7 @@
 			this.ImpedanceListBox.Name = "ImpedanceListBox";
 			this.ImpedanceListBox.Size = new System.Drawing.Size(202, 95);
 			this.ImpedanceListBox.TabIndex = 3;
-			this.ImpedanceListBox.SelectedIndexChanged += new System.EventHandler(this.ImpedanceListBox_SelectedIndexChanged);
+			this.ImpedanceListBox.SelectedIndexChanged += new System.EventHandler(this.ListBoxes_SelectedIndexChanged);
 			// 
 			// CalculateButton
 			// 

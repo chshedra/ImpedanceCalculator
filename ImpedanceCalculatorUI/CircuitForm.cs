@@ -18,7 +18,10 @@ namespace ImpedanceCalculatorUI
 		/// </summary>
 		private Circuit _circuit;
 
-		 //TODO: RSDN
+		 //TODO:+ RSDN
+		 /// <summary>
+		 /// Определяет, для чего была создана форма
+		 /// </summary>
 		private bool _isAdd;
 
 		/// <summary>
