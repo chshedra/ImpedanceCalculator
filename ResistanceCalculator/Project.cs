@@ -32,7 +32,7 @@ namespace ImpedanceCalculator
 		public List<ISegment> Circuits
 		{
 			get =>  _circuits;
-			
+			//TODO: Непонятно, зачем нужен set
 			set
 			{
 				if (value == null)
@@ -50,7 +50,7 @@ namespace ImpedanceCalculator
 		public List<double> Frequencies
 		{
 			get => _frequencies;
-
+            //TODO: Непонятно, зачем нужен set
 			set
 			{
 				if (value == null)
@@ -70,7 +70,7 @@ namespace ImpedanceCalculator
 		public List<Complex> Impendances
 		{
 			get => _impedances;
-
+            //TODO: Непонятно, зачем нужен set
 			set
 			{
 				if (value == null)

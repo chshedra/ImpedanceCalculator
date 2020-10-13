@@ -18,6 +18,7 @@ namespace ImpedanceCalculatorUI
 		/// </summary>
 		private Element _element;
 
+		 //TODO: RSDN
 		private bool _isAdd;
 
 		/// <summary>
@@ -37,6 +38,7 @@ namespace ImpedanceCalculatorUI
 					EditNameTextBox.Text = _element.Name;
 					EditValueTextBox.Text = _element.Value.ToString();
 
+					//TODO: В switch с определениями типов
 					if(_element is Resistor)
 					{
 						RRadioButton.Checked = true;
@@ -85,6 +87,7 @@ namespace ImpedanceCalculatorUI
 		private void OkButton_Click(object sender, EventArgs e)
 		{
 			double etalon = 0.0;
+			//TODO: Duplication
 			if (!double.TryParse(EditValueTextBox.Text, out etalon) ||
 				String.IsNullOrWhiteSpace(EditValueTextBox.Text))
 			{
@@ -98,6 +101,7 @@ namespace ImpedanceCalculatorUI
 			}
 			else
 			{
+				//TODO: Опустить true
 				if (AddSerialRadioButton.Checked == true)
 				{
 					IsSerial = true;
@@ -133,6 +137,7 @@ namespace ImpedanceCalculatorUI
 
 		private void EditValueTextBox_TextChanged(object sender, EventArgs e)
 		{
+			//TODO: Дубль
 			double etalon = 0.0;
 			EditValueTextBox.BackColor = (double.TryParse(EditValueTextBox.Text, out etalon))
 			 ? Color.White

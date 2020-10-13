@@ -18,6 +18,7 @@ namespace ImpedanceCalculatorUI
 		/// </summary>
 		private Circuit _circuit;
 
+		 //TODO: RSDN
 		private bool _isAdd;
 
 		/// <summary>
@@ -71,6 +72,7 @@ namespace ImpedanceCalculatorUI
 			else
 			{
 				Circuit newCircuit = null;
+				//TODO: Опустить true
 				if(SerialConnectionRadioButton.Checked == true)
 				{
 					 newCircuit = new SerialCircuit(new List<ISegment>(), CircuitNameTextBox.Text);

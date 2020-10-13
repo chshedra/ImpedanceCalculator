@@ -9,7 +9,9 @@ namespace ImpedanceCalculatorUI
 {
 	public partial class MainForm : Form
 	{
+		 //TODO: RSDN
 		private readonly Project _project;
+		 //TODO: RSDN
 		private SegmentTreeNode _replacingTreeNode;
 
 		public MainForm()
@@ -23,6 +25,7 @@ namespace ImpedanceCalculatorUI
 			FrequenciesListBox.DataSource = _project.Frequencies;
 		}
 
+		//TODO: Можно привести к одному обработчику, выполнив типизацию sender-a
 		private void FrequenceListBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			ImpedanceListBox.SelectedIndex = FrequenciesListBox.SelectedIndex;
@@ -54,7 +57,7 @@ namespace ImpedanceCalculatorUI
 		private void CalculateButton_Click(object sender, EventArgs e)
 		{
 			double etalon = 0.0;
-
+			//TODO: Duplication
 			if (!double.TryParse(FrequencyTextBox.Text, out etalon))
 			{
 				MessageBox.Show("Frequency must have numerical format", "Incorrect format",
@@ -96,6 +99,7 @@ namespace ImpedanceCalculatorUI
 
 		private void FrequencyTextBox_TextChanged(object sender, EventArgs e)
 		{
+            //TODO: Дубль
 			double etalon = 0.0;
 			FrequencyTextBox.BackColor = (double.TryParse(FrequencyTextBox.Text, out etalon))
 			 ? Color.White
@@ -132,6 +136,8 @@ namespace ImpedanceCalculatorUI
 				{
 					if (selectedNode.Segment is SerialCircuit)
 					{
+						//TODO: Duplication
+						//TODO: Опустить true
 						if (addForm.IsSerial == true)
 						{
 							selectedNode.Segment.SubSegments.Add(addForm.Element);
@@ -158,6 +164,7 @@ namespace ImpedanceCalculatorUI
 					}
 					else if (selectedNode.Segment is ParallelCircuit)
 					{
+						//TODO: Duplication
 						if (addForm.IsSerial == false)
 						{
 							selectedNode.Segment.SubSegments.Add(addForm.Element);
@@ -186,6 +193,7 @@ namespace ImpedanceCalculatorUI
 				}
 				else if (selectedNode.Segment is Element)
 				{
+					//TODO: В switch c определением типов
 					if (selectedNodeParent.Segment is SerialCircuit)
 					{
 						if (addForm.IsSerial == true)
@@ -216,6 +224,7 @@ namespace ImpedanceCalculatorUI
 		private void EditToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			var selectedNode = (SegmentTreeNode)CircuitTreeView.SelectedNode;
+            //TODO: В switch c определением типов
 			if (selectedNode.Segment is Element)
 			{
 				var editElement = (Element) selectedNode.Segment;
@@ -256,6 +265,7 @@ namespace ImpedanceCalculatorUI
 		{
 			var selectedNode = (SegmentTreeNode)CircuitTreeView.SelectedNode;
 
+            //TODO: В switch c определением типов
 			if (selectedNode.Segment is Element)
 			{
 				var selectedElement = (Element)selectedNode.Segment;
@@ -264,6 +274,7 @@ namespace ImpedanceCalculatorUI
 			} else if (selectedNode.Segment is Circuit)
 			{
 				string type = "";
+                //TODO: В switch c определением типов
 				if (selectedNode.Segment is SerialCircuit)
 				{
 					type = "Serial";
@@ -300,6 +311,7 @@ namespace ImpedanceCalculatorUI
 
 		private void CircuitTreeView_MouseDown(object sender, MouseEventArgs e)
 		{
+            //TODO: В switch
 			if (e.Button == MouseButtons.Right)
 			{
 				var selectedNode = (SegmentTreeNode)CircuitTreeView.GetNodeAt(e.X, e.Y);
@@ -402,12 +414,14 @@ namespace ImpedanceCalculatorUI
 				selectedNodeParent.Segment.SubSegments.Remove(selectedNode.Segment);
 				selectedNodeParent.Nodes.Remove(selectedNode);
 
+				//TODO: Что за двойка? Почему двойка?
 				if(selectedNodeParent.Nodes.Count < 2)
 				{
 					var selectedNodeGrandParent = (SegmentTreeNode)selectedNodeParent.Parent;
 
 					if(selectedNodeGrandParent != null)
 					{
+						 //TODO: RSDN - длины строк
 						var lastElement = (SegmentTreeNode)selectedNodeParent.Nodes[0];
 
 						selectedNodeGrandParent.Segment.SubSegments.Remove(selectedNodeParent.Segment);
@@ -468,15 +482,17 @@ namespace ImpedanceCalculatorUI
 		/// <param name="nodeParent"></param>
 		private void AddParallel(Element element, SegmentTreeNode selectedSegment, SegmentTreeNode nodeParent)
 		{
-			ParallelCircuit parallelSegment = new ParallelCircuit();
-			parallelSegment.Name = "ParallelSegment";
-			parallelSegment.SubSegments.Add(element);
+			//TODO: Duplication
+            ParallelCircuit parallelSegment = new ParallelCircuit
+            {
+                Name = "ParallelSegment"
+            };
+            parallelSegment.SubSegments.Add(element);
 			parallelSegment.SubSegments.Add(selectedSegment.Segment);
-			SegmentTreeNode newNode = new SegmentTreeNode(parallelSegment);
-
 			nodeParent.Segment.SubSegments.Remove(selectedSegment.Segment);
 			nodeParent.Segment.SubSegments.Add(parallelSegment);
 
+            SegmentTreeNode newNode = new SegmentTreeNode(parallelSegment);
 			CircuitTreeViewDataBind(newNode, parallelSegment.SubSegments);
 			nodeParent.Nodes.Remove(selectedSegment);
 			nodeParent.Nodes.Add(newNode);
@@ -490,6 +506,7 @@ namespace ImpedanceCalculatorUI
 		/// <param name="nodeParent"></param>
 		private void AddSerial(Element element, SegmentTreeNode selectedSegment, SegmentTreeNode nodeParent)
 		{
+			//TODO: Duplication
 			var serialSegment = new SerialCircuit();
 			serialSegment.Name = "SerialSegment";
 			serialSegment.SubSegments.Add(element);
