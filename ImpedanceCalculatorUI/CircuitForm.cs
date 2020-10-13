@@ -72,8 +72,8 @@ namespace ImpedanceCalculatorUI
 			else
 			{
 				Circuit newCircuit = null;
-				//TODO: Опустить true
-				if(SerialConnectionRadioButton.Checked == true)
+				//TODO: +Опустить true
+				if(SerialConnectionRadioButton.Checked)
 				{
 					 newCircuit = new SerialCircuit(new List<ISegment>(), CircuitNameTextBox.Text);
 				}

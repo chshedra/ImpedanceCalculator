@@ -88,7 +88,7 @@
 			// 
 			// FrequencyTextBox
 			// 
-			this.FrequencyTextBox.Location = new System.Drawing.Point(66, 114);
+			this.FrequencyTextBox.Location = new System.Drawing.Point(66, 115);
 			this.FrequencyTextBox.Name = "FrequencyTextBox";
 			this.FrequencyTextBox.Size = new System.Drawing.Size(120, 20);
 			this.FrequencyTextBox.TabIndex = 6;
@@ -115,9 +115,9 @@
 			// 
 			// CalculateButton
 			// 
-			this.CalculateButton.Location = new System.Drawing.Point(0, 112);
+			this.CalculateButton.Location = new System.Drawing.Point(0, 114);
 			this.CalculateButton.Name = "CalculateButton";
-			this.CalculateButton.Size = new System.Drawing.Size(202, 23);
+			this.CalculateButton.Size = new System.Drawing.Size(202, 25);
 			this.CalculateButton.TabIndex = 8;
 			this.CalculateButton.Text = "Calculate";
 			this.CalculateButton.UseVisualStyleBackColor = true;
@@ -179,7 +179,7 @@
 			this.FrequenciesGroupBox.Controls.Add(this.FrequencyLabel);
 			this.FrequenciesGroupBox.Location = new System.Drawing.Point(377, 323);
 			this.FrequenciesGroupBox.Name = "FrequenciesGroupBox";
-			this.FrequenciesGroupBox.Size = new System.Drawing.Size(186, 136);
+			this.FrequenciesGroupBox.Size = new System.Drawing.Size(186, 140);
 			this.FrequenciesGroupBox.TabIndex = 15;
 			this.FrequenciesGroupBox.TabStop = false;
 			this.FrequenciesGroupBox.Text = "Frequencies";
@@ -190,7 +190,7 @@
 			this.ImpendancesGroupBox.Controls.Add(this.CalculateButton);
 			this.ImpendancesGroupBox.Location = new System.Drawing.Point(569, 324);
 			this.ImpendancesGroupBox.Name = "ImpendancesGroupBox";
-			this.ImpendancesGroupBox.Size = new System.Drawing.Size(202, 135);
+			this.ImpendancesGroupBox.Size = new System.Drawing.Size(202, 139);
 			this.ImpendancesGroupBox.TabIndex = 16;
 			this.ImpendancesGroupBox.TabStop = false;
 			this.ImpendancesGroupBox.Text = "Impednces";
@@ -200,14 +200,14 @@
 			this.ElementInfoGroupBox.Controls.Add(this.ElementInfoTextbox);
 			this.ElementInfoGroupBox.Location = new System.Drawing.Point(195, 323);
 			this.ElementInfoGroupBox.Name = "ElementInfoGroupBox";
-			this.ElementInfoGroupBox.Size = new System.Drawing.Size(176, 136);
+			this.ElementInfoGroupBox.Size = new System.Drawing.Size(176, 140);
 			this.ElementInfoGroupBox.TabIndex = 17;
 			this.ElementInfoGroupBox.TabStop = false;
 			this.ElementInfoGroupBox.Text = "Information";
 			// 
 			// AddCircuitButton
 			// 
-			this.AddCircuitButton.Location = new System.Drawing.Point(13, 434);
+			this.AddCircuitButton.Location = new System.Drawing.Point(12, 438);
 			this.AddCircuitButton.Name = "AddCircuitButton";
 			this.AddCircuitButton.Size = new System.Drawing.Size(177, 25);
 			this.AddCircuitButton.TabIndex = 18;
@@ -233,7 +233,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(782, 464);
+			this.ClientSize = new System.Drawing.Size(782, 474);
 			this.Controls.Add(this.AddCircuitButton);
 			this.Controls.Add(this.ElementInfoGroupBox);
 			this.Controls.Add(this.ImpendancesGroupBox);

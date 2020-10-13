@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ImpedanceCalculator;
 
@@ -26,10 +20,8 @@ namespace ImpedanceCalculatorUI
 		/// </summary>
 		public Element Element
 		{
-			get
-			{
-				return _element;
-			}
+			get => _element;
+
 			set
 			{
 				_element = value;
@@ -38,18 +30,24 @@ namespace ImpedanceCalculatorUI
 					EditNameTextBox.Text = _element.Name;
 					EditValueTextBox.Text = _element.Value.ToString();
 
-					//TODO: В switch с определениями типов
-					if(_element is Resistor)
+					//TODO: +В switch с определениями типов
+					switch (_element)
 					{
-						RRadioButton.Checked = true;
-					}
-					else if(_element is Capacitor)
-					{
-						CRadioButton.Checked = true;
-					}
-					else if(_element is Inductor)
-					{
-						LRadioButton.Checked = true;
+						case Resistor resistor:
+						{
+							RRadioButton.Checked = true;
+							break;
+						}
+						case Capacitor capacitor:
+						{
+							CRadioButton.Checked = true;
+							break;
+						}
+						case Inductor inductor:
+						{
+							LRadioButton.Checked = true;
+							break;
+						}
 					}
 				}
 			}
@@ -101,25 +99,25 @@ namespace ImpedanceCalculatorUI
 			}
 			else
 			{
-				//TODO: Опустить true
-				if (AddSerialRadioButton.Checked == true)
+				//TODO: +Опустить true
+				if (AddSerialRadioButton.Checked)
 				{
 					IsSerial = true;
 				}
-				else if (AddParallelRadioButton.Checked == true)
+				else if (AddParallelRadioButton.Checked)
 				{
 					IsSerial = false;
 				}
 
-				if (RRadioButton.Checked == true)
+				if (RRadioButton.Checked)
 				{
 					_element = new Resistor(EditNameTextBox.Text, double.Parse(EditValueTextBox.Text));
 				}
-				else if (LRadioButton.Checked == true)
+				else if (LRadioButton.Checked)
 				{
 					_element = new Inductor(EditNameTextBox.Text, double.Parse(EditValueTextBox.Text));
 				}
-				else if (CRadioButton.Checked == true)
+				else if (CRadioButton.Checked)
 				{
 					_element = new Capacitor(EditNameTextBox.Text, double.Parse(EditValueTextBox.Text));
 				}
