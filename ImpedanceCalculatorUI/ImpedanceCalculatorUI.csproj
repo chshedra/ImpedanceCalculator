@@ -47,35 +47,44 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CircuitForm.cs">
+    <Compile Include="Controls\CircuitTreeViewControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CircuitTreeViewControl.Designer.cs">
+      <DependentUpon>CircuitTreeViewControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CircuitForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CircuitForm.Designer.cs">
+    <Compile Include="Forms\CircuitForm.Designer.cs">
       <DependentUpon>CircuitForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ElementForm.cs">
+    <Compile Include="Forms\ElementForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ElementForm.Designer.cs">
+    <Compile Include="Forms\ElementForm.Designer.cs">
       <DependentUpon>ElementForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InputValidation.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SegmentTreeNode.cs" />
-    <EmbeddedResource Include="CircuitForm.resx">
+    <EmbeddedResource Include="Controls\CircuitTreeViewControl.resx">
+      <DependentUpon>CircuitTreeViewControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CircuitForm.resx">
       <DependentUpon>CircuitForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ElementForm.resx">
+    <EmbeddedResource Include="Forms\ElementForm.resx">
       <DependentUpon>ElementForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

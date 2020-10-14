@@ -30,7 +30,6 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			this.CircuitPictureBox = new System.Windows.Forms.PictureBox();
-			this.CircuitTreeView = new System.Windows.Forms.TreeView();
 			this.FrequencyLabel = new System.Windows.Forms.Label();
 			this.FrequencyTextBox = new System.Windows.Forms.TextBox();
 			this.FrequenciesListBox = new System.Windows.Forms.ListBox();
@@ -38,18 +37,14 @@
 			this.CalculateButton = new System.Windows.Forms.Button();
 			this.ElementInfoTextbox = new System.Windows.Forms.TextBox();
 			this.CircuitsComboBox = new System.Windows.Forms.ComboBox();
-			this.NodeContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-			this.AddToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.EditToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.RemoveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.FrequenciesGroupBox = new System.Windows.Forms.GroupBox();
 			this.ImpendancesGroupBox = new System.Windows.Forms.GroupBox();
 			this.ElementInfoGroupBox = new System.Windows.Forms.GroupBox();
 			this.AddCircuitButton = new System.Windows.Forms.Button();
 			this.FrequencyContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.RemoveFrequencyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.CircuitTreeView = new ImpedanceCalculatorUI.Controls.CircuitTreeViewControl();
 			((System.ComponentModel.ISupportInitialize)(this.CircuitPictureBox)).BeginInit();
-			this.NodeContextMenu.SuspendLayout();
 			this.FrequenciesGroupBox.SuspendLayout();
 			this.ImpendancesGroupBox.SuspendLayout();
 			this.ElementInfoGroupBox.SuspendLayout();
@@ -66,16 +61,6 @@
 			this.CircuitPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.CircuitPictureBox.TabIndex = 0;
 			this.CircuitPictureBox.TabStop = false;
-			// 
-			// CircuitTreeView
-			// 
-			this.CircuitTreeView.Location = new System.Drawing.Point(12, 39);
-			this.CircuitTreeView.Name = "CircuitTreeView";
-			this.CircuitTreeView.Size = new System.Drawing.Size(177, 393);
-			this.CircuitTreeView.TabIndex = 0;
-			this.CircuitTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.CircuitTreeView_AfterSelect);
-			this.CircuitTreeView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.CircuitTreeView_MouseDown);
-			this.CircuitTreeView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.CircuitTreeView_MouseUp);
 			// 
 			// FrequencyLabel
 			// 
@@ -142,36 +127,6 @@
 			this.CircuitsComboBox.TabIndex = 13;
 			this.CircuitsComboBox.SelectedIndexChanged += new System.EventHandler(this.CircuitsComboBox_SelectedIndexChanged);
 			// 
-			// NodeContextMenu
-			// 
-			this.NodeContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.AddToolStripMenuItem,
-            this.EditToolStripMenuItem,
-            this.RemoveToolStripMenuItem});
-			this.NodeContextMenu.Name = "NodeContextMenu";
-			this.NodeContextMenu.Size = new System.Drawing.Size(118, 70);
-			// 
-			// AddToolStripMenuItem
-			// 
-			this.AddToolStripMenuItem.Name = "AddToolStripMenuItem";
-			this.AddToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
-			this.AddToolStripMenuItem.Text = "Add";
-			this.AddToolStripMenuItem.Click += new System.EventHandler(this.AddToolStripMenuItem_Click);
-			// 
-			// EditToolStripMenuItem
-			// 
-			this.EditToolStripMenuItem.Name = "EditToolStripMenuItem";
-			this.EditToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
-			this.EditToolStripMenuItem.Text = "Edit";
-			this.EditToolStripMenuItem.Click += new System.EventHandler(this.EditToolStripMenuItem_Click);
-			// 
-			// RemoveToolStripMenuItem
-			// 
-			this.RemoveToolStripMenuItem.Name = "RemoveToolStripMenuItem";
-			this.RemoveToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
-			this.RemoveToolStripMenuItem.Text = "Remove";
-			this.RemoveToolStripMenuItem.Click += new System.EventHandler(this.RemoveToolStripMenuItem_Click);
-			// 
 			// FrequenciesGroupBox
 			// 
 			this.FrequenciesGroupBox.Controls.Add(this.FrequenciesListBox);
@@ -209,7 +164,7 @@
 			// 
 			this.AddCircuitButton.Location = new System.Drawing.Point(12, 438);
 			this.AddCircuitButton.Name = "AddCircuitButton";
-			this.AddCircuitButton.Size = new System.Drawing.Size(177, 25);
+			this.AddCircuitButton.Size = new System.Drawing.Size(76, 25);
 			this.AddCircuitButton.TabIndex = 18;
 			this.AddCircuitButton.Text = "Add circuit";
 			this.AddCircuitButton.UseVisualStyleBackColor = true;
@@ -229,22 +184,28 @@
 			this.RemoveFrequencyToolStripMenuItem.Text = "Remove";
 			this.RemoveFrequencyToolStripMenuItem.Click += new System.EventHandler(this.RemoveFrequencyToolStripMenuItem_Click);
 			// 
+			// CircuitTreeView
+			// 
+			this.CircuitTreeView.Location = new System.Drawing.Point(14, 42);
+			this.CircuitTreeView.Name = "CircuitTreeView";
+			this.CircuitTreeView.Size = new System.Drawing.Size(175, 390);
+			this.CircuitTreeView.TabIndex = 19;
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(782, 474);
+			this.Controls.Add(this.CircuitTreeView);
 			this.Controls.Add(this.AddCircuitButton);
 			this.Controls.Add(this.ElementInfoGroupBox);
 			this.Controls.Add(this.ImpendancesGroupBox);
 			this.Controls.Add(this.FrequenciesGroupBox);
 			this.Controls.Add(this.CircuitsComboBox);
-			this.Controls.Add(this.CircuitTreeView);
 			this.Controls.Add(this.CircuitPictureBox);
 			this.Name = "MainForm";
 			this.Text = "ImpedanceCalculator";
 			((System.ComponentModel.ISupportInitialize)(this.CircuitPictureBox)).EndInit();
-			this.NodeContextMenu.ResumeLayout(false);
 			this.FrequenciesGroupBox.ResumeLayout(false);
 			this.FrequenciesGroupBox.PerformLayout();
 			this.ImpendancesGroupBox.ResumeLayout(false);
@@ -257,7 +218,6 @@
 
 		#endregion
 		public System.Windows.Forms.PictureBox CircuitPictureBox;
-		private System.Windows.Forms.TreeView CircuitTreeView;
 		private System.Windows.Forms.Label FrequencyLabel;
 		private System.Windows.Forms.TextBox FrequencyTextBox;
 		private System.Windows.Forms.ListBox FrequenciesListBox;
@@ -265,16 +225,13 @@
 		private System.Windows.Forms.Button CalculateButton;
 		private System.Windows.Forms.TextBox ElementInfoTextbox;
 		private System.Windows.Forms.ComboBox CircuitsComboBox;
-		private System.Windows.Forms.ContextMenuStrip NodeContextMenu;
-		private System.Windows.Forms.ToolStripMenuItem AddToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem EditToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem RemoveToolStripMenuItem;
 		private System.Windows.Forms.GroupBox FrequenciesGroupBox;
 		private System.Windows.Forms.GroupBox ImpendancesGroupBox;
 		private System.Windows.Forms.GroupBox ElementInfoGroupBox;
 		private System.Windows.Forms.Button AddCircuitButton;
 		private System.Windows.Forms.ContextMenuStrip FrequencyContextMenuStrip;
 		private System.Windows.Forms.ToolStripMenuItem RemoveFrequencyToolStripMenuItem;
+		private Controls.CircuitTreeViewControl CircuitTreeView;
 	}
 }
 
