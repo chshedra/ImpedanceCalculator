@@ -152,6 +152,11 @@ namespace ImpedanceCalculatorUI
 			RefreshLists();
 		}
 
+		/// <summary>
+		/// Удаляет выбранную цепь из списка цепей и CircuitComboBox
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void RemoveCircuit(object sender, EventArgs e)
 		{
 			var selectedCircuit = (SegmentTreeNode) sender;

@@ -13,6 +13,9 @@ namespace ImpedanceCalculatorUI.Controls
 {
 	public partial class CircuitTreeViewControl : UserControl
 	{
+		/// <summary>
+		/// Хранит список цепей
+		/// </summary>
 		private Project _project;
 
 		/// <summary>
@@ -20,13 +23,17 @@ namespace ImpedanceCalculatorUI.Controls
 		/// </summary>
 		private SegmentTreeNode _replacingTreeNode;
 
+		/// <summary>
+		/// Конструктор CircuitTreeViewControl
+		/// </summary>
 		public CircuitTreeViewControl()
 		{
 			InitializeComponent();
-
-			
 		}
 
+		/// <summary>
+		/// Устанавливает и возвращает выбранный узел дерева
+		/// </summary>
 		public SegmentTreeNode SelectedNode
 		{
 			get => (SegmentTreeNode)CircuitTreeView.SelectedNode;
@@ -37,6 +44,9 @@ namespace ImpedanceCalculatorUI.Controls
 			}
 		}
 
+		/// <summary>
+		/// Устанавливает и возвращает список узлов дерева
+		/// </summary>
 		public TreeNodeCollection Nodes
 		{
 			get => CircuitTreeView.Nodes;
@@ -47,6 +57,9 @@ namespace ImpedanceCalculatorUI.Controls
 			}
 		}
 
+		/// <summary>
+		/// Событие удаления цепи
+		/// </summary>
 		public event EventHandler CircuitRemoved;
 
 		private void CircuitTreeView_MouseDown(object sender, MouseEventArgs e)
