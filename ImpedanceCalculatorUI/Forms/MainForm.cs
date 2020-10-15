@@ -101,8 +101,14 @@ namespace ImpedanceCalculatorUI
 
 			if (CircuitsComboBox.SelectedIndex > -1)
 			{
-				var selectedCircuit = (Circuit) CircuitsComboBox.SelectedItem;
-				CircuitTreeView.CircuitTreeViewDataBind(new SegmentTreeNode(),  selectedCircuit.SubSegments);
+				var selectedCircuit = _project.Circuits[CircuitsComboBox.SelectedIndex];
+				var selectedCircuitNode = new SegmentTreeNode(selectedCircuit);
+				if (CircuitTreeView.Nodes.Count == 0)
+				{
+					CircuitTreeView.Nodes.Add(selectedCircuitNode);
+				}
+
+				CircuitTreeView.CircuitTreeViewDataBind(selectedCircuitNode,  selectedCircuit.SubSegments);
 			}
 		}
 
@@ -119,9 +125,9 @@ namespace ImpedanceCalculatorUI
 				var circuit = circuitForm.Circuit;
 				_project.Circuits.Add(circuit);
 				RefreshLists();
-				CircuitsComboBox.SelectedIndex = _project.Circuits.IndexOf(circuit);
 				SegmentTreeNode circuitNode = new SegmentTreeNode(circuit);
 				CircuitTreeView.Nodes.Add(circuitNode);
+				CircuitsComboBox.SelectedIndex = _project.Circuits.IndexOf(circuit);
 			}
 		}
 
@@ -170,10 +176,6 @@ namespace ImpedanceCalculatorUI
 					CircuitsComboBox.SelectedIndex = 0;
 				}
 			}
-			else
-			{
-				return;
-			}
 		}
 
 		/// <summary>
@@ -195,6 +197,24 @@ namespace ImpedanceCalculatorUI
 			}
 		}
 
+		private void RemoveCircuitButton_Click(object sender, EventArgs e)
+		{
+			var selectedCircuit = _project.Circuits[CircuitsComboBox.SelectedIndex];
+			if (MessageBox.Show($"Do you really want remove circuit {selectedCircuit.Name}?", "Circuit removing",
+				MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+			{
+				_project.Circuits.RemoveAt(CircuitsComboBox.SelectedIndex);
+				RefreshLists();
+				if (_project.Circuits.Count > 0)
+				{
+					CircuitsComboBox.SelectedIndex = 0;
+				}
+			}
+			else
+			{
+				return;
+			}
+		}
 	}
 
 }

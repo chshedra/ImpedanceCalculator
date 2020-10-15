@@ -69,12 +69,17 @@ namespace ImpedanceCalculatorUI.Controls
 			{
 				case MouseButtons.Right:
 				{
+					removeToolStripMenuItem.Visible = true;
 					var selectedNode = (SegmentTreeNode)CircuitTreeView.GetNodeAt(e.X, e.Y);
 					CircuitTreeView.SelectedNode = selectedNode;
-
 					if (selectedNode == null)
 					{
 						return;
+					}
+
+					if (selectedNode.Parent == null)
+					{
+						removeToolStripMenuItem.Visible = false;
 					}
 
 					NodeContextMenu.Show(PointToScreen(e.Location));
@@ -100,11 +105,12 @@ namespace ImpedanceCalculatorUI.Controls
 				    && selectedNode != replacingNodeParent
 				    && !IsNodeContains(_replacingTreeNode.Segment.SubSegments, selectedNode.Segment))
 				{
-					CircuitTreeView.SelectedNode = selectedNode;
 					var replacingNode = _replacingTreeNode;
+					CircuitTreeView.SelectedNode = selectedNode;
 
-					replacingNodeParent.Segment.SubSegments.Remove(_replacingTreeNode.Segment);
-					replacingNodeParent.Nodes.Remove(_replacingTreeNode);
+					RemoveNode(_replacingTreeNode);
+					//replacingNodeParent.Segment.SubSegments.Remove(_replacingTreeNode.Segment);
+					//replacingNodeParent.Nodes.Remove(_replacingTreeNode);
 
 					selectedNode.Segment.SubSegments.Add(replacingNode.Segment);
 					selectedNode.Nodes.Add(replacingNode);
@@ -184,24 +190,34 @@ namespace ImpedanceCalculatorUI.Controls
 		private void EditToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			var selectedNode = (SegmentTreeNode)CircuitTreeView.SelectedNode;
-			//TODO:+ В switch c определением типов
 
+			//TODO:+ В switch c определением типов
 			switch (selectedNode.Segment)
 			{
 				case Element element:
 					{
-						var editElement = (Element)selectedNode.Segment;
 						var editForm = new ElementForm()
 						{
-							Element = editElement,
+							Element = (Element)selectedNode.Segment,
 							IsAdd = false
 						};
 						editForm.ShowDialog();
 
 						if (editForm.DialogResult == DialogResult.OK)
 						{
-							editElement.Name = editForm.Element.Name;
-							editElement.Value = editForm.Element.Value;
+							var editedElement = editForm.Element;
+							var selectedNodeParent = (SegmentTreeNode)selectedNode.Parent;
+
+							var elementIndex = 
+								selectedNodeParent.Segment.SubSegments.IndexOf(selectedNode.Segment);
+
+							selectedNodeParent.Segment.SubSegments.Remove(selectedNode.Segment);
+							selectedNodeParent.Nodes.Remove(selectedNode);
+
+							selectedNodeParent.Segment.SubSegments.Insert(elementIndex, editedElement);
+							selectedNodeParent.Nodes.
+								Insert(elementIndex, new SegmentTreeNode(editedElement));
+
 							RefreshCircuitTree();
 						}
 
@@ -238,6 +254,11 @@ namespace ImpedanceCalculatorUI.Controls
 			return (SegmentTreeNode)CircuitTreeView.GetNodeAt(x, y);
 		}
 
+		/// <summary>
+		/// Связывает узлы SubSegments с узлами SegmentTreeNode
+		/// </summary>
+		/// <param name="treeNode"></param>
+		/// <param name="segments"></param>
 		public void CircuitTreeViewDataBind(SegmentTreeNode treeNode, List<ISegment> segments)
 		{
 
@@ -296,7 +317,6 @@ namespace ImpedanceCalculatorUI.Controls
 		private void AddCircuitNode(ElementForm addForm, SegmentTreeNode selectedNode,
 			SegmentTreeNode node, SegmentTreeNode selectedNodeParent)
 		{
-
 			if (addForm.IsSerial)
 			{
 				selectedNode.Segment.SubSegments.Add(addForm.Element);
@@ -307,6 +327,7 @@ namespace ImpedanceCalculatorUI.Controls
 				Circuit newSegment;
 				if (selectedNode.Segment is SerialCircuit)
 				{
+
 					newSegment = new ParallelCircuit()
 					{
 						Name = selectedNode.Segment.Name,
@@ -353,39 +374,39 @@ namespace ImpedanceCalculatorUI.Controls
 		/// <param name="removingNode"></param>
 		private void RemoveNode(SegmentTreeNode removingNode)
 		{
-			var selectedNode = (SegmentTreeNode)CircuitTreeView.SelectedNode;
-
-			if (selectedNode.Parent == null)
+			if (removingNode.Parent == null)
 			{
-				CircuitRemoved?.Invoke(selectedNode, EventArgs.Empty);
+				CircuitRemoved?.Invoke(removingNode, EventArgs.Empty);
 			}
 			else
 			{
-				var selectedNodeParent =
-					(SegmentTreeNode)CircuitTreeView.SelectedNode.Parent;
+				var removingNodeParent =
+					(SegmentTreeNode)removingNode.Parent;
 
-				selectedNodeParent.Segment.SubSegments.Remove(selectedNode.Segment);
-				selectedNodeParent.Nodes.Remove(selectedNode);
+				removingNodeParent.Segment.SubSegments.Remove(removingNode.Segment);
+				removingNodeParent.Nodes.Remove(removingNode);
 
 				//TODO:+ Что за двойка? Почему двойка?
-				if (selectedNodeParent.Nodes.Count <= 1)
+				if (removingNodeParent.Nodes.Count <= 1)
 				{
 					var selectedNodeGrandParent =
-						(SegmentTreeNode)selectedNodeParent.Parent;
+						(SegmentTreeNode)removingNodeParent.Parent;
 
 					if (selectedNodeGrandParent != null)
 					{
 						//TODO:+ RSDN длины строк
 						var lastElement =
-							(SegmentTreeNode)selectedNodeParent.Nodes[0];
+							(SegmentTreeNode)removingNodeParent.Nodes[0];
 
-						selectedNodeGrandParent.Segment.SubSegments.Remove(selectedNodeParent.Segment);
-						selectedNodeGrandParent.Nodes.Remove(selectedNodeParent);
+						selectedNodeGrandParent.Segment.SubSegments.Remove(removingNodeParent.Segment);
+						selectedNodeGrandParent.Nodes.Remove(removingNodeParent);
 
 						selectedNodeGrandParent.Segment.SubSegments.Add(lastElement.Segment);
 						selectedNodeGrandParent.Nodes.Add(lastElement);
 					}
 				}
+
+				RefreshCircuitTree();
 			}
 		}
 

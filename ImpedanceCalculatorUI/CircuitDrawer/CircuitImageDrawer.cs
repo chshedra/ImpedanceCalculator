@@ -8,5 +8,6 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
 {
 	public class CircuitImageDrawer
 	{
+
 	}
 }

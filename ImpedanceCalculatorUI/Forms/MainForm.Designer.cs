@@ -29,7 +29,6 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			this.CircuitPictureBox = new System.Windows.Forms.PictureBox();
 			this.FrequencyLabel = new System.Windows.Forms.Label();
 			this.FrequencyTextBox = new System.Windows.Forms.TextBox();
 			this.FrequenciesListBox = new System.Windows.Forms.ListBox();
@@ -40,27 +39,18 @@
 			this.FrequenciesGroupBox = new System.Windows.Forms.GroupBox();
 			this.ImpendancesGroupBox = new System.Windows.Forms.GroupBox();
 			this.ElementInfoGroupBox = new System.Windows.Forms.GroupBox();
-			this.AddCircuitButton = new System.Windows.Forms.Button();
 			this.FrequencyContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.RemoveFrequencyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.CircuitTreeView = new ImpedanceCalculatorUI.Controls.CircuitTreeViewControl();
-			((System.ComponentModel.ISupportInitialize)(this.CircuitPictureBox)).BeginInit();
+			this.RemoveCircuitButton = new System.Windows.Forms.Button();
+			this.AddCircuitButton = new System.Windows.Forms.Button();
+			this.CircuitPictureBox = new System.Windows.Forms.PictureBox();
 			this.FrequenciesGroupBox.SuspendLayout();
 			this.ImpendancesGroupBox.SuspendLayout();
 			this.ElementInfoGroupBox.SuspendLayout();
 			this.FrequencyContextMenuStrip.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.CircuitPictureBox)).BeginInit();
 			this.SuspendLayout();
-			// 
-			// CircuitPictureBox
-			// 
-			this.CircuitPictureBox.BackColor = System.Drawing.Color.White;
-			this.CircuitPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.CircuitPictureBox.Location = new System.Drawing.Point(195, 12);
-			this.CircuitPictureBox.Name = "CircuitPictureBox";
-			this.CircuitPictureBox.Size = new System.Drawing.Size(576, 305);
-			this.CircuitPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-			this.CircuitPictureBox.TabIndex = 0;
-			this.CircuitPictureBox.TabStop = false;
 			// 
 			// FrequencyLabel
 			// 
@@ -111,7 +101,7 @@
 			// ElementInfoTextbox
 			// 
 			this.ElementInfoTextbox.BackColor = System.Drawing.SystemColors.ControlLightLight;
-			this.ElementInfoTextbox.Location = new System.Drawing.Point(1, 14);
+			this.ElementInfoTextbox.Location = new System.Drawing.Point(1, 15);
 			this.ElementInfoTextbox.Multiline = true;
 			this.ElementInfoTextbox.Name = "ElementInfoTextbox";
 			this.ElementInfoTextbox.ReadOnly = true;
@@ -120,10 +110,11 @@
 			// 
 			// CircuitsComboBox
 			// 
+			this.CircuitsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.CircuitsComboBox.FormattingEnabled = true;
-			this.CircuitsComboBox.Location = new System.Drawing.Point(13, 12);
+			this.CircuitsComboBox.Location = new System.Drawing.Point(14, 12);
 			this.CircuitsComboBox.Name = "CircuitsComboBox";
-			this.CircuitsComboBox.Size = new System.Drawing.Size(176, 21);
+			this.CircuitsComboBox.Size = new System.Drawing.Size(112, 21);
 			this.CircuitsComboBox.TabIndex = 13;
 			this.CircuitsComboBox.SelectedIndexChanged += new System.EventHandler(this.CircuitsComboBox_SelectedIndexChanged);
 			// 
@@ -158,17 +149,7 @@
 			this.ElementInfoGroupBox.Size = new System.Drawing.Size(176, 140);
 			this.ElementInfoGroupBox.TabIndex = 17;
 			this.ElementInfoGroupBox.TabStop = false;
-			this.ElementInfoGroupBox.Text = "Information";
-			// 
-			// AddCircuitButton
-			// 
-			this.AddCircuitButton.Location = new System.Drawing.Point(12, 438);
-			this.AddCircuitButton.Name = "AddCircuitButton";
-			this.AddCircuitButton.Size = new System.Drawing.Size(76, 25);
-			this.AddCircuitButton.TabIndex = 18;
-			this.AddCircuitButton.Text = "Add circuit";
-			this.AddCircuitButton.UseVisualStyleBackColor = true;
-			this.AddCircuitButton.Click += new System.EventHandler(this.AddCircuitButton_Click);
+			this.ElementInfoGroupBox.Text = "Current Segment";
 			// 
 			// FrequencyContextMenuStrip
 			// 
@@ -186,16 +167,53 @@
 			// 
 			// CircuitTreeView
 			// 
-			this.CircuitTreeView.Location = new System.Drawing.Point(14, 42);
+			this.CircuitTreeView.Location = new System.Drawing.Point(12, 43);
 			this.CircuitTreeView.Name = "CircuitTreeView";
-			this.CircuitTreeView.Size = new System.Drawing.Size(175, 390);
+			this.CircuitTreeView.Size = new System.Drawing.Size(175, 420);
 			this.CircuitTreeView.TabIndex = 19;
+			// 
+			// RemoveCircuitButton
+			// 
+			this.RemoveCircuitButton.BackgroundImage = global::ImpedanceCalculatorUI.Properties.Resources.Remove;
+			this.RemoveCircuitButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.RemoveCircuitButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.RemoveCircuitButton.Location = new System.Drawing.Point(161, 12);
+			this.RemoveCircuitButton.Name = "RemoveCircuitButton";
+			this.RemoveCircuitButton.Size = new System.Drawing.Size(23, 21);
+			this.RemoveCircuitButton.TabIndex = 20;
+			this.RemoveCircuitButton.UseVisualStyleBackColor = true;
+			this.RemoveCircuitButton.Click += new System.EventHandler(this.RemoveCircuitButton_Click);
+			// 
+			// AddCircuitButton
+			// 
+			this.AddCircuitButton.BackColor = System.Drawing.SystemColors.Control;
+			this.AddCircuitButton.BackgroundImage = global::ImpedanceCalculatorUI.Properties.Resources.Add;
+			this.AddCircuitButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.AddCircuitButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.AddCircuitButton.Location = new System.Drawing.Point(132, 12);
+			this.AddCircuitButton.Name = "AddCircuitButton";
+			this.AddCircuitButton.Size = new System.Drawing.Size(23, 21);
+			this.AddCircuitButton.TabIndex = 18;
+			this.AddCircuitButton.UseVisualStyleBackColor = false;
+			this.AddCircuitButton.Click += new System.EventHandler(this.AddCircuitButton_Click);
+			// 
+			// CircuitPictureBox
+			// 
+			this.CircuitPictureBox.BackColor = System.Drawing.Color.White;
+			this.CircuitPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.CircuitPictureBox.Location = new System.Drawing.Point(195, 12);
+			this.CircuitPictureBox.Name = "CircuitPictureBox";
+			this.CircuitPictureBox.Size = new System.Drawing.Size(576, 305);
+			this.CircuitPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.CircuitPictureBox.TabIndex = 0;
+			this.CircuitPictureBox.TabStop = false;
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(782, 474);
+			this.Controls.Add(this.RemoveCircuitButton);
 			this.Controls.Add(this.CircuitTreeView);
 			this.Controls.Add(this.AddCircuitButton);
 			this.Controls.Add(this.ElementInfoGroupBox);
@@ -205,13 +223,13 @@
 			this.Controls.Add(this.CircuitPictureBox);
 			this.Name = "MainForm";
 			this.Text = "ImpedanceCalculator";
-			((System.ComponentModel.ISupportInitialize)(this.CircuitPictureBox)).EndInit();
 			this.FrequenciesGroupBox.ResumeLayout(false);
 			this.FrequenciesGroupBox.PerformLayout();
 			this.ImpendancesGroupBox.ResumeLayout(false);
 			this.ElementInfoGroupBox.ResumeLayout(false);
 			this.ElementInfoGroupBox.PerformLayout();
 			this.FrequencyContextMenuStrip.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.CircuitPictureBox)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -232,6 +250,7 @@
 		private System.Windows.Forms.ContextMenuStrip FrequencyContextMenuStrip;
 		private System.Windows.Forms.ToolStripMenuItem RemoveFrequencyToolStripMenuItem;
 		private Controls.CircuitTreeViewControl CircuitTreeView;
+		private System.Windows.Forms.Button RemoveCircuitButton;
 	}
 }
 
