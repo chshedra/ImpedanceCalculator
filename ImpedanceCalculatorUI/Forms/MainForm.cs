@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 using ImpedanceCalculator;
 using System.Numerics;
@@ -30,11 +29,7 @@ namespace ImpedanceCalculatorUI
 			FrequenciesListBox.DataSource = _project.Frequencies;
 
 			CircuitTreeView.CircuitRemoved += RemoveCircuit;
-			CircuitTreeView.SelectedSegmentChanged += ChangeSegmentTextBoxText;
 		}
-
-		//TODO: +Можно привести к одному обработчику, выполнив типизацию sender-a
-
 
 		private void ListBoxes_SelectedIndexChanged(object sender, EventArgs e)
 		{
@@ -50,8 +45,8 @@ namespace ImpedanceCalculatorUI
 
 		private void CalculateButton_Click(object sender, EventArgs e)
 		{
+            //TODO: Можно удалить объявление etalon и записать в параметрах парса "out _"
 			double etalon = 0.0;
-			//TODO:+ Duplication
 			if (!double.TryParse(FrequencyTextBox.Text, out etalon))
 			{
 				_inputValidation.ShowWarningMessageBox("Frequency must have numerical format",
@@ -76,6 +71,7 @@ namespace ImpedanceCalculatorUI
 
 				if (_project.Frequencies.Count > 0)
 				{
+					//TODO: Не имеет смысл создавать тут - лучше внести.
 					var result = new Complex();
 					_project.Impendances.Clear();
 					foreach (var frequency in _project.Frequencies)
@@ -89,32 +85,10 @@ namespace ImpedanceCalculatorUI
 					CircuitsComboBox.SelectedIndex = index;
 				}
 			}
-			DrawCircuit();
-		}
-
-		private void RemoveCircuitButton_Click(object sender, EventArgs e)
-		{
-			var selectedCircuit = _project.Circuits[CircuitsComboBox.SelectedIndex];
-			if (MessageBox.Show($"Do you really want remove circuit {selectedCircuit.Name}?", 
-				"Circuit removing", MessageBoxButtons.OKCancel, 
-				MessageBoxIcon.Question) == DialogResult.OK)
-			{
-				_project.Circuits.RemoveAt(CircuitsComboBox.SelectedIndex);
-				RefreshLists();
-				if (_project.Circuits.Count > 0)
-				{
-					CircuitsComboBox.SelectedIndex = 0;
-				}
-			}
-			else
-			{
-				return;
-			}
 		}
 
 		private void FrequencyTextBox_TextChanged(object sender, EventArgs e)
 		{
-			//TODO: +Дубль
 			_inputValidation.CheckTextBoxValue(FrequencyTextBox);
 		}
 
@@ -189,6 +163,7 @@ namespace ImpedanceCalculatorUI
 		private void RemoveCircuit(object sender, EventArgs e)
 		{
 			var selectedCircuit = (SegmentTreeNode) sender;
+			//TODO: Duplication
 			if (MessageBox.Show($"Do you really want remove circuit{selectedCircuit.Name}?", "Circuit removing",
 				MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
 			{
@@ -198,8 +173,6 @@ namespace ImpedanceCalculatorUI
 				{
 					CircuitsComboBox.SelectedIndex = 0;
 				}
-
-				SegmentInfoTextbox.Text = null;
 			}
 		}
 
@@ -222,74 +195,25 @@ namespace ImpedanceCalculatorUI
 			}
 		}
 
-		private void ChangeSegmentTextBoxText(object sender, EventArgs e)
+		private void RemoveCircuitButton_Click(object sender, EventArgs e)
 		{
-			string type = null;
-			var selectedSegment = (ISegment) sender;
-			switch (selectedSegment)
+			var selectedCircuit = _project.Circuits[CircuitsComboBox.SelectedIndex];
+			//TODO: Duplication
+			if (MessageBox.Show($"Do you really want remove circuit {selectedCircuit.Name}?", "Circuit removing",
+				MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
 			{
-				case Element element:
+				_project.Circuits.RemoveAt(CircuitsComboBox.SelectedIndex);
+				RefreshLists();
+				if (_project.Circuits.Count > 0)
 				{
-					string value = null;
-					selectedSegment = (Element)selectedSegment;
-
-					switch (element)
-					{
-						case Resistor resistor:
-						{
-							type = "Resistor";
-							value = element.Value + " Оhm";
-							break;
-						}
-						case Inductor inductor:
-						{
-							type = "Inductor";
-							value = (element.Value * 1000) + " mH";
-							break;
-						}
-						case Capacitor capacitor:
-						{
-							type = "Capacitor";
-							value = (element.Value * 1000) + " mF";
-							break;
-						}
-					}
-					SegmentInfoTextbox.Text = "Name: " + selectedSegment.Name + Environment.NewLine +
-											  "Value: " + value + Environment.NewLine +
-					                          "Type: " + type;
-						break;
-				}
-				case Circuit circuit:
-				{
-					selectedSegment  = (Circuit) selectedSegment;
-					switch (circuit)
-					{
-						case SerialCircuit serial:
-						{
-							type = "Serial";
-							break;
-						}
-						case ParallelCircuit parallel:
-						{
-							type = "Parallel";
-							break;
-							;
-						}
-					}
-
-					SegmentInfoTextbox.Text = "Name: " + selectedSegment.Name + Environment.NewLine +
-					                          "Type: " + type;
-						break;
+					CircuitsComboBox.SelectedIndex = 0;
 				}
 			}
-
-		}
-
-		private void DrawCircuit()
-		{
-			Graphics g = CircuitPictureBox.CreateGraphics();
-
-			g.DrawLine(new Pen(Brushes.BlueViolet), new Point(10, 10), new Point(50, 50));
+			//TODO: Зачем?
+			else
+			{
+				return;
+			}
 		}
 	}
 

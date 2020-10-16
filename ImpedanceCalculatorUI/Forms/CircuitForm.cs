@@ -18,10 +18,9 @@ namespace ImpedanceCalculatorUI
 		/// </summary>
 		private Circuit _circuit;
 
-		 //TODO:+ RSDN
-		 /// <summary>
-		 /// Определяет, для чего была создана форма
-		 /// </summary>
+		/// <summary>
+		/// Определяет, для чего была создана форма
+		/// </summary>
 		private bool _isAdd;
 
 		/// <summary>
@@ -66,7 +65,6 @@ namespace ImpedanceCalculatorUI
 
 		private void OkButton_Click(object sender, EventArgs e)
 		{
-
 			if(String.IsNullOrWhiteSpace(CircuitNameTextBox.Text))
 			{
 				MessageBox.Show("Enter the name", "Empty name", 
@@ -75,11 +73,11 @@ namespace ImpedanceCalculatorUI
 			else
 			{
 				Circuit newCircuit = null;
-				//TODO: +Опустить true
 				if(SerialConnectionRadioButton.Checked)
 				{
 					 newCircuit = new SerialCircuit(new List<ISegment>(), CircuitNameTextBox.Text);
 				}
+				//TODO: А тут уже не надо?
 				else if(ParallelConnectionRadioButton.Checked == true)
 				{
 					newCircuit = new ParallelCircuit(new List<ISegment>(), CircuitNameTextBox.Text);

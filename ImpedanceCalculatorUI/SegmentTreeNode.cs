@@ -5,6 +5,7 @@ using ImpedanceCalculator;
 
 namespace ImpedanceCalculatorUI
 {
+	//TODO: Где XML комменты?
 	public class SegmentTreeNode : TreeNode
 	{
 		public ISegment Segment { get; set; }
