@@ -31,6 +31,7 @@ namespace ImpedanceCalculatorUI.Controls
 			InitializeComponent();
 		}
 
+		//TODO: Не используется?
 		/// <summary>
 		/// Устанавливает и возвращает выбранный узел дерева
 		/// </summary>
@@ -50,7 +51,7 @@ namespace ImpedanceCalculatorUI.Controls
 		public TreeNodeCollection Nodes
 		{
 			get => CircuitTreeView.Nodes;
-			
+			//TODO: Зачем?
 			internal set
 			{
 				throw new NotImplementedException();
@@ -64,7 +65,6 @@ namespace ImpedanceCalculatorUI.Controls
 
 		private void CircuitTreeView_MouseDown(object sender, MouseEventArgs e)
 		{
-			//TODO: +В switch
 			switch (e.Button)
 			{
 				case MouseButtons.Right:
@@ -144,7 +144,6 @@ namespace ImpedanceCalculatorUI.Controls
 				}
 				else if (selectedNode.Segment is Element)
 				{
-					//TODO:+В switch c определением типов
 					switch (selectedNodeParent.Segment)
 					{
 						case SerialCircuit serialCircuit:
@@ -191,13 +190,13 @@ namespace ImpedanceCalculatorUI.Controls
 		{
 			var selectedNode = (SegmentTreeNode)CircuitTreeView.SelectedNode;
 
-			//TODO:+ В switch c определением типов
 			switch (selectedNode.Segment)
 			{
 				case Element element:
 					{
 						var editForm = new ElementForm()
 						{
+							//TODO: Можно сразу использовать element
 							Element = (Element)selectedNode.Segment,
 							IsAdd = false
 						};
@@ -207,10 +206,12 @@ namespace ImpedanceCalculatorUI.Controls
 						{
 							var editedElement = editForm.Element;
 							var selectedNodeParent = (SegmentTreeNode)selectedNode.Parent;
-
-							var elementIndex = 
+							//TODO: Можно сразу создать нужные переменные типа
+							//TODO: selectedNode.Parent.Segment.SubSegments и selectedNodeParent.Nodes. и работать с ними
+							var elementIndex =
+                                //TODO: Можно сразу использовать element
 								selectedNodeParent.Segment.SubSegments.IndexOf(selectedNode.Segment);
-
+                            //TODO: Можно сразу использовать element
 							selectedNodeParent.Segment.SubSegments.Remove(selectedNode.Segment);
 							selectedNodeParent.Nodes.Remove(selectedNode);
 
@@ -249,6 +250,7 @@ namespace ImpedanceCalculatorUI.Controls
 			RemoveNode((SegmentTreeNode)CircuitTreeView.SelectedNode);
 		}
 
+		//TODO: Не используется?
 		public SegmentTreeNode GetNodeAt(int x, int y)
 		{
 			return (SegmentTreeNode)CircuitTreeView.GetNodeAt(x, y);
@@ -326,8 +328,7 @@ namespace ImpedanceCalculatorUI.Controls
 			{
 				Circuit newSegment;
 				if (selectedNode.Segment is SerialCircuit)
-				{
-
+                {
 					newSegment = new ParallelCircuit()
 					{
 						Name = selectedNode.Segment.Name,
@@ -383,10 +384,11 @@ namespace ImpedanceCalculatorUI.Controls
 				var removingNodeParent =
 					(SegmentTreeNode)removingNode.Parent;
 
+				//TODO: В куче мест эти сущности то создаются, то удаляются вместе. Может можно их как-то собрать для удобства (?)
+				//TODO: и выполнить более корректную объектную декомпозицию, т.к. это много где дублируется
 				removingNodeParent.Segment.SubSegments.Remove(removingNode.Segment);
 				removingNodeParent.Nodes.Remove(removingNode);
 
-				//TODO:+ Что за двойка? Почему двойка?
 				if (removingNodeParent.Nodes.Count <= 1)
 				{
 					var selectedNodeGrandParent =
@@ -394,7 +396,6 @@ namespace ImpedanceCalculatorUI.Controls
 
 					if (selectedNodeGrandParent != null)
 					{
-						//TODO:+ RSDN длины строк
 						var lastElement =
 							(SegmentTreeNode)removingNodeParent.Nodes[0];
 
@@ -435,7 +436,7 @@ namespace ImpedanceCalculatorUI.Controls
 		/// </summary>
 		internal void RefreshCircuitTree()
 		{
-			
+			//TODO: Пустой
 		}
 	}
 }

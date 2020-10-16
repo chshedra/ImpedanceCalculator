@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Numerics;
-
+//TODO: Дефолтный namespace не совпадает с текущим
 namespace ImpedanceCalculator
 {
 	/// <summary>

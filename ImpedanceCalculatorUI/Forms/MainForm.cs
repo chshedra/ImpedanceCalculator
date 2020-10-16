@@ -31,9 +31,6 @@ namespace ImpedanceCalculatorUI
 			CircuitTreeView.CircuitRemoved += RemoveCircuit;
 		}
 
-		//TODO: +Можно привести к одному обработчику, выполнив типизацию sender-a
-
-
 		private void ListBoxes_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			if ((ListBox) sender == ImpedanceListBox)
@@ -48,8 +45,8 @@ namespace ImpedanceCalculatorUI
 
 		private void CalculateButton_Click(object sender, EventArgs e)
 		{
+            //TODO: Можно удалить объявление etalon и записать в параметрах парса "out _"
 			double etalon = 0.0;
-			//TODO:+ Duplication
 			if (!double.TryParse(FrequencyTextBox.Text, out etalon))
 			{
 				_inputValidation.ShowWarningMessageBox("Frequency must have numerical format",
@@ -74,6 +71,7 @@ namespace ImpedanceCalculatorUI
 
 				if (_project.Frequencies.Count > 0)
 				{
+					//TODO: Не имеет смысл создавать тут - лучше внести.
 					var result = new Complex();
 					_project.Impendances.Clear();
 					foreach (var frequency in _project.Frequencies)
@@ -91,7 +89,6 @@ namespace ImpedanceCalculatorUI
 
 		private void FrequencyTextBox_TextChanged(object sender, EventArgs e)
 		{
-			//TODO: +Дубль
 			_inputValidation.CheckTextBoxValue(FrequencyTextBox);
 		}
 
@@ -166,6 +163,7 @@ namespace ImpedanceCalculatorUI
 		private void RemoveCircuit(object sender, EventArgs e)
 		{
 			var selectedCircuit = (SegmentTreeNode) sender;
+			//TODO: Duplication
 			if (MessageBox.Show($"Do you really want remove circuit{selectedCircuit.Name}?", "Circuit removing",
 				MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
 			{
@@ -200,6 +198,7 @@ namespace ImpedanceCalculatorUI
 		private void RemoveCircuitButton_Click(object sender, EventArgs e)
 		{
 			var selectedCircuit = _project.Circuits[CircuitsComboBox.SelectedIndex];
+			//TODO: Duplication
 			if (MessageBox.Show($"Do you really want remove circuit {selectedCircuit.Name}?", "Circuit removing",
 				MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
 			{
@@ -210,6 +209,7 @@ namespace ImpedanceCalculatorUI
 					CircuitsComboBox.SelectedIndex = 0;
 				}
 			}
+			//TODO: Зачем?
 			else
 			{
 				return;

@@ -8,6 +8,7 @@ namespace ImpedanceCalculatorUI
 	public partial class ElementForm : Form
 	{
 		private readonly InputValidation _inputValidation = new InputValidation();
+
 		/// <summary>
 		/// Объект класса Element для добавлеия или редактирования элемента цепи
 		/// </summary>
@@ -33,7 +34,6 @@ namespace ImpedanceCalculatorUI
 					EditNameTextBox.Text = _element.Name;
 					EditValueTextBox.Text = _element.Value.ToString();
 
-					//TODO: +В switch с определениями типов
 					switch (_element)
 					{
 						case Resistor resistor:
@@ -92,7 +92,6 @@ namespace ImpedanceCalculatorUI
 		private void OkButton_Click(object sender, EventArgs e)
 		{
 			double etalon = 0.0;
-			//TODO: +Duplication
 			if (!double.TryParse(EditValueTextBox.Text, out etalon) ||
 				String.IsNullOrWhiteSpace(EditValueTextBox.Text))
 			{
@@ -106,7 +105,6 @@ namespace ImpedanceCalculatorUI
 			}
 			else
 			{
-				//TODO: +Опустить true
 				if (AddSerialRadioButton.Checked)
 				{
 					IsSerial = true;
@@ -154,7 +152,6 @@ namespace ImpedanceCalculatorUI
 
 		private void EditValueTextBox_TextChanged(object sender, EventArgs e)
 		{
-			//TODO: +Дубль
 			_inputValidation.CheckTextBoxValue(EditValueTextBox);
 		}
 	}
