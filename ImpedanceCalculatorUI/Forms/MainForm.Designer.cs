@@ -29,12 +29,13 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.FrequencyLabel = new System.Windows.Forms.Label();
 			this.FrequencyTextBox = new System.Windows.Forms.TextBox();
 			this.FrequenciesListBox = new System.Windows.Forms.ListBox();
 			this.ImpedanceListBox = new System.Windows.Forms.ListBox();
 			this.CalculateButton = new System.Windows.Forms.Button();
-			this.ElementInfoTextbox = new System.Windows.Forms.TextBox();
+			this.SegmentInfoTextbox = new System.Windows.Forms.TextBox();
 			this.CircuitsComboBox = new System.Windows.Forms.ComboBox();
 			this.FrequenciesGroupBox = new System.Windows.Forms.GroupBox();
 			this.ImpendancesGroupBox = new System.Windows.Forms.GroupBox();
@@ -57,15 +58,15 @@
 			this.FrequencyLabel.AutoSize = true;
 			this.FrequencyLabel.Location = new System.Drawing.Point(0, 117);
 			this.FrequencyLabel.Name = "FrequencyLabel";
-			this.FrequencyLabel.Size = new System.Drawing.Size(63, 13);
+			this.FrequencyLabel.Size = new System.Drawing.Size(60, 13);
 			this.FrequencyLabel.TabIndex = 7;
-			this.FrequencyLabel.Text = "Frequency=";
+			this.FrequencyLabel.Text = "Frequency:";
 			// 
 			// FrequencyTextBox
 			// 
-			this.FrequencyTextBox.Location = new System.Drawing.Point(66, 115);
+			this.FrequencyTextBox.Location = new System.Drawing.Point(59, 115);
 			this.FrequencyTextBox.Name = "FrequencyTextBox";
-			this.FrequencyTextBox.Size = new System.Drawing.Size(120, 20);
+			this.FrequencyTextBox.Size = new System.Drawing.Size(127, 20);
 			this.FrequencyTextBox.TabIndex = 6;
 			this.FrequencyTextBox.TextChanged += new System.EventHandler(this.FrequencyTextBox_TextChanged);
 			// 
@@ -98,15 +99,15 @@
 			this.CalculateButton.UseVisualStyleBackColor = true;
 			this.CalculateButton.Click += new System.EventHandler(this.CalculateButton_Click);
 			// 
-			// ElementInfoTextbox
+			// SegmentInfoTextbox
 			// 
-			this.ElementInfoTextbox.BackColor = System.Drawing.SystemColors.ControlLightLight;
-			this.ElementInfoTextbox.Location = new System.Drawing.Point(1, 15);
-			this.ElementInfoTextbox.Multiline = true;
-			this.ElementInfoTextbox.Name = "ElementInfoTextbox";
-			this.ElementInfoTextbox.ReadOnly = true;
-			this.ElementInfoTextbox.Size = new System.Drawing.Size(175, 95);
-			this.ElementInfoTextbox.TabIndex = 10;
+			this.SegmentInfoTextbox.BackColor = System.Drawing.SystemColors.ControlLightLight;
+			this.SegmentInfoTextbox.Location = new System.Drawing.Point(1, 15);
+			this.SegmentInfoTextbox.Multiline = true;
+			this.SegmentInfoTextbox.Name = "SegmentInfoTextbox";
+			this.SegmentInfoTextbox.ReadOnly = true;
+			this.SegmentInfoTextbox.Size = new System.Drawing.Size(175, 95);
+			this.SegmentInfoTextbox.TabIndex = 10;
 			// 
 			// CircuitsComboBox
 			// 
@@ -143,7 +144,7 @@
 			// 
 			// ElementInfoGroupBox
 			// 
-			this.ElementInfoGroupBox.Controls.Add(this.ElementInfoTextbox);
+			this.ElementInfoGroupBox.Controls.Add(this.SegmentInfoTextbox);
 			this.ElementInfoGroupBox.Location = new System.Drawing.Point(195, 323);
 			this.ElementInfoGroupBox.Name = "ElementInfoGroupBox";
 			this.ElementInfoGroupBox.Size = new System.Drawing.Size(176, 140);
@@ -221,6 +222,7 @@
 			this.Controls.Add(this.FrequenciesGroupBox);
 			this.Controls.Add(this.CircuitsComboBox);
 			this.Controls.Add(this.CircuitPictureBox);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "MainForm";
 			this.Text = "ImpedanceCalculator";
 			this.FrequenciesGroupBox.ResumeLayout(false);
@@ -241,7 +243,7 @@
 		private System.Windows.Forms.ListBox FrequenciesListBox;
 		private System.Windows.Forms.ListBox ImpedanceListBox;
 		private System.Windows.Forms.Button CalculateButton;
-		private System.Windows.Forms.TextBox ElementInfoTextbox;
+		private System.Windows.Forms.TextBox SegmentInfoTextbox;
 		private System.Windows.Forms.ComboBox CircuitsComboBox;
 		private System.Windows.Forms.GroupBox FrequenciesGroupBox;
 		private System.Windows.Forms.GroupBox ImpendancesGroupBox;

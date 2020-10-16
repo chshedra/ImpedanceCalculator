@@ -35,19 +35,24 @@
 			this.OkButton = new System.Windows.Forms.Button();
 			this.CancelEditButton = new System.Windows.Forms.Button();
 			this.ElementTypeGroupBox = new System.Windows.Forms.GroupBox();
+			this.ElementTypeComboBox = new System.Windows.Forms.ComboBox();
 			this.MeasurementLabel = new System.Windows.Forms.Label();
 			this.AddGroupBox = new System.Windows.Forms.GroupBox();
-			this.AddParallelRadioButton = new System.Windows.Forms.RadioButton();
-			this.AddSerialRadioButton = new System.Windows.Forms.RadioButton();
-			this.ElementTypeComboBox = new System.Windows.Forms.ComboBox();
+			this.ConnectionComboBox = new System.Windows.Forms.ComboBox();
+			this.ValueGroupBox = new System.Windows.Forms.GroupBox();
+			this.TypeLabel = new System.Windows.Forms.Label();
+			this.NameGroupBox = new System.Windows.Forms.GroupBox();
 			this.ElementTypeGroupBox.SuspendLayout();
 			this.AddGroupBox.SuspendLayout();
+			this.ValueGroupBox.SuspendLayout();
+			this.NameGroupBox.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// EditNameLabel
 			// 
 			this.EditNameLabel.AutoSize = true;
-			this.EditNameLabel.Location = new System.Drawing.Point(12, 68);
+			this.EditNameLabel.BackColor = System.Drawing.Color.Transparent;
+			this.EditNameLabel.Location = new System.Drawing.Point(6, 12);
 			this.EditNameLabel.Name = "EditNameLabel";
 			this.EditNameLabel.Size = new System.Drawing.Size(41, 13);
 			this.EditNameLabel.TabIndex = 0;
@@ -56,7 +61,7 @@
 			// EditValueLabel
 			// 
 			this.EditValueLabel.AutoSize = true;
-			this.EditValueLabel.Location = new System.Drawing.Point(13, 101);
+			this.EditValueLabel.Location = new System.Drawing.Point(11, 12);
 			this.EditValueLabel.Name = "EditValueLabel";
 			this.EditValueLabel.Size = new System.Drawing.Size(40, 13);
 			this.EditValueLabel.TabIndex = 1;
@@ -64,22 +69,22 @@
 			// 
 			// EditNameTextBox
 			// 
-			this.EditNameTextBox.Location = new System.Drawing.Point(59, 61);
+			this.EditNameTextBox.Location = new System.Drawing.Point(51, 7);
 			this.EditNameTextBox.Name = "EditNameTextBox";
-			this.EditNameTextBox.Size = new System.Drawing.Size(86, 20);
+			this.EditNameTextBox.Size = new System.Drawing.Size(62, 20);
 			this.EditNameTextBox.TabIndex = 2;
 			// 
 			// EditValueTextBox
 			// 
-			this.EditValueTextBox.Location = new System.Drawing.Point(59, 98);
+			this.EditValueTextBox.Location = new System.Drawing.Point(52, 9);
 			this.EditValueTextBox.Name = "EditValueTextBox";
-			this.EditValueTextBox.Size = new System.Drawing.Size(86, 20);
+			this.EditValueTextBox.Size = new System.Drawing.Size(63, 20);
 			this.EditValueTextBox.TabIndex = 3;
 			this.EditValueTextBox.TextChanged += new System.EventHandler(this.EditValueTextBox_TextChanged);
 			// 
 			// OkButton
 			// 
-			this.OkButton.Location = new System.Drawing.Point(65, 132);
+			this.OkButton.Location = new System.Drawing.Point(158, 102);
 			this.OkButton.Name = "OkButton";
 			this.OkButton.Size = new System.Drawing.Size(64, 23);
 			this.OkButton.TabIndex = 5;
@@ -89,7 +94,7 @@
 			// 
 			// CancelEditButton
 			// 
-			this.CancelEditButton.Location = new System.Drawing.Point(135, 132);
+			this.CancelEditButton.Location = new System.Drawing.Point(226, 102);
 			this.CancelEditButton.Name = "CancelEditButton";
 			this.CancelEditButton.Size = new System.Drawing.Size(59, 23);
 			this.CancelEditButton.TabIndex = 6;
@@ -100,12 +105,22 @@
 			// ElementTypeGroupBox
 			// 
 			this.ElementTypeGroupBox.Controls.Add(this.ElementTypeComboBox);
-			this.ElementTypeGroupBox.Location = new System.Drawing.Point(16, 11);
+			this.ElementTypeGroupBox.Location = new System.Drawing.Point(14, 13);
 			this.ElementTypeGroupBox.Name = "ElementTypeGroupBox";
-			this.ElementTypeGroupBox.Size = new System.Drawing.Size(129, 40);
+			this.ElementTypeGroupBox.Size = new System.Drawing.Size(113, 40);
 			this.ElementTypeGroupBox.TabIndex = 7;
 			this.ElementTypeGroupBox.TabStop = false;
 			this.ElementTypeGroupBox.Text = "Type";
+			// 
+			// ElementTypeComboBox
+			// 
+			this.ElementTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.ElementTypeComboBox.FormattingEnabled = true;
+			this.ElementTypeComboBox.Location = new System.Drawing.Point(0, 19);
+			this.ElementTypeComboBox.Name = "ElementTypeComboBox";
+			this.ElementTypeComboBox.Size = new System.Drawing.Size(113, 21);
+			this.ElementTypeComboBox.TabIndex = 0;
+			this.ElementTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.ElementTypeComboBox_SelectedIndexChanged);
 			// 
 			// MeasurementLabel
 			// 
@@ -117,64 +132,73 @@
 			// 
 			// AddGroupBox
 			// 
-			this.AddGroupBox.Controls.Add(this.AddParallelRadioButton);
-			this.AddGroupBox.Controls.Add(this.AddSerialRadioButton);
-			this.AddGroupBox.Location = new System.Drawing.Point(162, 57);
+			this.AddGroupBox.Controls.Add(this.ConnectionComboBox);
+			this.AddGroupBox.Location = new System.Drawing.Point(172, 14);
 			this.AddGroupBox.Name = "AddGroupBox";
-			this.AddGroupBox.Size = new System.Drawing.Size(76, 69);
+			this.AddGroupBox.Size = new System.Drawing.Size(113, 39);
 			this.AddGroupBox.TabIndex = 9;
 			this.AddGroupBox.TabStop = false;
 			this.AddGroupBox.Text = "Add";
 			// 
-			// AddParallelRadioButton
+			// ConnectionComboBox
 			// 
-			this.AddParallelRadioButton.AutoSize = true;
-			this.AddParallelRadioButton.Location = new System.Drawing.Point(0, 47);
-			this.AddParallelRadioButton.Name = "AddParallelRadioButton";
-			this.AddParallelRadioButton.Size = new System.Drawing.Size(59, 17);
-			this.AddParallelRadioButton.TabIndex = 1;
-			this.AddParallelRadioButton.TabStop = true;
-			this.AddParallelRadioButton.Text = "Parallel";
-			this.AddParallelRadioButton.UseVisualStyleBackColor = true;
+			this.ConnectionComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.ConnectionComboBox.FormattingEnabled = true;
+			this.ConnectionComboBox.Location = new System.Drawing.Point(0, 18);
+			this.ConnectionComboBox.Name = "ConnectionComboBox";
+			this.ConnectionComboBox.Size = new System.Drawing.Size(113, 21);
+			this.ConnectionComboBox.TabIndex = 0;
 			// 
-			// AddSerialRadioButton
+			// ValueGroupBox
 			// 
-			this.AddSerialRadioButton.AutoSize = true;
-			this.AddSerialRadioButton.Location = new System.Drawing.Point(0, 19);
-			this.AddSerialRadioButton.Name = "AddSerialRadioButton";
-			this.AddSerialRadioButton.Size = new System.Drawing.Size(51, 17);
-			this.AddSerialRadioButton.TabIndex = 0;
-			this.AddSerialRadioButton.TabStop = true;
-			this.AddSerialRadioButton.Text = "Serial";
-			this.AddSerialRadioButton.UseVisualStyleBackColor = true;
+			this.ValueGroupBox.Controls.Add(this.TypeLabel);
+			this.ValueGroupBox.Controls.Add(this.EditValueTextBox);
+			this.ValueGroupBox.Controls.Add(this.EditValueLabel);
+			this.ValueGroupBox.Location = new System.Drawing.Point(133, 63);
+			this.ValueGroupBox.Name = "ValueGroupBox";
+			this.ValueGroupBox.Size = new System.Drawing.Size(152, 33);
+			this.ValueGroupBox.TabIndex = 10;
+			this.ValueGroupBox.TabStop = false;
 			// 
-			// ElementTypeComboBox
+			// TypeLabel
 			// 
-			this.ElementTypeComboBox.FormattingEnabled = true;
-			this.ElementTypeComboBox.Location = new System.Drawing.Point(0, 19);
-			this.ElementTypeComboBox.Name = "ElementTypeComboBox";
-			this.ElementTypeComboBox.Size = new System.Drawing.Size(129, 21);
-			this.ElementTypeComboBox.TabIndex = 0;
+			this.TypeLabel.AutoSize = true;
+			this.TypeLabel.Location = new System.Drawing.Point(117, 12);
+			this.TypeLabel.Name = "TypeLabel";
+			this.TypeLabel.Size = new System.Drawing.Size(29, 13);
+			this.TypeLabel.TabIndex = 4;
+			this.TypeLabel.Text = "Ohm";
+			// 
+			// NameGroupBox
+			// 
+			this.NameGroupBox.Controls.Add(this.EditNameLabel);
+			this.NameGroupBox.Controls.Add(this.EditNameTextBox);
+			this.NameGroupBox.Location = new System.Drawing.Point(12, 63);
+			this.NameGroupBox.Name = "NameGroupBox";
+			this.NameGroupBox.Size = new System.Drawing.Size(115, 33);
+			this.NameGroupBox.TabIndex = 11;
+			this.NameGroupBox.TabStop = false;
 			// 
 			// ElementForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(250, 167);
+			this.ClientSize = new System.Drawing.Size(297, 140);
+			this.Controls.Add(this.NameGroupBox);
+			this.Controls.Add(this.ValueGroupBox);
 			this.Controls.Add(this.AddGroupBox);
 			this.Controls.Add(this.MeasurementLabel);
 			this.Controls.Add(this.ElementTypeGroupBox);
 			this.Controls.Add(this.CancelEditButton);
 			this.Controls.Add(this.OkButton);
-			this.Controls.Add(this.EditValueTextBox);
-			this.Controls.Add(this.EditNameTextBox);
-			this.Controls.Add(this.EditValueLabel);
-			this.Controls.Add(this.EditNameLabel);
 			this.Name = "ElementForm";
 			this.Text = "AddEditForm";
 			this.ElementTypeGroupBox.ResumeLayout(false);
 			this.AddGroupBox.ResumeLayout(false);
-			this.AddGroupBox.PerformLayout();
+			this.ValueGroupBox.ResumeLayout(false);
+			this.ValueGroupBox.PerformLayout();
+			this.NameGroupBox.ResumeLayout(false);
+			this.NameGroupBox.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -191,8 +215,10 @@
 		private System.Windows.Forms.GroupBox ElementTypeGroupBox;
 		private System.Windows.Forms.Label MeasurementLabel;
 		private System.Windows.Forms.GroupBox AddGroupBox;
-		private System.Windows.Forms.RadioButton AddParallelRadioButton;
-		private System.Windows.Forms.RadioButton AddSerialRadioButton;
 		private System.Windows.Forms.ComboBox ElementTypeComboBox;
+		private System.Windows.Forms.ComboBox ConnectionComboBox;
+		private System.Windows.Forms.GroupBox ValueGroupBox;
+		private System.Windows.Forms.Label TypeLabel;
+		private System.Windows.Forms.GroupBox NameGroupBox;
 	}
 }

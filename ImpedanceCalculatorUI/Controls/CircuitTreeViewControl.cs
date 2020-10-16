@@ -16,7 +16,7 @@ namespace ImpedanceCalculatorUI.Controls
 		/// <summary>
 		/// Хранит список цепей
 		/// </summary>
-		private Project _project;
+		private readonly Project _project;
 
 		/// <summary>
 		/// Хранит значение перемещаемого узла дерева
@@ -61,6 +61,8 @@ namespace ImpedanceCalculatorUI.Controls
 		/// Событие удаления цепи
 		/// </summary>
 		public event EventHandler CircuitRemoved;
+
+		public event EventHandler SelectedSegmentChanged;
 
 		private void CircuitTreeView_MouseDown(object sender, MouseEventArgs e)
 		{
@@ -217,8 +219,6 @@ namespace ImpedanceCalculatorUI.Controls
 							selectedNodeParent.Segment.SubSegments.Insert(elementIndex, editedElement);
 							selectedNodeParent.Nodes.
 								Insert(elementIndex, new SegmentTreeNode(editedElement));
-
-							RefreshCircuitTree();
 						}
 
 						break;
@@ -236,7 +236,6 @@ namespace ImpedanceCalculatorUI.Controls
 						if (circuitForm.DialogResult == DialogResult.OK)
 						{
 							editCircuit.Name = circuitForm.Circuit.Name;
-							RefreshCircuitTree();
 						}
 
 						break;
@@ -347,8 +346,6 @@ namespace ImpedanceCalculatorUI.Controls
 				var index = _project.Circuits.IndexOf(selectedNode.Segment);
 				_project.Circuits.Remove(selectedNode.Segment);
 				_project.Circuits.Insert(index, newSegment);
-
-				RefreshCircuitTree();
 			}
 			else
 			{
@@ -405,8 +402,6 @@ namespace ImpedanceCalculatorUI.Controls
 						selectedNodeGrandParent.Nodes.Add(lastElement);
 					}
 				}
-
-				RefreshCircuitTree();
 			}
 		}
 
@@ -430,12 +425,10 @@ namespace ImpedanceCalculatorUI.Controls
 			nodeParent.Nodes.Add(newNode);
 		}
 
-		/// <summary>
-		/// Метод обновления дерева цепей
-		/// </summary>
-		internal void RefreshCircuitTree()
+		private void CircuitTreeView_AfterSelect(object sender, TreeViewEventArgs e)
 		{
-			
+			var selectedNode = (SegmentTreeNode)CircuitTreeView.SelectedNode;
+			SelectedSegmentChanged?.Invoke(selectedNode.Segment, EventArgs.Empty);
 		}
 	}
 }

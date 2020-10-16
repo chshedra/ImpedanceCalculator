@@ -31,7 +31,6 @@ namespace ImpedanceCalculatorUI
 				if (_element != null)
 				{
 					EditNameTextBox.Text = _element.Name;
-					EditValueTextBox.Text = _element.Value.ToString();
 
 					//TODO: +В switch с определениями типов
 					switch (_element)
@@ -39,16 +38,19 @@ namespace ImpedanceCalculatorUI
 						case Resistor resistor:
 						{
 							ElementTypeComboBox.SelectedItem = "R";
+							EditValueTextBox.Text = _element.Value.ToString();
 							break;
 						}
 						case Capacitor capacitor:
 						{
 							ElementTypeComboBox.SelectedItem = "C";
+							EditValueTextBox.Text = (_element.Value * 1000).ToString();
 								break;
 						}
 						case Inductor inductor:
 						{
 							ElementTypeComboBox.SelectedItem = "L";
+							EditValueTextBox.Text = (_element.Value * 1000).ToString();
 							break;
 						}
 					}
@@ -86,7 +88,11 @@ namespace ImpedanceCalculatorUI
 			ElementTypeComboBox.Items.Add("C");
 
 			ElementTypeComboBox.SelectedIndex = 0;
-			AddSerialRadioButton.Checked = true;
+
+			ConnectionComboBox.Items.Add("Serial");
+			ConnectionComboBox.Items.Add("Parallel");
+
+			ConnectionComboBox.SelectedIndex = 0;
 		}
 
 		private void OkButton_Click(object sender, EventArgs e)
@@ -94,9 +100,10 @@ namespace ImpedanceCalculatorUI
 			double etalon = 0.0;
 			//TODO: +Duplication
 			if (!double.TryParse(EditValueTextBox.Text, out etalon) ||
-				String.IsNullOrWhiteSpace(EditValueTextBox.Text))
+				String.IsNullOrWhiteSpace(EditValueTextBox.Text) ||
+				String.IsNullOrEmpty(EditNameTextBox.Text))
 			{
-				_inputValidation.ShowWarningMessageBox("Value must have numerical format",
+				_inputValidation.ShowWarningMessageBox("Enter correct values",
 					"Incorrect format");
 			}
 			else if (double.Parse(EditValueTextBox.Text) < 0)
@@ -107,11 +114,11 @@ namespace ImpedanceCalculatorUI
 			else
 			{
 				//TODO: +Опустить true
-				if (AddSerialRadioButton.Checked)
+				if (ConnectionComboBox.SelectedItem.ToString() == "Serial")
 				{
 					IsSerial = true;
 				}
-				else if (AddParallelRadioButton.Checked)
+				else if (ConnectionComboBox.SelectedItem.ToString() == "Parallel")
 				{
 					IsSerial = false;
 				}
@@ -128,14 +135,14 @@ namespace ImpedanceCalculatorUI
 					case "L":
 					{
 						_element = new Inductor(EditNameTextBox.Text, 
-							double.Parse(EditValueTextBox.Text));
+							double.Parse(EditValueTextBox.Text) / 1000);
 
 						break;
 					}
 					case "C":
 					{
 						_element = new Capacitor(EditNameTextBox.Text, 
-							double.Parse(EditValueTextBox.Text));
+							double.Parse(EditValueTextBox.Text) / 1000);
 
 						break;
 					}
@@ -156,6 +163,28 @@ namespace ImpedanceCalculatorUI
 		{
 			//TODO: +Дубль
 			_inputValidation.CheckTextBoxValue(EditValueTextBox);
+		}
+		
+		private void ElementTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			switch (ElementTypeComboBox.SelectedItem.ToString())
+			{
+				case "R":
+				{
+					TypeLabel.Text = "Ohm";
+					break;
+				}
+				case "L":
+				{
+					TypeLabel.Text = "mH";
+					break;
+				}
+				case "C":
+				{
+					TypeLabel.Text = "mF";
+					break;
+				}
+			}
 		}
 	}
 }

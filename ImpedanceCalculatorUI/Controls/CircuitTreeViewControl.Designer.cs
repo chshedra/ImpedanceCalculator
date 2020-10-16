@@ -44,6 +44,7 @@
 			this.CircuitTreeView.Name = "CircuitTreeView";
 			this.CircuitTreeView.Size = new System.Drawing.Size(150, 150);
 			this.CircuitTreeView.TabIndex = 0;
+			this.CircuitTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.CircuitTreeView_AfterSelect);
 			this.CircuitTreeView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.CircuitTreeView_MouseDown);
 			this.CircuitTreeView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.CircuitTreeView_MouseUp);
 			// 
@@ -54,26 +55,26 @@
             this.editToolStripMenuItem,
             this.removeToolStripMenuItem});
 			this.NodeContextMenu.Name = "NodeContextMenu";
-			this.NodeContextMenu.Size = new System.Drawing.Size(181, 92);
+			this.NodeContextMenu.Size = new System.Drawing.Size(118, 70);
 			// 
 			// addToolStripMenuItem
 			// 
 			this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-			this.addToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.addToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
 			this.addToolStripMenuItem.Text = "Add";
 			this.addToolStripMenuItem.Click += new System.EventHandler(this.AddToolStripMenuItem_Click);
 			// 
 			// editToolStripMenuItem
 			// 
 			this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-			this.editToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.editToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
 			this.editToolStripMenuItem.Text = "Edit";
 			this.editToolStripMenuItem.Click += new System.EventHandler(this.EditToolStripMenuItem_Click);
 			// 
 			// removeToolStripMenuItem
 			// 
 			this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-			this.removeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.removeToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
 			this.removeToolStripMenuItem.Text = "Remove";
 			this.removeToolStripMenuItem.Click += new System.EventHandler(this.RemoveToolStripMenuItem_Click);
 			// 

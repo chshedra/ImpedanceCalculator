@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using ImpedanceCalculator;
 using System.Numerics;
@@ -29,6 +30,7 @@ namespace ImpedanceCalculatorUI
 			FrequenciesListBox.DataSource = _project.Frequencies;
 
 			CircuitTreeView.CircuitRemoved += RemoveCircuit;
+			CircuitTreeView.SelectedSegmentChanged += ChangeSegmentTextBoxText;
 		}
 
 		//TODO: +Можно привести к одному обработчику, выполнив типизацию sender-a
@@ -86,6 +88,27 @@ namespace ImpedanceCalculatorUI
 					RefreshLists();
 					CircuitsComboBox.SelectedIndex = index;
 				}
+			}
+			DrawCircuit();
+		}
+
+		private void RemoveCircuitButton_Click(object sender, EventArgs e)
+		{
+			var selectedCircuit = _project.Circuits[CircuitsComboBox.SelectedIndex];
+			if (MessageBox.Show($"Do you really want remove circuit {selectedCircuit.Name}?", 
+				"Circuit removing", MessageBoxButtons.OKCancel, 
+				MessageBoxIcon.Question) == DialogResult.OK)
+			{
+				_project.Circuits.RemoveAt(CircuitsComboBox.SelectedIndex);
+				RefreshLists();
+				if (_project.Circuits.Count > 0)
+				{
+					CircuitsComboBox.SelectedIndex = 0;
+				}
+			}
+			else
+			{
+				return;
 			}
 		}
 
@@ -175,6 +198,8 @@ namespace ImpedanceCalculatorUI
 				{
 					CircuitsComboBox.SelectedIndex = 0;
 				}
+
+				SegmentInfoTextbox.Text = null;
 			}
 		}
 
@@ -197,23 +222,74 @@ namespace ImpedanceCalculatorUI
 			}
 		}
 
-		private void RemoveCircuitButton_Click(object sender, EventArgs e)
+		private void ChangeSegmentTextBoxText(object sender, EventArgs e)
 		{
-			var selectedCircuit = _project.Circuits[CircuitsComboBox.SelectedIndex];
-			if (MessageBox.Show($"Do you really want remove circuit {selectedCircuit.Name}?", "Circuit removing",
-				MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+			string type = null;
+			var selectedSegment = (ISegment) sender;
+			switch (selectedSegment)
 			{
-				_project.Circuits.RemoveAt(CircuitsComboBox.SelectedIndex);
-				RefreshLists();
-				if (_project.Circuits.Count > 0)
+				case Element element:
 				{
-					CircuitsComboBox.SelectedIndex = 0;
+					string value = null;
+					selectedSegment = (Element)selectedSegment;
+
+					switch (element)
+					{
+						case Resistor resistor:
+						{
+							type = "Resistor";
+							value = element.Value + " Оhm";
+							break;
+						}
+						case Inductor inductor:
+						{
+							type = "Inductor";
+							value = (element.Value * 1000) + " mH";
+							break;
+						}
+						case Capacitor capacitor:
+						{
+							type = "Capacitor";
+							value = (element.Value * 1000) + " mF";
+							break;
+						}
+					}
+					SegmentInfoTextbox.Text = "Name: " + selectedSegment.Name + Environment.NewLine +
+											  "Value: " + value + Environment.NewLine +
+					                          "Type: " + type;
+						break;
+				}
+				case Circuit circuit:
+				{
+					selectedSegment  = (Circuit) selectedSegment;
+					switch (circuit)
+					{
+						case SerialCircuit serial:
+						{
+							type = "Serial";
+							break;
+						}
+						case ParallelCircuit parallel:
+						{
+							type = "Parallel";
+							break;
+							;
+						}
+					}
+
+					SegmentInfoTextbox.Text = "Name: " + selectedSegment.Name + Environment.NewLine +
+					                          "Type: " + type;
+						break;
 				}
 			}
-			else
-			{
-				return;
-			}
+
+		}
+
+		private void DrawCircuit()
+		{
+			Graphics g = CircuitPictureBox.CreateGraphics();
+
+			g.DrawLine(new Pen(Brushes.BlueViolet), new Point(10, 10), new Point(50, 50));
 		}
 	}
 
