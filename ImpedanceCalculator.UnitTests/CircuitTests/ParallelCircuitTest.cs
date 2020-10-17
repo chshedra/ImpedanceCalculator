@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Numerics;
 using System.Collections.Generic;
+using ImpedanceCalculator.Circuits;
+using ImpedanceCalculator.Elements;
 using NUnit.Framework;
 
 namespace ImpedanceCalculator.UnitTests.CircuitTests
 {
-	[TestFixture]
-	class ParallelCircuitTest
+	public class ParallelCircuitTest
 	{
 		private ParallelCircuit _circuit;
 		private List<ISegment> CreateElements()

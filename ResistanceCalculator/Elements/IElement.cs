@@ -1,4 +1,4 @@
-﻿namespace ImpedanceCalculator
+﻿namespace ImpedanceCalculator.Elements
 {
 	/// <summary>
 	/// Интерфейс элемента цепи

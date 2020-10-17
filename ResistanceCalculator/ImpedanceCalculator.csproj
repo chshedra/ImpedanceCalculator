@@ -7,7 +7,7 @@
     <ProjectGuid>{91827C67-1D74-4C3B-9BF7-391E1ADDF422}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ResistanceCalculator</RootNamespace>
+    <RootNamespace>ImpedanceCalculator</RootNamespace>
     <AssemblyName>ResistanceCalculator</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -44,8 +44,8 @@
   <ItemGroup>
     <Compile Include="Project.cs" />
     <Compile Include="Elements\Capacitor.cs" />
-    <Compile Include="Circuits\Circuit.cs" />
-    <Compile Include="Elements\Element.cs" />
+    <Compile Include="Circuits\CircuitBase.cs" />
+    <Compile Include="Elements\ElementBase.cs" />
     <Compile Include="Elements\IElement.cs" />
     <Compile Include="Elements\Inductor.cs" />
     <Compile Include="ISegment.cs" />

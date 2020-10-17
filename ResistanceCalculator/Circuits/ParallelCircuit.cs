@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Numerics;
 
-namespace ImpedanceCalculator
+namespace ImpedanceCalculator.Circuits
 {
     /// <summary>
 	/// Класс параллельной цепи
 	/// </summary>
-    public class ParallelCircuit : Circuit
+    public class ParallelCircuit : CircuitBase
     {
         /// <inheritdoc/>
         public ParallelCircuit() : base() { }

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Numerics;
-//TODO: Дефолтный namespace не совпадает с текущим
-namespace ImpedanceCalculator
+//TODO: +Дефолтный namespace не совпадает с текущим
+namespace ImpedanceCalculator.Elements
 {
 	/// <summary>
 	/// Класс конденсатора 
 	/// </summary>
-	public class Capacitor : Element, IElement
+	public class Capacitor : ElementBase, IElement
 	{
 		/// <summary>
 		/// Конструктор без параметров. Устанавливает значеия названия и емкости конденсатора

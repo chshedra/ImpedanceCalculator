@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ImpedanceCalculator.Circuits;
 using ImpedanceCalculator;
 
 namespace ImpedanceCalculatorUI
@@ -16,7 +17,7 @@ namespace ImpedanceCalculatorUI
 		/// <summary>
 		/// Хранит информацию о цепи
 		/// </summary>
-		private Circuit _circuit;
+		private CircuitBase _circuit;
 
 		/// <summary>
 		/// Определяет, для чего была создана форма
@@ -26,12 +27,9 @@ namespace ImpedanceCalculatorUI
 		/// <summary>
 		/// Устанавливает и возвращает информацию о цепи 
 		/// </summary>
-		public Circuit Circuit
+		public CircuitBase CircuitBase
 		{
-			get
-			{
-				return _circuit;
-			}
+			get => _circuit;
 			set
 			{
 				_circuit = value;
@@ -44,10 +42,8 @@ namespace ImpedanceCalculatorUI
 		/// </summary>
 		public bool IsAdd
 		{
-			get
-			{
-				return _isAdd;
-			}
+			get => _isAdd;
+
 			set
 			{
 				_isAdd = value;
@@ -72,13 +68,13 @@ namespace ImpedanceCalculatorUI
 			}
 			else
 			{
-				Circuit newCircuit = null;
+				CircuitBase newCircuit = null;
 				if(SerialConnectionRadioButton.Checked)
 				{
 					 newCircuit = new SerialCircuit(new List<ISegment>(), CircuitNameTextBox.Text);
 				}
-				//TODO: А тут уже не надо?
-				else if(ParallelConnectionRadioButton.Checked == true)
+				//TODO: +А тут уже не надо?
+				else if(ParallelConnectionRadioButton.Checked)
 				{
 					newCircuit = new ParallelCircuit(new List<ISegment>(), CircuitNameTextBox.Text);
 				}

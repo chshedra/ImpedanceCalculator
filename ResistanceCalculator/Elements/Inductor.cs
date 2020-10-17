@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Numerics;
 
-namespace ImpedanceCalculator
+namespace ImpedanceCalculator.Elements
 {
 	/// <summary>
 	/// Класс катушки индуктивности
 	/// </summary>
-	public class Inductor : Element
+	public class Inductor : ElementBase
 	{
 		/// <summary>
 		/// Конструктор без параметров. Устанавливает значеия названия и индуктивности катушки

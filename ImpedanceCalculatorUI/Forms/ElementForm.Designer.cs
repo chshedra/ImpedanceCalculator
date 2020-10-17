@@ -40,7 +40,7 @@
 			this.AddGroupBox = new System.Windows.Forms.GroupBox();
 			this.ConnectionComboBox = new System.Windows.Forms.ComboBox();
 			this.ValueGroupBox = new System.Windows.Forms.GroupBox();
-			this.TypeLabel = new System.Windows.Forms.Label();
+			this.SILabel = new System.Windows.Forms.Label();
 			this.NameGroupBox = new System.Windows.Forms.GroupBox();
 			this.ElementTypeGroupBox.SuspendLayout();
 			this.AddGroupBox.SuspendLayout();
@@ -151,7 +151,7 @@
 			// 
 			// ValueGroupBox
 			// 
-			this.ValueGroupBox.Controls.Add(this.TypeLabel);
+			this.ValueGroupBox.Controls.Add(this.SILabel);
 			this.ValueGroupBox.Controls.Add(this.EditValueTextBox);
 			this.ValueGroupBox.Controls.Add(this.EditValueLabel);
 			this.ValueGroupBox.Location = new System.Drawing.Point(133, 63);
@@ -160,14 +160,14 @@
 			this.ValueGroupBox.TabIndex = 10;
 			this.ValueGroupBox.TabStop = false;
 			// 
-			// TypeLabel
+			// SILabel
 			// 
-			this.TypeLabel.AutoSize = true;
-			this.TypeLabel.Location = new System.Drawing.Point(117, 12);
-			this.TypeLabel.Name = "TypeLabel";
-			this.TypeLabel.Size = new System.Drawing.Size(29, 13);
-			this.TypeLabel.TabIndex = 4;
-			this.TypeLabel.Text = "Ohm";
+			this.SILabel.AutoSize = true;
+			this.SILabel.Location = new System.Drawing.Point(117, 12);
+			this.SILabel.Name = "SILabel";
+			this.SILabel.Size = new System.Drawing.Size(29, 13);
+			this.SILabel.TabIndex = 4;
+			this.SILabel.Text = "Ohm";
 			// 
 			// NameGroupBox
 			// 
@@ -218,7 +218,7 @@
 		private System.Windows.Forms.ComboBox ElementTypeComboBox;
 		private System.Windows.Forms.ComboBox ConnectionComboBox;
 		private System.Windows.Forms.GroupBox ValueGroupBox;
-		private System.Windows.Forms.Label TypeLabel;
+		private System.Windows.Forms.Label SILabel;
 		private System.Windows.Forms.GroupBox NameGroupBox;
 	}
 }

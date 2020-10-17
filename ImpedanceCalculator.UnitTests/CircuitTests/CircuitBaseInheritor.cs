@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Numerics;
+using ImpedanceCalculator.Circuits;
 
 namespace ImpedanceCalculator.UnitTests.CircuitTests
 {
-	class CircuitInheritor : Circuit
+	class CircuitBaseInheritor : CircuitBase
 	{
-		public CircuitInheritor() : base() { }
+		public CircuitBaseInheritor() : base() { }
 
-		public CircuitInheritor(List<ISegment> subSegments, string name) :
+		public CircuitBaseInheritor(List<ISegment> subSegments, string name) :
 			base(subSegments, name) { }
 
 		public override Complex CalculateZ(double frequency)

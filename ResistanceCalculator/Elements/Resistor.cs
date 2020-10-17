@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Numerics;
 
-namespace ImpedanceCalculator
+namespace ImpedanceCalculator.Elements
 {
 	/// <summary>
 	/// Класс резистора 
 	/// </summary>
-	public class Resistor : Element
+	public class Resistor : ElementBase
 	{
 		/// <summary>
 		/// Конструктор без параметров. Устанавливает значеия названия и сопротивления резистора

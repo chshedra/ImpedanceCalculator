@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
 using System.Numerics;
+using ImpedanceCalculator.Circuits;
+using ImpedanceCalculator.Elements;
 
 namespace ImpedanceCalculator.UnitTests.CircuitTests
 {
-	class SerialCircuitTest
+	public class SerialCircuitTest
 	{
 		private SerialCircuit _circuit;
 		private List<ISegment> CreateElements()

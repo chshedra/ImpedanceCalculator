@@ -1,10 +1,12 @@
 ﻿using System;
 using NUnit.Framework;
 using System.Numerics;
+using ImpedanceCalculator.Elements;
 
 namespace ImpedanceCalculator.UnitTests.ElementTests
 {
-	class CapacitorTest
+	[TestFixture]
+	public class CapacitorTest
 	{
 		private Capacitor _capacitor;
 

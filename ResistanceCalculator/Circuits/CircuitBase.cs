@@ -3,16 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using ImpedanceCalculator.Elements;
 
-//TODO: Дефолтный namespace не совпадает с текущим
-namespace ImpedanceCalculator
+//TODO: +Дефолтный namespace не совпадает с текущим
+namespace ImpedanceCalculator.Circuits
 {
-    //TODO: Название не по RSDN
+    //TODO: +Название не по RSDN
     /// <summary>
     /// Базовый абстрактный класс для реализации параллелльной и
     /// полседовательной цепей
     /// </summary>
-    public abstract class Circuit : ISegment, IList<ISegment>
+    public abstract class CircuitBase : ISegment, IList<ISegment>
     {
         /// <summary>
         /// Хранит значение имени цепи
@@ -25,13 +26,11 @@ namespace ImpedanceCalculator
         private List<ISegment> _segments;
 
         /// <inheritdoc/>
-        public string Name 
-        { 
-            get
-            {
-                return _name;
-            }
-            set
+        public string Name
+        {
+	        get => _name;
+
+	        set
             {
                 if (String.IsNullOrEmpty(value))
                 {
@@ -79,18 +78,18 @@ namespace ImpedanceCalculator
         {
             CircuitChanged?.Invoke(sender, e);
         }
-        //TODO: Публичный конструктор не имеет смысла
+        //TODO: +Публичный конструктор не имеет смысла
         /// <summary>
         /// Базовый конструктор цепи без параметров
         /// </summary>
-        public Circuit() : this(new List<ISegment>(), "Circuit") { }
-        //TODO: Публичный конструктор не имеет смысла
+        protected CircuitBase() : this(new List<ISegment>(), "Circuit") { }
+        //TODO: +Публичный конструктор не имеет смысла
         /// <summary>
         /// Базовый конструктор цепи с параметрами
         /// </summary>
         /// <param name="subSegments"></param>
         /// <param name="name"></param>
-        public Circuit(List<ISegment> subSegments, string name)
+        protected CircuitBase(List<ISegment> subSegments, string name)
         {
             SubSegments = subSegments;
             Name = name;
@@ -117,13 +116,13 @@ namespace ImpedanceCalculator
             {
                 foreach(var element in segment.SubSegments)
                 {
-                    element.SegmentChanged -= ((Circuit)segment).OnCircuitChanged;
+                    element.SegmentChanged -= ((CircuitBase)segment).OnCircuitChanged;
                     element.SegmentChanged += OnCircuitChanged;
                 }
                 segment.SegmentChanged += OnCircuitChanged;
             }
             
-            SubSegments.Add(segment);            
+            SubSegments.Add(segment);  
         }
 
         /// <inheritdoc/>

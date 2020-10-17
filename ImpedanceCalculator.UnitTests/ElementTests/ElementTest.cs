@@ -5,13 +5,13 @@ using NUnit.Framework;
 namespace ImpedanceCalculator.UnitTests.ElementTests
 {
 	[TestFixture]
-	class ElementTest
+	public class ElementTest
 	{
-		private ElementInheritor _element;
+		private ElementBaseInheritor _element;
 
 		private void InitElement()
 		{
-			_element = new ElementInheritor();
+			_element = new ElementBaseInheritor();
 		}
 
 		[Test(Description = "Позитивный тест геттера Name")]
@@ -122,7 +122,7 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 			var expectedName = "Element";
 			var expectedValue = 10;
 
-			_element = new ElementInheritor(expectedName, expectedValue);
+			_element = new ElementBaseInheritor(expectedName, expectedValue);
 
 			Assert.AreEqual(expectedName, _element.Name,
 				"Конструктор устанавливает неправильное значение имени");
@@ -136,7 +136,7 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 			string nullName = null;
 			Assert.Throws<ArgumentException>(
 			   () => {
-				   var actual = new ElementInheritor(nullName, 0);
+				   var actual = new ElementBaseInheritor(nullName, 0);
 			   },
 				   "Должно возникать исключение, если имя null");
 		}
@@ -148,7 +148,7 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 
 			Assert.Throws<ArgumentException>(
 			   () => {
-				   var actual = new ElementInheritor(emptyName, 0);
+				   var actual = new ElementBaseInheritor(emptyName, 0);
 			   },
 				   "Должно возникать исключение, если имя пустое");
 		}
@@ -159,7 +159,7 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 			var negativeValue = -3;
 			Assert.Throws<ArgumentException>(
 			   () => {
-				   var actual = new ElementInheritor("Name", negativeValue);
+				   var actual = new ElementBaseInheritor("Name", negativeValue);
 			   },
 				   "Должно возникать исключение, если значение отрицательное");
 		}

@@ -49,12 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CircuitTests\CircuitInheritor.cs" />
+    <Compile Include="CircuitTests\CircuitBaseInheritor.cs" />
     <Compile Include="CircuitTests\CircuitTest.cs" />
     <Compile Include="CircuitTests\ParallelCircuitTest.cs" />
     <Compile Include="CircuitTests\SerialCircuitTest.cs" />
     <Compile Include="ElementTests\CapacitorTest.cs" />
-    <Compile Include="ElementTests\ElementInheritor.cs" />
+    <Compile Include="ElementTests\ElementBaseInheritor.cs" />
     <Compile Include="ElementTests\ElementTest.cs" />
     <Compile Include="ElementTests\InductorTest.cs" />
     <Compile Include="ProjectTest\ProjectTest.cs" />

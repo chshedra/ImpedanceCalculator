@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Numerics;
 
-namespace ImpedanceCalculator
+namespace ImpedanceCalculator.Elements
 {
-	//TODO: Название не по RSDN
+	//TODO: +Название не по RSDN
 	/// <summary>
 	/// Абстрактный класс элемента цепи
 	/// </summary>
-	public abstract class Element : IElement
+	public abstract class ElementBase : IElement
 	{
 		/// <summary>
 		/// Название конденсатора
@@ -68,13 +68,13 @@ namespace ImpedanceCalculator
 			}
 		}
 
-		//TODO: Публичный конструктор не имеет смысла
+		//TODO: +Публичный конструктор не имеет смысла
 		/// <summary>
 		/// Устанавливает и возвращает имя и значение элемента
 		/// </summary>
 		/// <param name="name"></param>
 		/// <param name="value"></param>
-		public Element(string name, double value)
+		protected ElementBase(string name, double value)
 		{
 			Name = name;
 			Value = value;

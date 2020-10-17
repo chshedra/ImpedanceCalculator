@@ -2,21 +2,23 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using System.Numerics;
+using ImpedanceCalculator.Circuits;
+using ImpedanceCalculator.Elements;
 
 namespace ImpedanceCalculator.UnitTests.CircuitTests
 {
 	[TestFixture]
 	class CircuitTest
 	{
-		private CircuitInheritor _circuit;
+		private CircuitBaseInheritor _circuit;
 		private delegate void ExpectedDelegate();
 
 		private void InitCircuit()
 		{
-			_circuit = new CircuitInheritor(new List<ISegment>(), "Circuit");
+			_circuit = new CircuitBaseInheritor(new List<ISegment>(), "Circuit");
 		}
 
-		private Circuit CreateTestCircuit()
+		private CircuitBase CreateTestCircuit()
 		{
 			var R = new Resistor("R", 10.0);
 			var L = new Inductor("L1", 0.05);
@@ -87,7 +89,7 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 		{
 			var expectedName = "Circuit";
 			var expectedSubSegments = new List<ISegment>();
-			_circuit = new CircuitInheritor();
+			_circuit = new CircuitBaseInheritor();
 			
 			Assert.AreEqual(expectedName, _circuit.Name,
 				"Конструктор без прарметров Circuit устанавливает неправильное название");
@@ -103,7 +105,7 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 			segments.Add(new Resistor());
 
 			var expectedSubSegments = segments;
-			_circuit = new CircuitInheritor(segments, expectedName);
+			_circuit = new CircuitBaseInheritor(segments, expectedName);
 
 			Assert.AreEqual(expectedName, _circuit.Name,
 				"Конструктор без прарметров Circuit устанавливает неправильное название");

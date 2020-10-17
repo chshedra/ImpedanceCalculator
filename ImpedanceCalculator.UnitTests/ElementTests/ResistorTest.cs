@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Numerics;
 using NUnit.Framework;
-using ImpedanceCalculator;
+using ImpedanceCalculator.Elements;
 
 namespace ImpedanceCalculator.UnitTests.ElementTests
 {

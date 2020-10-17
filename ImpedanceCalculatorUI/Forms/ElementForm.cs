@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using ImpedanceCalculator;
+using ImpedanceCalculator.Elements;
 
 namespace ImpedanceCalculatorUI
 {
 	public partial class ElementForm : Form
 	{
-		private readonly InputValidation _inputValidation = new InputValidation();
-
 		/// <summary>
 		/// Объект класса Element для добавлеия или редактирования элемента цепи
 		/// </summary>
-		private Element _element;
+		private ElementBase _element;
 
 		 /// <summary>
 		 /// Определяющая для чего была создана форма
@@ -22,7 +20,7 @@ namespace ImpedanceCalculatorUI
 		/// <summary>
 		/// Возвращает и устанавливает значение _element
 		/// </summary>
-		public Element Element
+		public ElementBase ElementBase
 		{
 			get => _element;
 
@@ -86,7 +84,10 @@ namespace ImpedanceCalculatorUI
 			ElementTypeComboBox.Items.Add("C");
 
 			ElementTypeComboBox.SelectedIndex = 0;
-			AddSerialRadioButton.Checked = true;
+
+			ConnectionComboBox.Items.Add("Serial");
+			ConnectionComboBox.Items.Add("Parallel");
+			ConnectionComboBox.SelectedIndex = 0;
 		}
 
 		private void OkButton_Click(object sender, EventArgs e)
@@ -95,21 +96,21 @@ namespace ImpedanceCalculatorUI
 			if (!double.TryParse(EditValueTextBox.Text, out etalon) ||
 				String.IsNullOrWhiteSpace(EditValueTextBox.Text))
 			{
-				_inputValidation.ShowWarningMessageBox("Value must have numerical format",
+				InputValidation.ShowWarningMessageBox("Value must have numerical format",
 					"Incorrect format");
 			}
 			else if (double.Parse(EditValueTextBox.Text) < 0)
 			{
-				_inputValidation.ShowWarningMessageBox("Value must have positive value",
+				InputValidation.ShowWarningMessageBox("Value must have positive value",
 					"Negative value");
 			}
 			else
 			{
-				if (AddSerialRadioButton.Checked)
+				if (ConnectionComboBox.SelectedItem == "Serial")
 				{
 					IsSerial = true;
 				}
-				else if (AddParallelRadioButton.Checked)
+				else if (ConnectionComboBox.SelectedItem == "Parallel")
 				{
 					IsSerial = false;
 				}
@@ -126,14 +127,14 @@ namespace ImpedanceCalculatorUI
 					case "L":
 					{
 						_element = new Inductor(EditNameTextBox.Text, 
-							double.Parse(EditValueTextBox.Text));
+							double.Parse(EditValueTextBox.Text) / 1000);
 
 						break;
 					}
 					case "C":
 					{
 						_element = new Capacitor(EditNameTextBox.Text, 
-							double.Parse(EditValueTextBox.Text));
+							double.Parse(EditValueTextBox.Text) / 1000);
 
 						break;
 					}
@@ -152,7 +153,29 @@ namespace ImpedanceCalculatorUI
 
 		private void EditValueTextBox_TextChanged(object sender, EventArgs e)
 		{
-			_inputValidation.CheckTextBoxValue(EditValueTextBox);
+			InputValidation.CheckTextBoxValue(EditValueTextBox);
+		}
+
+		private void ElementTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			switch (ElementTypeComboBox.SelectedItem.ToString())
+			{
+				case "R":
+				{
+					SILabel.Text = "Ohm";
+					break;
+				}
+				case "L":
+				{
+					SILabel.Text = "mH";
+					break;
+				}
+				case "C":
+				{
+					SILabel.Text = "mF";
+					break;
+				}
+			}
 		}
 	}
 }
