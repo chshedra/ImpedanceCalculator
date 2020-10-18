@@ -6,7 +6,7 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 {
 	public class ElementBaseInheritor : ElementBase
 	{
-		public override Complex CalculateZ(double frequence)
+		public override Complex CalculateZ(double frequency)
 		{
 			throw new NotImplementedException();
 		}

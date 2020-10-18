@@ -16,7 +16,6 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 			elements.Add(new Resistor("R", 10));
 			elements.Add(new Capacitor("C", 0.05));
 			return elements;
-				
 		}
 
 		private void InitParallelCircuit()

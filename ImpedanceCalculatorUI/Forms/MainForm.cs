@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using ImpedanceCalculator.Circuits;
 using ImpedanceCalculator.Elements;
 using ImpedanceCalculator;
 using System.Numerics;
+using System.Security.Cryptography.X509Certificates;
+using ImpedanceCalculatorUI.CircuitDrawer;
 
 namespace ImpedanceCalculatorUI
 {
@@ -101,6 +104,7 @@ namespace ImpedanceCalculatorUI
 				}
 
 				CircuitTreeView.CircuitTreeViewDataBind(selectedCircuitNode,  selectedCircuit.SubSegments);
+				DrawCurcuit();
 			}
 		}
 
@@ -186,6 +190,11 @@ namespace ImpedanceCalculatorUI
 			}
 		}
 
+		/// <summary>
+		/// Изменяет текст в SegmentInfoTextBox
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void ChangeSegmentMessageTextBoxText(object sender, EventArgs e)
 		{
 			var selectedSegment = (ISegment) sender;
@@ -246,8 +255,16 @@ namespace ImpedanceCalculatorUI
 					SegmentInfoTextbox.Text = "Name: " + selectedSegment.Name + Environment.NewLine +
 					                          "Type: " + type;
 					break;
-					}
+				}
 			}
+		}
+
+		public void DrawCurcuit()
+		{
+			Image circitImage = _project.Circuits[CircuitsComboBox.SelectedIndex].GetImage();
+			//CircuitPictureBox.Width = circitImage.Width;
+			//CircuitPictureBox.Height = circitImage.Height;
+			CircuitPictureBox.Image = circitImage;
 		}
 	}
 

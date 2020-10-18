@@ -96,7 +96,25 @@ namespace ImpedanceCalculator.Circuits
         }
 
         /// <inheritdoc />
-        public abstract Complex CalculateZ(double frequency) ;
+        public abstract Complex CalculateZ(double frequency);
+
+        /// <summary>
+        ///     Первый элемент
+        /// </summary>
+        /// <returns></returns>
+        public ISegment FirstOrDefault()
+        {
+	        return SubSegments.FirstOrDefault();
+        }
+
+        /// <summary>
+        ///     Последний элемент
+        /// </summary>
+        /// <returns></returns>
+        public ISegment LastOrDefault()
+        {
+	        return SubSegments.LastOrDefault();
+        }
 
         #region IList members
 

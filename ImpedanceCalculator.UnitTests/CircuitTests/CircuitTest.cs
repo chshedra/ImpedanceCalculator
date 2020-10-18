@@ -11,7 +11,6 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 	class CircuitTest
 	{
 		private CircuitBaseInheritor _circuit;
-		private delegate void ExpectedDelegate();
 
 		private void InitCircuit()
 		{
@@ -118,17 +117,15 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 		{
 			InitCircuit();
 			double frequency = 10;
-			var R = new Resistor("R", 10.0);
-			var L = new Inductor("L1", 0.05);
-			var C = new Capacitor("C1", 0.01);
+			var r = new Resistor("R", 10.0);
+			var l = new Inductor("L1", 0.05);
+			var c = new Capacitor("C1", 0.01);
 
-
-			Complex result1 = 1.0 / R.CalculateZ(frequency) + 1.0 / L.CalculateZ(frequency);
+			Complex result1 = 1.0 / r.CalculateZ(frequency) + 1.0 / l.CalculateZ(frequency);
 			result1 = 1 / result1;
-			Complex result = result1 + C.CalculateZ(frequency);
+			Complex result = result1 + c.CalculateZ(frequency);
 			var expected = result;
 
-			
 			var actual = CreateTestCircuit().CalculateZ(frequency);
 
 			Assert.AreEqual(expected, actual,
