@@ -9,6 +9,8 @@ namespace ImpedanceCalculator
 	/// </summary>
 	public interface ISegment
 	{
+		#region Properties
+
 		/// <summary>
 		/// Название элемента или участка цепи
 		/// </summary>
@@ -19,15 +21,24 @@ namespace ImpedanceCalculator
 		/// </summary>
 		List<ISegment> SubSegments { get; }
 
-		/// <summary>
-		/// Метод, расчитывающий импеданс
-		/// </summary>
-		/// <param name="frequence"></param>
-		Complex CalculateZ(double frequence);
+		#endregion
+
+		#region Events
 
 		/// <summary>
 		/// Событие изменения сегмента цепи
 		/// </summary>
 		event EventHandler SegmentChanged;
+
+		#endregion
+
+		#region Methods
+
+		/// <summary>
+		/// Метод, расчитывающий импеданс
+		/// </summary>
+		/// <param name="frequency"></param>
+		Complex CalculateZ(double frequency);
+		#endregion
 	}
 }

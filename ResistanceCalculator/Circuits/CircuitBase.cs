@@ -15,7 +15,8 @@ namespace ImpedanceCalculator.Circuits
     /// </summary>
     public abstract class CircuitBase : ISegment, IList<ISegment>
     {
-        /// <summary>
+	    #region Private Fields
+	    /// <summary>
         /// Хранит значение имени цепи
         /// </summary>
         private string _name;
@@ -42,9 +43,13 @@ namespace ImpedanceCalculator.Circuits
             }
         }
 
-       /// <summary>
-       /// Возвращает и устанавливает список элементов цепи
-       /// </summary>
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        /// Возвращает и устанавливает список элементов цепи
+        /// </summary>
         public List<ISegment> SubSegments 
         { 
             get
@@ -62,22 +67,19 @@ namespace ImpedanceCalculator.Circuits
                 SegmentChanged?.Invoke(this, EventArgs.Empty);
             }
         }
+        #endregion
 
+        #region Events
         /// <inheritdoc/>
         public event EventHandler CircuitChanged;
 
         /// <inheritdoc/>
         public event EventHandler SegmentChanged;
 
-        /// <summary>
-        /// Метод, вызывающий событие CircuitChanged
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnCircuitChanged(object sender, EventArgs e)
-        {
-            CircuitChanged?.Invoke(sender, e);
-        }
+        #endregion
+
+        #region Constructors
+
         //TODO: +Публичный конструктор не имеет смысла
         /// <summary>
         /// Базовый конструктор цепи без параметров
@@ -95,26 +97,40 @@ namespace ImpedanceCalculator.Circuits
             Name = name;
         }
 
+        #endregion
+
+        #region Methods
+        
         /// <inheritdoc />
         public abstract Complex CalculateZ(double frequency);
 
         /// <summary>
-        ///     Первый элемент
+        /// Возвращает первый элемент
         /// </summary>
-        /// <returns></returns>
         public ISegment FirstOrDefault()
         {
 	        return SubSegments.FirstOrDefault();
         }
 
         /// <summary>
-        ///     Последний элемент
+        /// Возвращает последний элемент
         /// </summary>
-        /// <returns></returns>
         public ISegment LastOrDefault()
         {
 	        return SubSegments.LastOrDefault();
         }
+
+        /// <summary>
+        /// Метод, вызывающий событие CircuitChanged
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnCircuitChanged(object sender, EventArgs e)
+        {
+	        CircuitChanged?.Invoke(sender, e);
+        }
+
+		#endregion
 
         #region IList members
 

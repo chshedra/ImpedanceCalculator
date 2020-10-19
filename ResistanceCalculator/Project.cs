@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Numerics;
-using System.Runtime.Remoting.Messaging;
 
 namespace ImpedanceCalculator
 {
@@ -10,6 +8,8 @@ namespace ImpedanceCalculator
 	/// </summary>
 	public class Project
 	{
+		#region Public Properties
+
 		/// <summary>
 		/// Устанавливает и возвращает список цепей
 		/// </summary>
@@ -25,6 +25,10 @@ namespace ImpedanceCalculator
 		/// </summary>
 		public List<Complex> Impendances { get; set; }
 
+		#endregion
+
+		#region Constructors
+
 		public Project()
 		{
 			Circuits = new List<ISegment>();
@@ -32,5 +36,6 @@ namespace ImpedanceCalculator
 			Impendances = new List<Complex>();
 		}
 
+		#endregion
 	}
 }

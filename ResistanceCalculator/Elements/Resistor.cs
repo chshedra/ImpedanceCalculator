@@ -8,6 +8,8 @@ namespace ImpedanceCalculator.Elements
 	/// </summary>
 	public class Resistor : ElementBase
 	{
+		#region Constructors
+
 		/// <summary>
 		/// Конструктор без параметров. Устанавливает значеия названия и сопротивления резистора
 		/// </summary>
@@ -20,19 +22,25 @@ namespace ImpedanceCalculator.Elements
 		/// <param name="value"></param>
 		public Resistor(string name, double value) : base(name, value) { }
 
+		#endregion
+
+		#region Methods
+
 		/// <summary>
 		/// Метод, расчитывающий сопротивление в комплексной форме
 		/// </summary>
-		/// <param name="frequence"></param>
+		/// <param name="frequency"></param>
 		/// <returns></returns>
-		public override Complex CalculateZ(double frequence)
+		public override Complex CalculateZ(double frequency)
 		{
-			if(frequence < 0)
+			if(frequency < 0)
 			{
-				throw new ArgumentException("The frequence must be positive");
+				throw new ArgumentException("The frequency must be positive");
 			}
-			Complex resistance = new Complex(Value, 0);
+			var resistance = new Complex(Value, 0);
 			return resistance;
-		}		
+		}
+
+		#endregion
 	}
 }

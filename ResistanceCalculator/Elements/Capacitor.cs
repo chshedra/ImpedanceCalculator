@@ -6,8 +6,10 @@ namespace ImpedanceCalculator.Elements
 	/// <summary>
 	/// Класс конденсатора 
 	/// </summary>
-	public class Capacitor : ElementBase, IElement
+	public class Capacitor : ElementBase
 	{
+		#region Constructors
+
 		/// <summary>
 		/// Конструктор без параметров. Устанавливает значеия названия и емкости конденсатора
 		/// </summary>
@@ -24,7 +26,12 @@ namespace ImpedanceCalculator.Elements
 		/// Метод, расчитывающий емкость конденсатора в комплексной форме
 		/// </summary>
 		/// <param name="frequence"></param>
-		/// <returns></returns>
+
+		#endregion
+
+		#region Methods
+
+		///<inheritdoc/>
 		public override Complex CalculateZ(double frequence)
 		{
 			if (frequence < 0)
@@ -36,5 +43,7 @@ namespace ImpedanceCalculator.Elements
 
 			return complexFormResult;
 		}
+
+		#endregion
 	}
 }

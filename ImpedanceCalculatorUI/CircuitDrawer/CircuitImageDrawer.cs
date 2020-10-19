@@ -21,12 +21,12 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
         ///     Метод позволяющий отрисовать(вернуть битмап) эл. цепь.
         /// </summary>
         /// <param name="circuit">Электическая цепь.</param>
-        public static Bitmap GetImage(this ISegment circuit)
+        public static Bitmap GetImage(this ISegment segment)
         {
-            if (circuit is SerialCircuit)
-                return GetCircuitImage(circuit as SerialCircuit);
-            if (circuit is ParallelCircuit)
-                return GetCircuitImage(circuit as ParallelCircuit);
+            if (segment is SerialCircuit)
+                return GetCircuitImage(segment as SerialCircuit);
+            if (segment is ParallelCircuit)
+                return GetCircuitImage(segment as ParallelCircuit);
             return new Bitmap(0, 0);
         }
 
@@ -66,7 +66,7 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
         private const int OutputLineLength = 20;
 
         /// <summary>
-        ///     Делитель изображения. Определяет в какой части будет находится входная и выходная линии.
+        ///  Делитель изображения. Определяет в какой части будет находится входная и выходная линии.
         /// </summary>
         private const int ImageDellimitterConst = 2;
 
@@ -82,7 +82,7 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
         #region Circuit Drawers
 
         /// <summary>
-        ///     Метод отрисовывающий последовательную электрическую цепь.
+        /// Метод отрисовывающий последовательную электрическую цепь.
         /// </summary>
         /// <param name="circuit">Электрическая цепь с последовательным соедининением.</param>
         private static Bitmap GetCircuitImage(SerialCircuit circuit)
@@ -95,29 +95,29 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
 
             using (var g = Graphics.FromImage(bitmap))
             {
-                foreach (var component in circuit)
-                    if (component is IElement)
+                foreach (var segment in circuit)
+                    if (segment is IElement)
                     {
-                        var elementImage = GetElementImage(component as IElement);
+                        var elementImage = GetElementImage(segment as IElement);
                         g.DrawImage(elementImage, new Point(x, y - elementImage.Height / ImageDellimitterConst));
-                        x += GetSize(component as IElement).Width;
+                        x += GetSize(segment as IElement).Width;
                     }
-                    else if (component is CircuitBase)
+                    else if (segment is CircuitBase)
                     {
                         var circuitImage = new Bitmap(EmptyImageSize.Width, EmptyImageSize.Height);
-                        if (component is SerialCircuit)
-                            circuitImage = GetCircuitImage(component as SerialCircuit);
-                        else if (component is ParallelCircuit)
-                            circuitImage = GetCircuitImage(component as ParallelCircuit);
+                        if (segment is SerialCircuit)
+                            circuitImage = GetCircuitImage(segment as SerialCircuit);
+                        else if (segment is ParallelCircuit)
+                            circuitImage = GetCircuitImage(segment as ParallelCircuit);
                         g.DrawImage(circuitImage, new Point(x, y - circuitImage.Height / ImageDellimitterConst));
-                        x += GetSize(component).Width;
+                        x += GetSize(segment).Width;
                     }
             }
             return bitmap;
         }
 
         /// <summary>
-        ///     Метод отрисовывающий эл. цепь с параллельным соединением.
+        /// Метод отрисовывающий эл. цепь с параллельным соединением.
         /// </summary>
         /// <param name="circuit">Эл. цепь с параллельным соединением.</param>
         private static Bitmap GetCircuitImage(ParallelCircuit circuit)
@@ -144,10 +144,10 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
                     size.Height - lastHeight / ImageDellimitterConst);
                 g.DrawLine(StandartPen, x + 1, y + firstHeight / ImageDellimitterConst, x + 1,
                     size.Height - lastHeight / ImageDellimitterConst);
-                foreach (var component in circuit)
-                    if (component is IElement)
+                foreach (var segment in circuit)
+                    if (segment is ElementBase)
                     {
-                        var elementImage = GetElementImage(component as IElement);
+                        var elementImage = GetElementImage(segment as IElement);
                         g.DrawImage(elementImage, new Point(x, y));
                         g.DrawLine(StandartPen, x + elementImage.Width, y + elementImage.Height / ImageDellimitterConst,
                             bitmap.Width - ParallelConnector, y + elementImage.Height / ImageDellimitterConst);
@@ -156,13 +156,13 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
                             y + elementImage.Height / ImageDellimitterConst - 1);
                         y += elementImage.Height;
                     }
-                    else if (component is CircuitBase)
+                    else if (segment is CircuitBase)
                     {
                         var circuitImage = new Bitmap(1, 1);
-                        if (component is SerialCircuit)
-                            circuitImage = GetCircuitImage(component as SerialCircuit);
-                        else if (component is ParallelCircuit)
-                            circuitImage = GetCircuitImage(component as ParallelCircuit);
+                        if (segment is SerialCircuit)
+                            circuitImage = GetCircuitImage(segment as SerialCircuit);
+                        else if (segment is ParallelCircuit)
+                            circuitImage = GetCircuitImage(segment as ParallelCircuit);
                         g.DrawImage(circuitImage, new Point(x, y));
                         g.DrawLine(StandartPen, x + circuitImage.Width, y + circuitImage.Height / ImageDellimitterConst,
                             bitmap.Width - ParallelConnector, y + circuitImage.Height / ImageDellimitterConst);
@@ -192,21 +192,21 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
         /// <summary>
         ///     Вычисляет размер любого компонента эл. цепи.
         /// </summary>
-        /// <param name="component">Компонент эл. цепи.</param>
-        private static Size GetSize(ISegment component)
+        /// <param name="segment">Компонент эл. цепи.</param>
+        private static Size GetSize(ISegment segment)
         {
-            if (component is CircuitBase)
-                return GetSize(component as CircuitBase);
-            if (component is IElement)
-                return GetSize(component as IElement);
+            if (segment is CircuitBase)
+                return GetSize((CircuitBase)segment);
+            if (segment is IElement)
+                return GetSize((ElementBase)segment);
             return new Size(EmptyImageSize.Width, EmptyImageSize.Height);
         }
 
         /// <summary>
         ///     Вычисляет размер элемента эл. цепи.
         /// </summary>
-        /// <param name="component">Элемент эл. цепи.</param>
-        private static Size GetSize(IElement component)
+        /// <param name="element">Элемент эл. цепи.</param>
+        private static Size GetSize(ElementBase element)
         {
             return new Size(ElementSize.Width, ElementSize.Width);
         }
@@ -218,9 +218,9 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
         private static Size GetSize(CircuitBase circuit)
         {
             if (circuit is SerialCircuit)
-                return GetSize(circuit as SerialCircuit);
+                return GetSize((SerialCircuit)circuit);
             if (circuit is ParallelCircuit)
-                return GetSize(circuit as ParallelCircuit);
+                return GetSize((ParallelCircuit)circuit);
             return new Size(1, 1);
         }
 
@@ -231,23 +231,23 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
         private static Size GetSize(SerialCircuit circuit)
         {
             var size = circuit.Count > 0 ? new Size(0, 0) : new Size(EmptyImageSize.Width, EmptyImageSize.Height);
-            foreach (var component in circuit)
-                if (component is IElement)
+            foreach (var segment in circuit)
+                if (segment is ElementBase)
                 {
-                    size.Height = size.Height < GetSize(component as IElement).Height
-                        ? GetSize(component as IElement).Height
+                    size.Height = size.Height < GetSize((ElementBase)segment).Height
+                        ? GetSize((ElementBase)segment).Height
                         : size.Height;
-                    size.Width = size.Width + GetSize(component as IElement).Width;
+                    size.Width = size.Width + GetSize((ElementBase)segment).Width;
                 }
-                else if (component is SerialCircuit)
+                else if (segment is SerialCircuit)
                 {
-                    var scSize = GetSize(component as SerialCircuit);
+                    var scSize = GetSize(segment as SerialCircuit);
                     size.Height = size.Height < scSize.Height ? scSize.Height : size.Height;
                     size.Width = size.Width + scSize.Width;
                 }
-                else if (component is ParallelCircuit)
+                else if (segment is ParallelCircuit)
                 {
-                    var pcSize = GetSize(component as ParallelCircuit);
+                    var pcSize = GetSize(segment as ParallelCircuit);
                     size.Height = size.Height < pcSize.Height ? pcSize.Height : size.Height;
                     size.Width = size.Width + pcSize.Width;
                 }
@@ -255,29 +255,29 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
         }
 
         /// <summary>
-        ///     Вычисляет размер рисунка эл. цепи с параллельным соединением.
+        /// Вычисляет размер рисунка эл. цепи с параллельным соединением.
         /// </summary>
         /// <param name="circuit">Эл. цепь с параллельным соединением.</param>
         private static Size GetSize(ParallelCircuit circuit)
         {
             var size = circuit.Count > 0 ? new Size(0, 0) : new Size(EmptyImageSize.Width, EmptyImageSize.Height);
-            foreach (var component in circuit)
-                if (component is IElement)
+            foreach (var segment in circuit)
+                if (segment is ElementBase)
                 {
-                    size.Height = size.Height + GetSize(component as IElement).Height;
-                    size.Width = size.Width < GetSize(component as IElement).Width
-                        ? GetSize(component as IElement).Width
+                    size.Height = size.Height + GetSize((ElementBase)segment).Height;
+                    size.Width = size.Width < GetSize((ElementBase) segment).Width
+                        ? GetSize((ElementBase)segment).Width
                         : size.Width;
                 }
-                else if (component is SerialCircuit)
+                else if (segment is SerialCircuit)
                 {
-                    var scSize = GetSize(component as SerialCircuit);
+                    var scSize = GetSize(segment as SerialCircuit);
                     size.Width = size.Width < scSize.Width ? scSize.Width : size.Width;
                     size.Height = size.Height + scSize.Height;
                 }
-                else if (component is ParallelCircuit)
+                else if (segment is ParallelCircuit)
                 {
-                    var pcSize = GetSize(component as ParallelCircuit);
+                    var pcSize = GetSize(segment as ParallelCircuit);
                     size.Width = size.Width < pcSize.Width ? pcSize.Width : size.Width;
                     size.Height = size.Height + pcSize.Height;
                 }
@@ -350,7 +350,7 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
         }
 
         /// <summary>
-        ///     Рисует катушку индуктивности.
+        /// Рисует катушку индуктивности.
         /// </summary>
         /// <param name="graphics">Поверхность рисования .</param>
         private static void DrawInductor(Graphics graphics)

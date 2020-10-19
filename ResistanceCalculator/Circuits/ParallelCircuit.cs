@@ -8,12 +8,18 @@ namespace ImpedanceCalculator.Circuits
 	/// </summary>
     public class ParallelCircuit : CircuitBase
     {
-        /// <inheritdoc/>
+	    #region Constructors
+
+	    /// <inheritdoc/>
         public ParallelCircuit() : base() { }
 
         /// <inheritdoc/>
         public ParallelCircuit(List<ISegment> subSegments, string name)
             : base(subSegments, name) { }
+
+        #endregion
+
+        #region Methods
 
         /// <inheritdoc />
         public override Complex CalculateZ(double frequency)
@@ -26,5 +32,7 @@ namespace ImpedanceCalculator.Circuits
 
             return 1 / result;
         }
+
+		#endregion
     }
 }

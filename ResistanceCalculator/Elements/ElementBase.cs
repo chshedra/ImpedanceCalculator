@@ -12,6 +12,8 @@ namespace ImpedanceCalculator.Elements
 	/// </summary>
 	public abstract class ElementBase : IElement
 	{
+		#region Private Fields
+
 		/// <summary>
 		/// Название конденсатора
 		/// </summary>
@@ -21,6 +23,10 @@ namespace ImpedanceCalculator.Elements
 		/// Емкость конденстатора
 		/// </summary>
 		private double _value;
+
+		#endregion
+
+		#region Public Properties
 
 		/// <inheritdoc/>
 		public List<ISegment> SubSegments { get; } = null;
@@ -68,6 +74,10 @@ namespace ImpedanceCalculator.Elements
 			}
 		}
 
+		#endregion
+
+		#region Constructors
+
 		//TODO: +Публичный конструктор не имеет смысла
 		/// <summary>
 		/// Устанавливает и возвращает имя и значение элемента
@@ -80,6 +90,10 @@ namespace ImpedanceCalculator.Elements
 			Value = value;
 		}
 
+		#endregion
+
+		#region Methods
+
 		/// <inheritdoc/>
 		public override string ToString()
 			=> ($"Name: {Name}. Value: {Value}");
@@ -89,6 +103,8 @@ namespace ImpedanceCalculator.Elements
 		/// </summary>
 		/// <param name="frequence"></param>
 		/// <returns></returns>
-		public abstract Complex CalculateZ(double frequence);
+		public abstract Complex CalculateZ(double frequency);
+
+		#endregion
 	}
 }
