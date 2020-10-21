@@ -39,14 +39,18 @@
 			// 
 			// CircuitTreeView
 			// 
+			this.CircuitTreeView.AllowDrop = true;
 			this.CircuitTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.CircuitTreeView.Location = new System.Drawing.Point(0, 0);
 			this.CircuitTreeView.Name = "CircuitTreeView";
 			this.CircuitTreeView.Size = new System.Drawing.Size(150, 150);
 			this.CircuitTreeView.TabIndex = 0;
+			this.CircuitTreeView.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.CircuitsTreeView_ItemDrag);
 			this.CircuitTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.CircuitTreeView_AfterSelect);
-			this.CircuitTreeView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.CircuitTreeView_MouseDown);
-			this.CircuitTreeView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.CircuitTreeView_MouseUp);
+			this.CircuitTreeView.DragDrop += new System.Windows.Forms.DragEventHandler(this.CircuitsTreeView_DragDrop);
+			this.CircuitTreeView.DragEnter += new System.Windows.Forms.DragEventHandler(this.CircuitsTreeView_DragEnter);
+			this.CircuitTreeView.DragOver += new System.Windows.Forms.DragEventHandler(this.CircuitTreeView_DragOver);
+			this.CircuitTreeView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CircuitTreeView_MouseClick);
 			// 
 			// NodeContextMenu
 			// 

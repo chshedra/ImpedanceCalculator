@@ -23,12 +23,16 @@ namespace ImpedanceCalculatorUI
 			InitializeComponent();
 			_project = new Project();
 
-			CircuitsComboBox.DataSource = _project.Circuits;
-			CircuitsComboBox.DisplayMember = "Name";
 
 			FrequenciesListBox.DataSource = _project.Frequencies;
 
 			CircuitTreeView.SegmentSelected += ChangeSegmentMessageTextBoxText;
+			CircuitTreeView.CircuitChanged += DrawCircuit;
+
+			_project.Circuits.Add(_project.CreateCircuit());
+
+			CircuitsComboBox.DataSource = _project.Circuits;
+			CircuitsComboBox.DisplayMember = "Name";
 
 		}
 
@@ -104,16 +108,12 @@ namespace ImpedanceCalculatorUI
 				}
 
 				CircuitTreeView.CircuitTreeViewDataBind(selectedCircuitNode,  selectedCircuit.SubSegments);
-				DrawCurcuit();
 			}
 		}
 
 		private void AddCircuitButton_Click(object sender, EventArgs e)
 		{
-			var circuitForm = new CircuitForm()
-			{
-				IsAdd = true
-			};
+			var circuitForm = new CircuitForm();
 
 			circuitForm.ShowDialog();
 			if (circuitForm.DialogResult == DialogResult.OK)
@@ -124,6 +124,7 @@ namespace ImpedanceCalculatorUI
 				SegmentTreeNode circuitNode = new SegmentTreeNode(circuit);
 				CircuitTreeView.Nodes.Add(circuitNode);
 				CircuitsComboBox.SelectedIndex = _project.Circuits.IndexOf(circuit);
+				CircuitTreeView.AddFirstElement();
 			}
 		}
 
@@ -259,11 +260,9 @@ namespace ImpedanceCalculatorUI
 			}
 		}
 
-		public void DrawCurcuit()
+		public void DrawCircuit(object sender, EventArgs e)
 		{
 			Image circitImage = _project.Circuits[CircuitsComboBox.SelectedIndex].GetImage();
-			//CircuitPictureBox.Width = circitImage.Width;
-			//CircuitPictureBox.Height = circitImage.Height;
 			CircuitPictureBox.Image = circitImage;
 		}
 	}

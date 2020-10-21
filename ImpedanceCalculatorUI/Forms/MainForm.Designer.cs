@@ -204,6 +204,7 @@
 			this.CircuitPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.CircuitPictureBox.Location = new System.Drawing.Point(195, 12);
 			this.CircuitPictureBox.Name = "CircuitPictureBox";
+			this.CircuitPictureBox.Padding = new System.Windows.Forms.Padding(20);
 			this.CircuitPictureBox.Size = new System.Drawing.Size(576, 305);
 			this.CircuitPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
 			this.CircuitPictureBox.TabIndex = 0;

@@ -20,11 +20,6 @@ namespace ImpedanceCalculatorUI
 		private CircuitBase _circuit;
 
 		/// <summary>
-		/// Определяет, для чего была создана форма
-		/// </summary>
-		private bool _isAdd;
-
-		/// <summary>
 		/// Устанавливает и возвращает информацию о цепи 
 		/// </summary>
 		public CircuitBase CircuitBase
@@ -37,25 +32,9 @@ namespace ImpedanceCalculatorUI
 			}
 		}
 
-		/// <summary>
-		/// Устанавливает и возвращает переменную, проверяющую для чего вызвана форма
-		/// </summary>
-		public bool IsAdd
-		{
-			get => _isAdd;
-
-			set
-			{
-				_isAdd = value;
-				ConnectionTupeGroupBox.Visible = _isAdd;
-			}
-		}
-
 		public CircuitForm()
 		{
 			InitializeComponent();
-
-			SerialConnectionRadioButton.Checked = true;
 		}
 
 
@@ -68,17 +47,9 @@ namespace ImpedanceCalculatorUI
 			}
 			else
 			{
-				CircuitBase newCircuit = null;
-				if(SerialConnectionRadioButton.Checked)
-				{
-					 newCircuit = new SerialCircuit(new List<ISegment>(), CircuitNameTextBox.Text);
-				}
-				//TODO: +А тут уже не надо?
-				else if(ParallelConnectionRadioButton.Checked)
-				{
-					newCircuit = new ParallelCircuit(new List<ISegment>(), CircuitNameTextBox.Text);
-				}
-
+				
+				var newCircuit = new SerialCircuit(new List<ISegment>(), CircuitNameTextBox.Text);
+				
 				_circuit = newCircuit;
 				DialogResult = DialogResult.OK;
 			}

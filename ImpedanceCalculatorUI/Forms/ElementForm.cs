@@ -20,7 +20,7 @@ namespace ImpedanceCalculatorUI
 		/// <summary>
 		/// Возвращает и устанавливает значение _element
 		/// </summary>
-		public ElementBase ElementBase
+		public ElementBase Element
 		{
 			get => _element;
 
