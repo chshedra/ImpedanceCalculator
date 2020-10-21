@@ -149,50 +149,48 @@ namespace ImpedanceCalculatorUI.Controls
 		private void AddCircuitNode(ElementForm addForm, SegmentTreeNode selectedNode,
 			SegmentTreeNode node, SegmentTreeNode selectedNodeParent)
 		{
+			if (selectedNode == null || selectedNodeParent == null)
+			{
+				throw new ArgumentException("Selected node or selected node parent is null");
+			}
+
 			if (addForm.IsSerial)
 			{
-				selectedNode.Segment.SubSegments.Add(addForm.Element);
-				selectedNode.Nodes.Add(node);
-			}
-			else if (selectedNode.Parent == null)
-			{
-				CircuitBase newSegment;
-				if (selectedNode.Segment is SerialCircuit)
-                {
-					newSegment = new ParallelCircuit()
-					{
-						Name = selectedNode.Segment.Name,
-						SubSegments = selectedNode.Segment.SubSegments
-					};
-				}
-				else
+				switch (selectedNode.Segment)
 				{
-					newSegment = new SerialCircuit()
+					case SerialCircuit serial:
 					{
-						Name = selectedNode.Segment.Name,
-						SubSegments = selectedNode.Segment.SubSegments
-					};
+						serial.SubSegments.Add(addForm.Element);
+						selectedNode.Nodes.Add(node);
+						break;
+					}
+					case ParallelCircuit parallel:
+					{
+						((SegmentTreeNode)selectedNode.Parent).Segment.SubSegments.Add(addForm.Element);
+						selectedNode.Parent.Nodes.Add(node);
+						break;
+					}
 				}
-
-				newSegment.Add(addForm.Element);
-				var index = _project.Circuits.IndexOf(selectedNode.Segment);
-				_project.Circuits.Remove(selectedNode.Segment);
-				_project.Circuits.Insert(index, newSegment);
 			}
 			else
 			{
-				if (selectedNode.Segment is SerialCircuit)
+				switch (selectedNode.Segment)
 				{
-					var parallelSegment = new ParallelCircuit()
+					case SerialCircuit serial:
 					{
-						Name = "Parallel Segment"
-					};
-					CreateSegment(addForm.Element, selectedNode, selectedNodeParent, parallelSegment);
-				}
-				else
-				{
-					selectedNodeParent.Segment.SubSegments.Add(addForm.Element);
-					selectedNodeParent.Nodes.Add(node);
+						var parallelSegment = new ParallelCircuit()
+						{
+							Name = "Parallel Segment"
+						};
+						CreateSegment(addForm.Element, selectedNode, selectedNodeParent, parallelSegment);
+							break;
+					}
+					case ParallelCircuit parallel:
+					{
+						selectedNode.Segment.SubSegments.Add(addForm.Element);
+						selectedNode.Nodes.Add(node);
+						break;
+					}
 				}
 			}
 		}
