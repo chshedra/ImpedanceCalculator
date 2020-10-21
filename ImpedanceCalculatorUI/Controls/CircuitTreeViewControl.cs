@@ -193,6 +193,7 @@ namespace ImpedanceCalculatorUI.Controls
 					}
 				}
 			}
+			CircuitChanged?.Invoke(this, EventArgs.Empty);
 		}
 
 		private void CircuitsTreeView_ItemDrag(object sender, ItemDragEventArgs e)
@@ -430,6 +431,7 @@ namespace ImpedanceCalculatorUI.Controls
 				var firstElement = new SegmentTreeNode(addForm.Element);
 				CircuitTreeView.Nodes[0].Nodes.Add(firstElement);
 				((SegmentTreeNode)CircuitTreeView.Nodes[0]).Segment.SubSegments.Add(addForm.Element);
+				CircuitChanged?.Invoke(this, EventArgs.Empty);
 			}
 		}
 	}
