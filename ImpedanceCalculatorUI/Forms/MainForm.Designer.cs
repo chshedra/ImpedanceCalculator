@@ -202,11 +202,11 @@
 			// 
 			this.CircuitPictureBox.BackColor = System.Drawing.Color.White;
 			this.CircuitPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.CircuitPictureBox.Location = new System.Drawing.Point(195, 12);
+			this.CircuitPictureBox.Location = new System.Drawing.Point(193, 12);
 			this.CircuitPictureBox.Name = "CircuitPictureBox";
 			this.CircuitPictureBox.Padding = new System.Windows.Forms.Padding(20);
-			this.CircuitPictureBox.Size = new System.Drawing.Size(576, 305);
-			this.CircuitPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.CircuitPictureBox.Size = new System.Drawing.Size(578, 305);
+			this.CircuitPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
 			this.CircuitPictureBox.TabIndex = 0;
 			this.CircuitPictureBox.TabStop = false;
 			// 

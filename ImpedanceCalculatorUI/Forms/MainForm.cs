@@ -260,6 +260,11 @@ namespace ImpedanceCalculatorUI
 			}
 		}
 
+		/// <summary>
+		/// Добавляет цепь на pictureBox
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		public void DrawCircuit(object sender, EventArgs e)
 		{
 			Image circitImage = _project.Circuits[CircuitsComboBox.SelectedIndex].GetImage();

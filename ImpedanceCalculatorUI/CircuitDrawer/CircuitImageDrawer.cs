@@ -17,7 +17,7 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
         /// Рисование элемента.
         /// </summary>
         /// <param name="graphics"></param>
-        private delegate void DrawElementProcedure(Graphics graphics);
+        private delegate void DrawElementProcedure(Graphics graphics, string elementName);
 
 
         /// <summary>
@@ -33,17 +33,17 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
         /// <summary>
         /// Размер простейшего элемента эл.цепи
         /// </summary>
-        private static readonly Size ElementSize = new Size(50, 50);
+        private static readonly Size ElementSize = new Size(100, 100);
 
         /// <summary>
         /// Длина входной линии.
         /// </summary>
-        private const int InputLineLength = 10;
+        private const int InputLineLength = 20;
 
         /// <summary>
         /// Длина выходной линии.
         /// </summary>
-        private const int OutputLineLength = 20;
+        private const int OutputLineLength = 40;
 
         /// <summary>
         ///  Делитель изображения. Определяет в какой части будет находится входная и выходная линии.
@@ -131,31 +131,29 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
             var firstSegment = circuit.FirstOrDefault();
             var lastElement = circuit.LastOrDefault();
             if (firstSegment == null || lastElement == null)
-                return bitmap;
+            {
+	            return bitmap;
+            }
             var firstHeight = GetSize(firstSegment).Height;
             var lastHeight = GetSize(lastElement).Height;
 
             using (var g = Graphics.FromImage(bitmap))
             {
-                g.DrawLine(StandartPen, 0, size.Height / ImageDellimitterConst, InputLineLength,
+                g.DrawLine(StandartPen, 0, size.Height / ImageDellimitterConst , InputLineLength,
                     size.Height / ImageDellimitterConst);
-                g.DrawLine(StandartPen, 0, size.Height / ImageDellimitterConst - 1, InputLineLength,
-                    size.Height / ImageDellimitterConst - 1);
 
-                g.DrawLine(StandartPen, x, y + firstHeight / ImageDellimitterConst, x,
+                g.DrawLine(StandartPen, x, y + firstHeight / ImageDellimitterConst , x,
                     size.Height - lastHeight / ImageDellimitterConst);
-                g.DrawLine(StandartPen, x + 1, y + firstHeight / ImageDellimitterConst, x + 1,
-                    size.Height - lastHeight / ImageDellimitterConst);
+               
                 foreach (var segment in circuit)
                     if (segment is ElementBase)
                     {
                         var elementImage = GetElementImage(segment as ElementBase);
                         g.DrawImage(elementImage, new Point(x, y));
-                        g.DrawLine(StandartPen, x + elementImage.Width, y + elementImage.Height / ImageDellimitterConst,
-                            bitmap.Width - ParallelConnector, y + elementImage.Height / ImageDellimitterConst);
+
                         g.DrawLine(StandartPen, x + elementImage.Width,
-                            y + elementImage.Height / ImageDellimitterConst - 1, bitmap.Width - ParallelConnector,
-                            y + elementImage.Height / ImageDellimitterConst - 1);
+                            y + elementImage.Height / ImageDellimitterConst , bitmap.Width - ParallelConnector,
+                            y + elementImage.Height / ImageDellimitterConst );
                         y += elementImage.Height;
                     }
                     else if (segment is CircuitBase)
@@ -166,23 +164,20 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
                         else if (segment is ParallelCircuit)
                             circuitImage = GetCircuitImage(segment as ParallelCircuit);
                         g.DrawImage(circuitImage, new Point(x, y));
-                        g.DrawLine(StandartPen, x + circuitImage.Width, y + circuitImage.Height / ImageDellimitterConst,
-                            bitmap.Width - ParallelConnector, y + circuitImage.Height / ImageDellimitterConst);
+                      
                         g.DrawLine(StandartPen, x + circuitImage.Width,
-                            y + circuitImage.Height / ImageDellimitterConst - 1, bitmap.Width - ParallelConnector,
-                            y + circuitImage.Height / ImageDellimitterConst - 1);
+                            y + circuitImage.Height / ImageDellimitterConst, bitmap.Width - ParallelConnector,
+                            y + circuitImage.Height / ImageDellimitterConst);
                         y += circuitImage.Height;
                     }
 
                 g.DrawLine(StandartPen, bitmap.Width - ParallelConnector, firstHeight / ImageDellimitterConst,
                     bitmap.Width - ParallelConnector, size.Height - lastHeight / ImageDellimitterConst);
-                g.DrawLine(StandartPen, bitmap.Width - ParallelConnector - 1, firstHeight / ImageDellimitterConst,
-                    bitmap.Width - ParallelConnector - 1, size.Height - lastHeight / ImageDellimitterConst);
+               
 
                 g.DrawLine(StandartPen, bitmap.Width - ParallelConnector, bitmap.Height / ImageDellimitterConst,
                     bitmap.Width, bitmap.Height / ImageDellimitterConst);
-                g.DrawLine(StandartPen, bitmap.Width - ParallelConnector,
-                    bitmap.Height / ImageDellimitterConst - 1, bitmap.Width, bitmap.Height / ImageDellimitterConst - 1);
+              
             }
             return bitmap;
         }
@@ -302,7 +297,7 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
             var bitmap = new Bitmap(GetSize(element).Height, GetSize(element).Width);
             using (var g = Graphics.FromImage(bitmap))
             {
-                drawer(g);
+                drawer(g, element.Name);
             }
             return bitmap;
         }
@@ -326,47 +321,50 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
         /// Рисует резистор.
         /// </summary>
         /// <param name="graphics"></param>
-        private static void DrawResistor(Graphics graphics)
+        private static void DrawResistor(Graphics graphics, string resistorName)
         {
-            graphics.DrawRectangle(StandartPen, new Rectangle(10, 17, 30, 16));
+            graphics.DrawRectangle(StandartPen, new Rectangle(20, 34, 60, 32));
 
-            graphics.DrawLine(StandartPen, 0, 24, 10, 24);
-            graphics.DrawLine(StandartPen, 0, 25, 10, 25);
-            graphics.DrawLine(StandartPen, 40, 24, ElementSize.Width, 24);
-            graphics.DrawLine(StandartPen, 40, 25, ElementSize.Width, 25);
+            graphics.DrawLine(StandartPen, 0, 50, 20, 50);
+            graphics.DrawLine(StandartPen, 80, 50, ElementSize.Width, 50);
+
+            graphics.DrawString(resistorName, new Font(FontFamily.GenericSansSerif,  
+	            10), new SolidBrush(Color.Black), 40, 10);
         }
 
         /// <summary>
         /// Рисует конденсатор.
         /// </summary>
         /// <param name="graphics">Поверхность рисования.</param>
-        private static void DrawCapacitor(Graphics graphics)
+        private static void DrawCapacitor(Graphics graphics, string capacitorName)
         {
-            graphics.DrawLine(StandartPen, 20, 17, 20, 32);
-            graphics.DrawLine(StandartPen, 29, 17, 29, 32);
+            graphics.DrawLine(StandartPen, 40, 34, 40, 64);
+            graphics.DrawLine(StandartPen, 58, 34, 58, 64);
 
-            graphics.DrawLine(StandartPen, 0, 24, 20, 24);
-            graphics.DrawLine(StandartPen, 0, 25, 20, 25);
-            graphics.DrawLine(StandartPen, 29, 24, ElementSize.Width, 24);
-            graphics.DrawLine(StandartPen, 29, 25, ElementSize.Width, 25);
+            graphics.DrawLine(StandartPen, 0, 50, 40, 50);
+            graphics.DrawLine(StandartPen, 58, 50, ElementSize.Width, 50);
+
+            graphics.DrawString(capacitorName, new Font(FontFamily.GenericSansSerif,
+	            10), new SolidBrush(Color.Black), 40, 10);
         }
 
         /// <summary>
         /// Рисует катушку индуктивности.
         /// </summary>
         /// <param name="graphics"></param>
-        private static void DrawInductor(Graphics graphics)
+        private static void DrawInductor(Graphics graphics, string inductorName)
         {
-            graphics.DrawBezier(StandartPen, 20, 24, 20, 20, 24, 20, 24, 24);
-            graphics.DrawBezier(StandartPen, 24, 24, 24, 20, 28, 20, 28, 24);
-            graphics.DrawBezier(StandartPen, 28, 24, 28, 20, 32, 20, 32, 24);
-            graphics.DrawBezier(StandartPen, 32, 24, 32, 20, 36, 20, 36, 24);
-            graphics.DrawBezier(StandartPen, 36, 24, 36, 20, 40, 20, 40, 24);
+            graphics.DrawBezier(StandartPen, 40, 50, 40, 40, 48, 40, 48, 50);
+            graphics.DrawBezier(StandartPen, 48, 50, 48, 40, 56, 40, 56, 50);
+            graphics.DrawBezier(StandartPen, 56, 50, 56, 40, 64, 40, 64, 50);
+            graphics.DrawBezier(StandartPen, 64, 50, 64, 40, 72, 40, 72, 50);
+            graphics.DrawBezier(StandartPen, 72, 50, 72, 40, 80, 40, 80, 50);
 
-            graphics.DrawLine(StandartPen, 0, 24, 20, 24);
-            graphics.DrawLine(StandartPen, 0, 25, 20, 25);
-            graphics.DrawLine(StandartPen, 40, 24, ElementSize.Width, 24);
-            graphics.DrawLine(StandartPen, 40, 25, ElementSize.Width, 25);
+            graphics.DrawLine(StandartPen, 0, 50, 40, 50);
+            graphics.DrawLine(StandartPen, 80, 50, ElementSize.Width, 50);
+
+            graphics.DrawString(inductorName, new Font(FontFamily.GenericSansSerif,
+	            10), new SolidBrush(Color.Black), 50, 20);
         }
 
         #endregion
