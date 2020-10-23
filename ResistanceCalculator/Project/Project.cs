@@ -49,6 +49,8 @@ namespace ImpedanceCalculator
 			var l1 = new Inductor("L1", 0.02);
 			var r2 = new Resistor("R2", 10);
 			var l2 = new Capacitor("C2", 0.003);
+			var r3 = new Resistor("R3", 1);
+			var r4 = new Resistor("R4", 1);
 
 			var serialSegment = new SerialCircuit(new List<ISegment>(), "SerialSegment");
 			serialSegment.Add(r2);
@@ -62,6 +64,8 @@ namespace ImpedanceCalculator
 			mainCircuit.Add(r1);
 			mainCircuit.Add(c1);
 			mainCircuit.Add(parallelSegment);
+			mainCircuit.Add(r3);
+			mainCircuit.Add(r4);
 
 			return mainCircuit;
 		}

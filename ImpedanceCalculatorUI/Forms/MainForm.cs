@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using ImpedanceCalculator.Circuits;
 using ImpedanceCalculator.Elements;
 using ImpedanceCalculator;
-using System.Numerics;
-using System.Security.Cryptography.X509Certificates;
 using ImpedanceCalculatorUI.CircuitDrawer;
 
 namespace ImpedanceCalculatorUI
@@ -66,6 +63,11 @@ namespace ImpedanceCalculatorUI
 				InputValidation.ShowWarningMessageBox("Select the circuit",
 					"Any circuit selected");
 			}
+			else if (_project.Frequencies.Contains(double.Parse(FrequencyTextBox.Text)))
+            {
+	            FrequenciesListBox.SelectedIndex = 
+		            _project.Frequencies.IndexOf(double.Parse(FrequencyTextBox.Text));
+            }
 			else
 			{
 				if (!String.IsNullOrEmpty(FrequencyTextBox.Text))
@@ -187,7 +189,10 @@ namespace ImpedanceCalculatorUI
 			ImpedanceListBox.Items.Clear();
 			foreach (var impedance in _project.Impendances)
 			{
-				ImpedanceListBox.Items.Add($"{impedance.Real} + {impedance.Imaginary} i");
+				var sign = (impedance.Imaginary < 0) ? "" : "+";
+				ImpedanceListBox.Items.Add
+				($"{Math.Round(impedance.Real, 4, MidpointRounding.ToEven)} " + 
+					sign + $"{Math.Round(impedance.Imaginary, 4, MidpointRounding.ToEven)} i");
 			}
 		}
 
@@ -267,8 +272,9 @@ namespace ImpedanceCalculatorUI
 		/// <param name="e"></param>
 		public void DrawCircuit(object sender, EventArgs e)
 		{
-			Image circitImage = _project.Circuits[CircuitsComboBox.SelectedIndex].GetImage();
-			CircuitPictureBox.Image = circitImage;
+			Image circuitImage = _project.Circuits[CircuitsComboBox.SelectedIndex].GetImage();
+			CircuitPictureBox.Image = circuitImage;
+			CircuitPictureBox.Size = circuitImage.Size;
 		}
 	}
 

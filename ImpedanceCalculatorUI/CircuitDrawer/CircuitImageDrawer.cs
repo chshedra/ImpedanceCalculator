@@ -321,6 +321,7 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
         /// Рисует резистор.
         /// </summary>
         /// <param name="graphics"></param>
+        /// <param name="resistorName"></param>
         private static void DrawResistor(Graphics graphics, string resistorName)
         {
             graphics.DrawRectangle(StandartPen, new Rectangle(20, 34, 60, 32));
@@ -329,13 +330,14 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
             graphics.DrawLine(StandartPen, 80, 50, ElementSize.Width, 50);
 
             graphics.DrawString(resistorName, new Font(FontFamily.GenericSansSerif,  
-	            10), new SolidBrush(Color.Black), 40, 10);
+	            10, FontStyle.Regular), new SolidBrush(Color.Black), 40, 10);
         }
 
         /// <summary>
         /// Рисует конденсатор.
         /// </summary>
-        /// <param name="graphics">Поверхность рисования.</param>
+        /// <param name="graphics"></param>
+        /// <param name="capacitorName"></param>
         private static void DrawCapacitor(Graphics graphics, string capacitorName)
         {
             graphics.DrawLine(StandartPen, 40, 34, 40, 64);
@@ -345,13 +347,14 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
             graphics.DrawLine(StandartPen, 58, 50, ElementSize.Width, 50);
 
             graphics.DrawString(capacitorName, new Font(FontFamily.GenericSansSerif,
-	            10), new SolidBrush(Color.Black), 40, 10);
+	            10, FontStyle.Regular), new SolidBrush(Color.Black), 40, 10);
         }
 
         /// <summary>
         /// Рисует катушку индуктивности.
         /// </summary>
         /// <param name="graphics"></param>
+        /// <param name="inductorName"></param>
         private static void DrawInductor(Graphics graphics, string inductorName)
         {
             graphics.DrawBezier(StandartPen, 40, 50, 40, 40, 48, 40, 48, 50);
@@ -364,7 +367,7 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
             graphics.DrawLine(StandartPen, 80, 50, ElementSize.Width, 50);
 
             graphics.DrawString(inductorName, new Font(FontFamily.GenericSansSerif,
-	            10), new SolidBrush(Color.Black), 50, 20);
+	            10, FontStyle.Regular), new SolidBrush(Color.Black), 50, 20);
         }
 
         #endregion

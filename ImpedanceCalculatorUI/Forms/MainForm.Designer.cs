@@ -46,11 +46,13 @@
 			this.RemoveCircuitButton = new System.Windows.Forms.Button();
 			this.AddCircuitButton = new System.Windows.Forms.Button();
 			this.CircuitPictureBox = new System.Windows.Forms.PictureBox();
+			this.CircuitPictureBoxPanel = new System.Windows.Forms.Panel();
 			this.FrequenciesGroupBox.SuspendLayout();
 			this.ImpendancesGroupBox.SuspendLayout();
 			this.ElementInfoGroupBox.SuspendLayout();
 			this.FrequencyContextMenuStrip.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.CircuitPictureBox)).BeginInit();
+			this.CircuitPictureBoxPanel.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// FrequencyLabel
@@ -201,20 +203,30 @@
 			// CircuitPictureBox
 			// 
 			this.CircuitPictureBox.BackColor = System.Drawing.Color.White;
-			this.CircuitPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.CircuitPictureBox.Location = new System.Drawing.Point(193, 12);
+			this.CircuitPictureBox.Location = new System.Drawing.Point(21, 16);
 			this.CircuitPictureBox.Name = "CircuitPictureBox";
 			this.CircuitPictureBox.Padding = new System.Windows.Forms.Padding(20);
-			this.CircuitPictureBox.Size = new System.Drawing.Size(578, 305);
+			this.CircuitPictureBox.Size = new System.Drawing.Size(425, 187);
 			this.CircuitPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
 			this.CircuitPictureBox.TabIndex = 0;
 			this.CircuitPictureBox.TabStop = false;
+			// 
+			// CircuitPictureBoxPanel
+			// 
+			this.CircuitPictureBoxPanel.AutoScroll = true;
+			this.CircuitPictureBoxPanel.BackColor = System.Drawing.Color.White;
+			this.CircuitPictureBoxPanel.Controls.Add(this.CircuitPictureBox);
+			this.CircuitPictureBoxPanel.Location = new System.Drawing.Point(196, 12);
+			this.CircuitPictureBoxPanel.Name = "CircuitPictureBoxPanel";
+			this.CircuitPictureBoxPanel.Size = new System.Drawing.Size(574, 311);
+			this.CircuitPictureBoxPanel.TabIndex = 21;
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(782, 474);
+			this.Controls.Add(this.CircuitPictureBoxPanel);
 			this.Controls.Add(this.RemoveCircuitButton);
 			this.Controls.Add(this.CircuitTreeView);
 			this.Controls.Add(this.AddCircuitButton);
@@ -222,7 +234,6 @@
 			this.Controls.Add(this.ImpendancesGroupBox);
 			this.Controls.Add(this.FrequenciesGroupBox);
 			this.Controls.Add(this.CircuitsComboBox);
-			this.Controls.Add(this.CircuitPictureBox);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "MainForm";
 			this.Text = "ImpedanceCalculator";
@@ -233,6 +244,7 @@
 			this.ElementInfoGroupBox.PerformLayout();
 			this.FrequencyContextMenuStrip.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.CircuitPictureBox)).EndInit();
+			this.CircuitPictureBoxPanel.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -254,6 +266,7 @@
 		private System.Windows.Forms.ToolStripMenuItem RemoveFrequencyToolStripMenuItem;
 		private Controls.CircuitTreeViewControl CircuitTreeView;
 		private System.Windows.Forms.Button RemoveCircuitButton;
+		private System.Windows.Forms.Panel CircuitPictureBoxPanel;
 	}
 }
 
