@@ -18,15 +18,12 @@ namespace ImpedanceCalculatorUI
 		public MainForm()
 		{
 			InitializeComponent();
-			_project = new Project();
-
+			ProjectManager.DeserializeBinary(ProjectManager.DefaultPath, ref _project);
 
 			FrequenciesListBox.DataSource = _project.Frequencies;
 
 			CircuitTreeView.SegmentSelected += ChangeSegmentMessageTextBoxText;
 			CircuitTreeView.CircuitChanged += DrawCircuit;
-
-			_project.Circuits.Add(_project.CreateCircuit());
 
 			CircuitsComboBox.DataSource = _project.Circuits;
 			CircuitsComboBox.DisplayMember = "Name";
@@ -275,6 +272,11 @@ namespace ImpedanceCalculatorUI
 			Image circuitImage = _project.Circuits[CircuitsComboBox.SelectedIndex].GetImage();
 			CircuitPictureBox.Image = circuitImage;
 			CircuitPictureBox.Size = circuitImage.Size;
+		}
+
+		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			ProjectManager.SaveToFile(_project, ProjectManager.DefaultPath);
 		}
 	}
 

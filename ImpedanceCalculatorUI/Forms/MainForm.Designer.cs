@@ -237,6 +237,7 @@
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "MainForm";
 			this.Text = "ImpedanceCalculator";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
 			this.FrequenciesGroupBox.ResumeLayout(false);
 			this.FrequenciesGroupBox.PerformLayout();
 			this.ImpendancesGroupBox.ResumeLayout(false);

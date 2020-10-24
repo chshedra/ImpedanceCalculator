@@ -106,5 +106,33 @@ namespace ImpedanceCalculator.Elements
 		public abstract Complex CalculateZ(double frequency);
 
 		#endregion
+
+		#region Implementation of ICloneable
+
+		/// <inheritdoc />
+		public object Clone()
+		{
+			switch (this)
+			{
+				case Resistor resistor:
+				{
+					return resistor.Clone(); 
+				}
+				case Inductor inductor:
+				{
+					return inductor.Clone();
+				}
+				case Capacitor capacitor:
+				{
+					return capacitor.Clone();
+				}
+				default:
+				{
+					return null;
+				}
+			}
+		}
+
+		#endregion
 	}
 }

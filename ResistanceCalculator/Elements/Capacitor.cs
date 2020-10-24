@@ -45,5 +45,15 @@ namespace ImpedanceCalculator.Elements
 		}
 
 		#endregion
+
+		#region Implementation of ICloneable
+
+		/// <inheritdoc />
+		public object Clone()
+		{
+			return new Capacitor(Name, Value);
+		}
+
+		#endregion
 	}
 }

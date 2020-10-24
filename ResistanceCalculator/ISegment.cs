@@ -7,7 +7,7 @@ namespace ImpedanceCalculator
 	/// <summary>
 	/// Интерфейс сегмента цепи
 	/// </summary>
-	public interface ISegment
+	public interface ISegment : ICloneable
 	{
 		#region Properties
 

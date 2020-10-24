@@ -44,5 +44,15 @@ namespace ImpedanceCalculator.Elements
 		}
 
 		#endregion
+
+		#region Implementation of ICloneable
+
+		/// <inheritdoc />
+		public object Clone()
+		{
+			return new Inductor(Name, Value);
+		}
+
+		#endregion
 	}
 }

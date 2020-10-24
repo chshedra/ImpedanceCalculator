@@ -265,6 +265,52 @@ namespace ImpedanceCalculator.Circuits
 
         /// <inheritdoc />
         public void CopyTo(ISegment[] array, int index) => SubSegments.CopyTo(array, index);
-		#endregion
-	}
+        #endregion
+
+        #region Implementatiom of ICloneable
+
+        /// <inheritdoc />
+        public object Clone()
+        {
+	        CircuitBase circuit = null;
+
+	        switch (this)
+	        {
+		        case ParallelCircuit parallel:
+		        {
+			        circuit = new ParallelCircuit()
+			        {
+				        Name = Name
+			        };
+                    break;
+		        }
+		        case SerialCircuit serial:
+		        {
+			        circuit = new SerialCircuit()
+			        {
+				        Name = Name
+			        };
+			        break;
+		        }
+		        default:
+		        {
+                    throw new ArgumentException("Unknown connection type");
+		        }
+	        }
+	        foreach (ISegment segment in this)
+	        {
+		        if (segment is ElementBase el)
+		        {
+			        circuit.Add((ElementBase)el.Clone());
+		        }
+		        else if (segment is CircuitBase ci)
+		        {
+			        circuit.Add((CircuitBase)ci.Clone());
+		        }
+	        }
+	        return circuit;
+        }
+
+        #endregion
+    }
 }
