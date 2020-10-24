@@ -6,6 +6,7 @@ namespace ImpedanceCalculator.Elements
 	/// <summary>
 	/// Класс резистора 
 	/// </summary>
+	[Serializable()]
 	public class Resistor : ElementBase
 	{
 		#region Constructors

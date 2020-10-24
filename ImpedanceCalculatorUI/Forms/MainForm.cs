@@ -18,7 +18,8 @@ namespace ImpedanceCalculatorUI
 		public MainForm()
 		{
 			InitializeComponent();
-			ProjectManager.DeserializeBinary(ProjectManager.DefaultPath, ref _project);
+			//_project = new Project();
+			_project = ProjectManager.LoadFromFile(ProjectManager.DefaultPath);
 
 			FrequenciesListBox.DataSource = _project.Frequencies;
 
@@ -276,7 +277,8 @@ namespace ImpedanceCalculatorUI
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			ProjectManager.SaveToFile(_project, ProjectManager.DefaultPath);
+			var saveProject = _project.Clone();
+			ProjectManager.SaveToFile(ProjectManager.DefaultPath, saveProject);
 		}
 	}
 

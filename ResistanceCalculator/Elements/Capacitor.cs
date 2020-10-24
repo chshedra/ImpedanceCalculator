@@ -6,6 +6,7 @@ namespace ImpedanceCalculator.Elements
 	/// <summary>
 	/// Класс конденсатора 
 	/// </summary>
+	[Serializable()]
 	public class Capacitor : ElementBase
 	{
 		#region Constructors

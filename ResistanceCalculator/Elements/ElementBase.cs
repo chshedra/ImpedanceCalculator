@@ -10,6 +10,7 @@ namespace ImpedanceCalculator.Elements
 	/// <summary>
 	/// Абстрактный класс элемента цепи
 	/// </summary>
+	[Serializable()]
 	public abstract class ElementBase : IElement
 	{
 		#region Private Fields

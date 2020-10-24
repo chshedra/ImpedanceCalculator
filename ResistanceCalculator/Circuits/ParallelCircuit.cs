@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Numerics;
 
 namespace ImpedanceCalculator.Circuits
@@ -6,6 +7,7 @@ namespace ImpedanceCalculator.Circuits
     /// <summary>
 	/// Класс параллельной цепи
 	/// </summary>
+    [Serializable()]
     public class ParallelCircuit : CircuitBase
     {
 	    #region Constructors

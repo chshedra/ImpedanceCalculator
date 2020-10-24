@@ -24,12 +24,9 @@ namespace ImpedanceCalculator
 
 
 		/// <summary>
-		/// Сериализует данные в файл.
+		/// Сериализует данные в файл
 		/// </summary>
-		/// <typeparam name="T">Тип сериализуемых данных.</typeparam>
-		/// <param name="fileName">Имя файла.</param>
-		/// <param name="container">Контейнер который требуется сериализовать.</param>
-		public static void SerializeBinary<T>(string fileName, T container)
+		public static void SaveToFile(string fileName, object container)
 		{
 			var formatter = new BinaryFormatter();
 			using (var serializeFileStream = new FileStream(fileName, FileMode.OpenOrCreate))
@@ -39,26 +36,33 @@ namespace ImpedanceCalculator
 		}
 
 		/// <summary>
-		/// Десериализует данные из файла.
+		/// Десериализует данные из файла
 		/// </summary>
-		/// <typeparam name="T">Тип десериализуемых данных.</typeparam>
-		/// <param name="fileName">Имя файла.</param>
-		/// <param name="container">Контейнер, куда будет записано содержимое.</param>
-		public static void DeserializeBinary<T>(string fileName, ref T container)
+		public static Project LoadFromFile(string fileName)
 		{
-			var formatter = new BinaryFormatter();
-			using (var deserializeFile = new FileStream(fileName, FileMode.OpenOrCreate))
+			Project project;
+			if (!File.Exists(fileName))
 			{
-				if (deserializeFile.Length > 0)
+				project = new Project();
+			}
+			else
+			{
+				var formatter = new BinaryFormatter();
+				using (var deserializeFile = new FileStream(fileName, FileMode.OpenOrCreate))
 				{
-					container = (T)formatter.Deserialize(deserializeFile);
-					deserializeFile.Close();
-				}
-				else
-				{
-					throw new ArgumentException("Empty file");
+					if (deserializeFile.Length > 0)
+					{
+						project = (Project) formatter.Deserialize(deserializeFile);
+						deserializeFile.Close();
+					}
+					else
+					{
+						throw new ArgumentException("Empty file");
+					}
 				}
 			}
+
+			return project;
 		}
     }
 }

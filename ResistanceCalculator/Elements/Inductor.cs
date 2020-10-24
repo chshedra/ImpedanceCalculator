@@ -6,6 +6,7 @@ namespace ImpedanceCalculator.Elements
 	/// <summary>
 	/// Класс катушки индуктивности
 	/// </summary>
+	[Serializable()]
 	public class Inductor : ElementBase
 	{
 		#region Constructor
