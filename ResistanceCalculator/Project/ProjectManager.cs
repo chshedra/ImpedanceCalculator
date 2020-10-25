@@ -28,6 +28,14 @@ namespace ImpedanceCalculator
 		/// </summary>
 		public static void SaveToFile(string fileName, object container)
 		{
+			string DefaultDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
+			                          "\\ImpedanceCalculator";
+
+			if (!Directory.Exists(DefaultDirectory))
+			{
+				Directory.CreateDirectory(DefaultDirectory);
+			}
+
 			var formatter = new BinaryFormatter();
 			using (var serializeFileStream = new FileStream(fileName, FileMode.OpenOrCreate))
 			{

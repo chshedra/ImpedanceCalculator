@@ -37,8 +37,8 @@ Name: "russian"; MessagesFile: "compiler:Languages\Russian.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: ".\bin\Release\ImpedanceCalculatorUI.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: ".\bin\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\ImpedanceCalculatorUI\bin\Release\ImpedanceCalculatorUI.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\ImpedanceCalculatorUI\bin\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
