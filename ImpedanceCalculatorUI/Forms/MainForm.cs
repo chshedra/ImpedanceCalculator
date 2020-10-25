@@ -129,7 +129,7 @@ namespace ImpedanceCalculatorUI
 				{
 					CircuitTreeView.Nodes.Clear();
 					_project.Circuits.Remove(circuit);
-					CircuitsComboBox.Items.Clear();
+					RefreshLists();
 				}
 			}
 		}
@@ -147,6 +147,12 @@ namespace ImpedanceCalculatorUI
 				if (_project.Circuits.Count > 0)
 				{
 					CircuitsComboBox.SelectedIndex = 0;
+				}
+				else
+				{
+					_project.Frequencies.Clear();
+					_project.Impendances.Clear();
+					RefreshLists();
 				}
 			}
 		}
