@@ -68,21 +68,21 @@ namespace ImpedanceCalculatorUI.Controls
 						if (editForm.DialogResult == DialogResult.OK)
 						{
 							var editedElement = editForm.Element;
-
+							var selectedNodeParent = (SegmentTreeNode) selectedNode.Parent; 
 							//TODO: +Можно сразу создать нужные переменные типа
 							//TODO: +selectedNode.Parent.Segment.SubSegments и selectedNodeParent.Nodes. и работать с ними
 							var elementIndex =
 								//TODO: ?Можно сразу использовать element - element типа ISegment, нельзя получить доступ к родителю
-								((SegmentTreeNode)selectedNode.Parent).Segment.
+								selectedNodeParent.Segment.
 								SubSegments.IndexOf(selectedNode.Segment);
 							//TODO: ?Можно сразу использовать element - element типа ISegment, нельзя получить доступ к родителю
-							((SegmentTreeNode)selectedNode.Parent).
-								Segment.SubSegments.Remove(selectedNode.Segment);
-							((SegmentTreeNode)selectedNode.Parent).Nodes.Remove(selectedNode);
+							selectedNodeParent.Segment.
+								SubSegments.Remove(selectedNode.Segment);
+							selectedNodeParent.Nodes.Remove(selectedNode);
 
-							((SegmentTreeNode)selectedNode.Parent).
-								Segment.SubSegments.Insert(elementIndex, editedElement);
-							((SegmentTreeNode)selectedNode.Parent).Nodes.
+							selectedNodeParent.Segment.
+								SubSegments.Insert(elementIndex, editedElement);
+							selectedNodeParent.Nodes.
 								Insert(elementIndex, new SegmentTreeNode(editedElement));
 
 							CircuitChanged?.Invoke(this, EventArgs.Empty);
@@ -291,26 +291,6 @@ namespace ImpedanceCalculatorUI.Controls
 			CircuitChanged?.Invoke(this, EventArgs.Empty);
 		}
 
-		/// <summary>
-		/// Создает новый сегмент для элемента
-		/// </summary>
-		/// <param name="element"></param>
-		/// <param name="selectedSegment"></param>
-		/// <param name="nodeParent"></param>
-		/// <param name="segment"></param>
-		private void CreateSegment(ISegment element,
-			SegmentTreeNode selectedSegment, SegmentTreeNode nodeParent, ISegment segment)
-		{
-			segment.SubSegments.Add(element);
-			segment.SubSegments.Add(selectedSegment.Segment);
-			var newNode = new SegmentTreeNode(segment);
-			nodeParent.Segment.SubSegments.Remove(selectedSegment.Segment);
-			nodeParent.Segment.SubSegments.Add(segment);
-			CircuitTreeViewDataBind(newNode, segment.SubSegments);
-			nodeParent.Nodes.Remove(selectedSegment);
-			nodeParent.Nodes.Add(newNode);
-		}
-
 		private void CircuitTreeView_AfterSelect(object sender, TreeViewEventArgs e)
 		{
 			var selectedNode = (SegmentTreeNode) CircuitTreeView.SelectedNode;
@@ -417,9 +397,29 @@ namespace ImpedanceCalculatorUI.Controls
 		}
 
 		/// <summary>
+		/// Создает новый сегмент для элемента
+		/// </summary>
+		/// <param name="element"></param>
+		/// <param name="selectedSegment"></param>
+		/// <param name="nodeParent"></param>
+		/// <param name="segment"></param>
+		private void CreateSegment(ISegment element,
+			SegmentTreeNode selectedSegment, SegmentTreeNode nodeParent, ISegment segment)
+		{
+			segment.SubSegments.Add(element);
+			segment.SubSegments.Add(selectedSegment.Segment);
+			var newNode = new SegmentTreeNode(segment);
+			nodeParent.Segment.SubSegments.Remove(selectedSegment.Segment);
+			nodeParent.Segment.SubSegments.Add(segment);
+			CircuitTreeViewDataBind(newNode, segment.SubSegments);
+			nodeParent.Nodes.Remove(selectedSegment);
+			nodeParent.Nodes.Add(newNode);
+		}
+
+		/// <summary>
 		/// Вызывает форму для добавления первого элемента цепи
 		/// </summary>
-		public void AddFirstElement()
+		public bool AddFirstElement()
 		{
 			var addForm = new ElementForm()
 			{
@@ -432,7 +432,11 @@ namespace ImpedanceCalculatorUI.Controls
 				CircuitTreeView.Nodes[0].Nodes.Add(firstElement);
 				((SegmentTreeNode)CircuitTreeView.Nodes[0]).Segment.SubSegments.Add(addForm.Element);
 				CircuitChanged?.Invoke(this, EventArgs.Empty);
+				return true;
 			}
+			
+			return false;
+			
 		}
 	}
 }

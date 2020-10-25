@@ -18,7 +18,7 @@ namespace ImpedanceCalculatorUI
 		public MainForm()
 		{
 			InitializeComponent();
-			//_project = new Project();
+
 			_project = ProjectManager.LoadFromFile(ProjectManager.DefaultPath);
 
 			FrequenciesListBox.DataSource = _project.Frequencies;
@@ -119,12 +119,18 @@ namespace ImpedanceCalculatorUI
 			if (circuitForm.DialogResult == DialogResult.OK)
 			{
 				var circuit = circuitForm.CircuitBase;
-				_project.Circuits.Add(circuit);
-				RefreshLists();
 				SegmentTreeNode circuitNode = new SegmentTreeNode(circuit);
 				CircuitTreeView.Nodes.Add(circuitNode);
+				_project.Circuits.Add(circuit);
+				RefreshLists();
 				CircuitsComboBox.SelectedIndex = _project.Circuits.IndexOf(circuit);
-				CircuitTreeView.AddFirstElement();
+
+				if (!CircuitTreeView.AddFirstElement())
+				{
+					CircuitTreeView.Nodes.Clear();
+					_project.Circuits.Remove(circuit);
+					CircuitsComboBox.Items.Clear();
+				}
 			}
 		}
 
@@ -170,6 +176,12 @@ namespace ImpedanceCalculatorUI
 			_project.Frequencies.RemoveAt(FrequenciesListBox.SelectedIndex);
 			_project.Impendances.RemoveAt(FrequenciesListBox.SelectedIndex);
 			RefreshLists();
+		}
+
+		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			var saveProject = _project.Clone();
+			ProjectManager.SaveToFile(ProjectManager.DefaultPath, saveProject);
 		}
 
 		/// <summary>
@@ -273,12 +285,24 @@ namespace ImpedanceCalculatorUI
 			Image circuitImage = _project.Circuits[CircuitsComboBox.SelectedIndex].GetImage();
 			CircuitPictureBox.Image = circuitImage;
 			CircuitPictureBox.Size = circuitImage.Size;
+
+			if (CircuitPictureBox.Width < CircuitPictureBoxPanel.Width &&
+			    CircuitPictureBox.Height < CircuitPictureBoxPanel.Height)
+			{
+				CircuitPictureBox.SizeMode = PictureBoxSizeMode.CenterImage;
+				CircuitPictureBox.Location = new Point(
+					CircuitPictureBoxPanel.Width / 2 - CircuitPictureBox.Width / 2,
+					CircuitPictureBoxPanel.Height /2 - CircuitPictureBox.Height / 2);
+			}
+			else
+			{
+				CircuitPictureBox.Location = new Point(0,0);
+			}
 		}
 
-		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+		private void CircuitPictureBoxPanel_SizeChanged(object sender, EventArgs e)
 		{
-			var saveProject = _project.Clone();
-			ProjectManager.SaveToFile(ProjectManager.DefaultPath, saveProject);
+			DrawCircuit(sender, e);
 		}
 	}
 

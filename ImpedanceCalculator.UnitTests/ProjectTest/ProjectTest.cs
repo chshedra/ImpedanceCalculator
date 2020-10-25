@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using  System.Numerics;
+using ImpedanceCalculator.Circuits;
 
 namespace ImpedanceCalculator.UnitTests.ProjectTest
 {

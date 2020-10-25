@@ -57,6 +57,7 @@
     <Compile Include="ElementTests\ElementBaseInheritor.cs" />
     <Compile Include="ElementTests\ElementTest.cs" />
     <Compile Include="ElementTests\InductorTest.cs" />
+    <Compile Include="ProjectTest\ProjecrManagerTest.cs" />
     <Compile Include="ProjectTest\ProjectTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ElementTests\ResistorTest.cs" />
