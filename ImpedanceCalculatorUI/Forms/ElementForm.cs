@@ -29,9 +29,6 @@ namespace ImpedanceCalculatorUI
 				_element = value;
 				if (_element != null)
 				{
-					EditNameTextBox.Text = _element.Name;
-					EditValueTextBox.Text = _element.Value.ToString();
-
 					switch (_element)
 					{
 						case Resistor resistor:
@@ -42,14 +39,22 @@ namespace ImpedanceCalculatorUI
 						case Capacitor capacitor:
 						{
 							ElementTypeComboBox.SelectedItem = "C";
-								break;
+							Element.Value *= 1000;
+							break;
 						}
 						case Inductor inductor:
 						{
 							ElementTypeComboBox.SelectedItem = "L";
+							Element.Value *= 1000;
 							break;
 						}
+						default:
+						{
+							throw new ArgumentException("");
+						}
 					}
+					EditNameTextBox.Text = _element.Name;
+					EditValueTextBox.Text = _element.Value.ToString();
 				}
 			}
 		}

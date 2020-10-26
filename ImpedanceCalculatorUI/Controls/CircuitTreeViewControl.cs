@@ -62,7 +62,7 @@ namespace ImpedanceCalculatorUI.Controls
 							Element = element,
 							IsAdd = false
 						};
-						editForm.Element.Value *= 1000;
+
 						editForm.ShowDialog();
 
 						if (editForm.DialogResult == DialogResult.OK)
