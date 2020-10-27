@@ -154,6 +154,9 @@ namespace ImpedanceCalculatorUI
 					_project.Impendances.Clear();
 					RefreshLists();
 				}
+
+				CircuitPictureBox.Image = null;
+				SegmentInfoTextbox.Text = null;
 			}
 		}
 

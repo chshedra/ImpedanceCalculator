@@ -50,7 +50,7 @@ namespace ImpedanceCalculatorUI
 						}
 						default:
 						{
-							throw new ArgumentException("");
+							throw new ArgumentException("Unknown element type");
 						}
 					}
 					EditNameTextBox.Text = _element.Name;
