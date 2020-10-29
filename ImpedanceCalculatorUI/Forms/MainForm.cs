@@ -187,6 +187,11 @@ namespace ImpedanceCalculatorUI
 			RefreshLists();
 		}
 
+		private void CircuitPictureBoxPanel_SizeChanged(object sender, EventArgs e)
+		{
+			DrawCircuit(sender, e);
+		}
+
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			var saveProject = _project.Clone();
@@ -291,7 +296,8 @@ namespace ImpedanceCalculatorUI
 		/// <param name="e"></param>
 		public void DrawCircuit(object sender, EventArgs e)
 		{
-			Image circuitImage = _project.Circuits[CircuitsComboBox.SelectedIndex].GetImage();
+			var circuitDrawer = new SegmentDrawer(_project.Circuits[CircuitsComboBox.SelectedIndex]);
+			Image circuitImage = circuitDrawer.GetImage();
 			CircuitPictureBox.Image = circuitImage;
 			CircuitPictureBox.Size = circuitImage.Size;
 
@@ -307,11 +313,6 @@ namespace ImpedanceCalculatorUI
 			{
 				CircuitPictureBox.Location = new Point(0,0);
 			}
-		}
-
-		private void CircuitPictureBoxPanel_SizeChanged(object sender, EventArgs e)
-		{
-			DrawCircuit(sender, e);
 		}
 	}
 

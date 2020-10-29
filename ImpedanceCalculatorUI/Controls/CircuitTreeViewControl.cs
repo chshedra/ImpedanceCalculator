@@ -87,7 +87,6 @@ namespace ImpedanceCalculatorUI.Controls
 
 							CircuitChanged?.Invoke(this, EventArgs.Empty);
 						}
-
 						break;
 					}
 				case CircuitBase circuit:
@@ -115,87 +114,6 @@ namespace ImpedanceCalculatorUI.Controls
 			RemoveNode((SegmentTreeNode)CircuitTreeView.SelectedNode);
 		}
 
-		/// <summary>
-		/// Связывает узлы SubSegments с узлами SegmentTreeNode
-		/// </summary>
-		/// <param name="treeNode"></param>
-		/// <param name="segments"></param>
-		public void CircuitTreeViewDataBind(SegmentTreeNode treeNode, List<ISegment> segments)
-		{
-			CircuitChanged?.Invoke(this, EventArgs.Empty);
-			foreach (var segment in segments)
-			{
-				if (segment is ElementBase)
-				{
-					SegmentTreeNode element = new SegmentTreeNode(segment);
-					treeNode.Nodes.Add(element);
-				}
-				else if (segment is CircuitBase)
-				{
-					var node = new SegmentTreeNode(segment);
-					treeNode.Nodes.Add(node);
-					CircuitTreeViewDataBind(node, segment.SubSegments);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Добавляет в дерево цепи сегмент Circuit
-		/// </summary>
-		/// <param name="addForm"></param>
-		/// <param name="selectedNode"></param>
-		/// <param name="node"></param>
-		/// <param name="selectedNodeParent"></param>
-		private void AddCircuitNode(ElementForm addForm, SegmentTreeNode selectedNode,
-			SegmentTreeNode node, SegmentTreeNode selectedNodeParent)
-		{
-			if (selectedNode == null || selectedNodeParent == null)
-			{
-				throw new ArgumentException("Selected node or selected node parent is null");
-			}
-
-			if (addForm.IsSerial)
-			{
-				switch (selectedNode.Segment)
-				{
-					case SerialCircuit serial:
-					{
-						serial.SubSegments.Add(addForm.Element);
-						selectedNode.Nodes.Add(node);
-						break;
-					}
-					case ParallelCircuit parallel:
-					{
-						((SegmentTreeNode)selectedNode.Parent).Segment.SubSegments.Add(addForm.Element);
-						selectedNode.Parent.Nodes.Add(node);
-						break;
-					}
-				}
-			}
-			else
-			{
-				switch (selectedNode.Segment)
-				{
-					case SerialCircuit serial:
-					{
-						var parallelSegment = new ParallelCircuit()
-						{
-							Name = "Parallel Segment"
-						};
-						CreateSegment(addForm.Element, selectedNode, selectedNodeParent, parallelSegment);
-							break;
-					}
-					case ParallelCircuit parallel:
-					{
-						selectedNode.Segment.SubSegments.Add(addForm.Element);
-						selectedNode.Nodes.Add(node);
-						break;
-					}
-				}
-			}
-			CircuitChanged?.Invoke(this, EventArgs.Empty);
-		}
-
 		private void CircuitsTreeView_ItemDrag(object sender, ItemDragEventArgs e)
 		{
 			DoDragDrop(e.Item, DragDropEffects.Move);
@@ -214,7 +132,7 @@ namespace ImpedanceCalculatorUI.Controls
 		}
 
 		private void CircuitsTreeView_DragDrop(object sender, DragEventArgs e)
-		{ 
+		{
 			var targetPoint = CircuitTreeView.PointToClient(new Point(e.X, e.Y));
 
 			var targetNode = CircuitTreeView.GetNodeAt(targetPoint) as SegmentTreeNode;
@@ -240,6 +158,30 @@ namespace ImpedanceCalculatorUI.Controls
 			}
 		}
 
+		/// <summary>
+		/// Связывает узлы SubSegments с узлами SegmentTreeNode
+		/// </summary>
+		/// <param name="treeNode"></param>
+		/// <param name="segments"></param>
+		public void CircuitTreeViewDataBind(SegmentTreeNode treeNode, List<ISegment> segments)
+		{
+			CircuitChanged?.Invoke(this, EventArgs.Empty);
+			foreach (var segment in segments)
+			{
+				if (segment is ElementBase)
+				{
+					SegmentTreeNode element = new SegmentTreeNode(segment);
+					treeNode.Nodes.Add(element);
+				}
+				else if (segment is CircuitBase)
+				{
+					var node = new SegmentTreeNode(segment);
+					treeNode.Nodes.Add(node);
+					CircuitTreeViewDataBind(node, segment.SubSegments);
+				}
+			}
+		}
+
 		private bool ContainsNode(SegmentTreeNode node1, SegmentTreeNode node2)
 		{
 			if (node2.Parent == null) return false;
@@ -259,10 +201,9 @@ namespace ImpedanceCalculatorUI.Controls
 			//TODO: ?и выполнить более корректную объектную декомпозицию, т.к. это много где дублируется
 			removingNodeParent.
 				Segment.SubSegments.Remove(removingNode.Segment);
-			removingNodeParent.
-				Nodes.Remove(removingNode);
+			removingNodeParent.Nodes.Remove(removingNode);
 
-			if (removingNodeParent.Nodes.Count <= 1)
+			if (removingNodeParent.Segment.SubSegments.Count <= 1)
 			{
 				if ((removingNodeParent.Parent) != null)
 				{
@@ -397,6 +338,63 @@ namespace ImpedanceCalculatorUI.Controls
 		}
 
 		/// <summary>
+		/// Добавляет в дерево цепи сегмент Circuit
+		/// </summary>
+		/// <param name="addForm"></param>
+		/// <param name="selectedNode"></param>
+		/// <param name="node"></param>
+		/// <param name="selectedNodeParent"></param>
+		private void AddCircuitNode(ElementForm addForm, SegmentTreeNode selectedNode,
+			SegmentTreeNode node, SegmentTreeNode selectedNodeParent)
+		{
+			if (selectedNode == null || selectedNodeParent == null)
+			{
+				throw new ArgumentException("Selected node or selected node parent is null");
+			}
+
+			if (addForm.IsSerial)
+			{
+				switch (selectedNode.Segment)
+				{
+					case SerialCircuit serial:
+					{
+						serial.SubSegments.Add(addForm.Element);
+						selectedNode.Nodes.Add(node);
+						break;
+					}
+					case ParallelCircuit parallel:
+					{
+						((SegmentTreeNode)selectedNode.Parent).Segment.SubSegments.Add(addForm.Element);
+						selectedNode.Parent.Nodes.Add(node);
+						break;
+					}
+				}
+			}
+			else
+			{
+				switch (selectedNode.Segment)
+				{
+					case SerialCircuit serial:
+					{
+						var parallelSegment = new ParallelCircuit()
+						{
+							Name = "Parallel Segment"
+						};
+						CreateSegment(addForm.Element, selectedNode, selectedNodeParent, parallelSegment);
+						break;
+					}
+					case ParallelCircuit parallel:
+					{
+						selectedNode.Segment.SubSegments.Add(addForm.Element);
+						selectedNode.Nodes.Add(node);
+						break;
+					}
+				}
+			}
+			CircuitChanged?.Invoke(this, EventArgs.Empty);
+		}
+
+		/// <summary>
 		/// Создает новый сегмент для элемента
 		/// </summary>
 		/// <param name="element"></param>
@@ -436,7 +434,6 @@ namespace ImpedanceCalculatorUI.Controls
 			}
 			
 			return false;
-			
 		}
 	}
 }

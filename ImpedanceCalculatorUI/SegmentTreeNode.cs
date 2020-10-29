@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Linq;
 using ImpedanceCalculator;
 
 namespace ImpedanceCalculatorUI
@@ -22,6 +24,7 @@ namespace ImpedanceCalculatorUI
 		{
 			Segment = null;
 		}
+
 
 		/// <summary>
 		/// Конструктор, устанавливающий значение ISegment в узел
