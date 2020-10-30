@@ -21,13 +21,10 @@ namespace ImpedanceCalculatorUI
 
 			_project = ProjectManager.LoadFromFile(ProjectManager.DefaultPath);
 
-			FrequenciesListBox.DataSource = _project.Frequencies;
+			RefreshLists();
 
 			CircuitTreeView.SegmentSelected += ChangeSegmentMessageTextBoxText;
 			CircuitTreeView.CircuitChanged += DrawCircuit;
-
-			CircuitsComboBox.DataSource = _project.Circuits;
-			CircuitsComboBox.DisplayMember = "Name";
 
 		}
 
@@ -108,6 +105,7 @@ namespace ImpedanceCalculatorUI
 				}
 
 				CircuitTreeView.CircuitTreeViewDataBind(selectedCircuitNode,  selectedCircuit.SubSegments);
+				DrawCircuit(this, EventArgs.Empty);
 			}
 		}
 
@@ -296,8 +294,9 @@ namespace ImpedanceCalculatorUI
 		/// <param name="e"></param>
 		public void DrawCircuit(object sender, EventArgs e)
 		{
-			var circuitDrawer = new SegmentDrawer(_project.Circuits[CircuitsComboBox.SelectedIndex]);
-			Image circuitImage = circuitDrawer.GetImage();
+			Image circuitImage =
+				CircuitDrawManager.GetMainCircuitImage((CircuitBase)_project.Circuits[CircuitsComboBox.SelectedIndex]);
+			
 			CircuitPictureBox.Image = circuitImage;
 			CircuitPictureBox.Size = circuitImage.Size;
 
@@ -311,7 +310,8 @@ namespace ImpedanceCalculatorUI
 			}
 			else
 			{
-				CircuitPictureBox.Location = new Point(0,0);
+				CircuitPictureBox.Location = 
+					new Point(0, 0);
 			}
 		}
 	}

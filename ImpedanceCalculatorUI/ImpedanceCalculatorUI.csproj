@@ -48,12 +48,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CircuitDrawer\CircuitDrawers\SerialCircuitDrawer.cs" />
+    <Compile Include="CircuitDrawer\CircuitDrawManager.cs" />
     <Compile Include="CircuitDrawer\ElementDrawers\CapacitorDrawer.cs" />
     <Compile Include="CircuitDrawer\ISegmentDrawer.cs" />
     <Compile Include="CircuitDrawer\ElementDrawers\InductorDrawer.cs" />
     <Compile Include="CircuitDrawer\CircuitDrawers\ParallelCircuitDrawer.cs" />
     <Compile Include="CircuitDrawer\ElementDrawers\ResistorDrawer.cs" />
-    <Compile Include="CircuitDrawer\SegmentDrawer.cs" />
+    <Compile Include="CircuitDrawer\SegmentDrawerBase.cs" />
     <Compile Include="Controls\CircuitTreeViewControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

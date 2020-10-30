@@ -8,10 +8,21 @@ using ImpedanceCalculator;
 
 namespace ImpedanceCalculatorUI.CircuitDrawer
 {
-	class InductorDrawer : SegmentDrawer
+	/// <summary>
+	/// Содержит методы для отрисовки индуктора
+	/// </summary>
+	class InductorDrawer : SegmentDrawerBase
 	{
-		public InductorDrawer(ISegment segment) : base(segment) { }
+		/// <summary>
+		/// Создает объект InductorDrawer и устанавливает значение Segment
+		/// </summary>
+		/// <param name="segment"></param>
+		public InductorDrawer(ISegment segment)
+		{
+			Segment = segment;
+		}
 
+		/// <inheritdoc/>
 		public override Bitmap GetImage()
 		{
 			var bitmap = new Bitmap(GetSize().Height, GetSize().Width);
@@ -42,6 +53,7 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
 				10, FontStyle.Regular), new SolidBrush(Color.Black), 50, 20);
 		}
 
+		/// <inheritdoc/>
 		public override Size GetSize()
 		{
 			return new Size(ElementSize.Width, ElementSize.Width);

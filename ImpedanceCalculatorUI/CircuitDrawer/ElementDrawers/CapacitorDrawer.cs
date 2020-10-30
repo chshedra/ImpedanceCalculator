@@ -8,10 +8,21 @@ using ImpedanceCalculator;
 
 namespace ImpedanceCalculatorUI.CircuitDrawer
 {
-	class CapacitorDrawer : SegmentDrawer
+	/// <summary>
+	/// Содержит методы для отрисовки конденсатора
+	/// </summary>
+	class CapacitorDrawer : SegmentDrawerBase
 	{
-		public CapacitorDrawer(ISegment segment) : base(segment) { }
+		/// <summary>
+		/// Создает объект CaoacitorDrawer и устанавливает значение Segment
+		/// </summary>
+		/// <param name="segment"></param>
+		public CapacitorDrawer(ISegment segment)
+		{
+			Segment = segment;
+		}
 
+		/// <inheritdoc/>
 		public override Bitmap GetImage()
 		{
 			var bitmap = new Bitmap(GetSize().Height, GetSize().Width);
@@ -22,6 +33,7 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
 			return bitmap;
 		}
 
+		/// <inheritdoc/>
 		public override Size GetSize()
 		{
 			return new Size(ElementSize.Width, ElementSize.Width);

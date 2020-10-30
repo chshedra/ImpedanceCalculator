@@ -8,10 +8,21 @@ using ImpedanceCalculator;
 
 namespace ImpedanceCalculatorUI.CircuitDrawer
 {
-	class ResistorDrawer : SegmentDrawer
+	/// <summary>
+	/// Содержит методы для отрисовки резистора
+	/// </summary>
+	class ResistorDrawer : SegmentDrawerBase
 	{
-		public ResistorDrawer(ISegment segment) : base(segment){ }
+		/// <summary>
+		/// Создает объект ResistorDrawer и устанавливает значение Segment
+		/// </summary>
+		/// <param name="segment"></param>
+		public ResistorDrawer(ISegment segment)
+		{
+			Segment = segment;
+		}
 
+		/// <inheritdoc/>
 		public override Bitmap GetImage()
 		{
 			var bitmap = new Bitmap(GetSize().Height, GetSize().Width);
@@ -22,6 +33,10 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
 			return bitmap;
 		}
 
+		/// <summary>
+		/// Рисует резистор
+		/// </summary>
+		/// <param name="graphics"></param>
 		public void Draw(Graphics graphics)
 		{
 			graphics.DrawRectangle(StandartPen, new Rectangle(20, 34, 60, 32));
@@ -33,6 +48,7 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
 				10, FontStyle.Regular), new SolidBrush(Color.Black), 40, 10);
 		}
 
+		/// <inheritdoc/>
 		public override Size GetSize()
 		{
 			return new Size(ElementSize.Width, ElementSize.Width);

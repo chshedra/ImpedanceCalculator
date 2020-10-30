@@ -9,9 +9,26 @@ using ImpedanceCalculator;
 
 namespace ImpedanceCalculatorUI.CircuitDrawer
 {
-	public class SegmentDrawer : TreeNode, ISegmentDrawer
+	/// <summary>
+	/// Содержит методы для отрисовки сегментов цепи
+	/// </summary>
+	public abstract class SegmentDrawerBase : SegmentTreeNode, ISegmentDrawer
 	{
-		public ISegment Segment { get; set; }
+		/// <summary>
+		/// Хранит значение сегмента данного узла
+		/// </summary>
+		protected ISegment _segment;
+
+		/// <inheritdoc/>
+		public ISegment Segment
+		{
+			get => _segment;
+
+			set
+			{
+				_segment = value;
+			}
+		}
 
 		/// <summary>
 		/// Стандартная кисть для линий.
@@ -48,19 +65,10 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
 		/// </summary>
 		public const int ParallelConnector = 10;
 
-		public SegmentDrawer(ISegment segment)
-		{
-			Segment = segment;
-		}
+		/// <inheritdoc/>
+		public abstract Bitmap GetImage();
 
-		public virtual Bitmap GetImage()
-		{
-			return new Bitmap(1, 1);
-		}
-
-		public virtual Size GetSize()
-		{
-			return new Size(0,0);
-		}
+		/// <inheritdoc/>
+		public abstract Size GetSize();
 	}
 }

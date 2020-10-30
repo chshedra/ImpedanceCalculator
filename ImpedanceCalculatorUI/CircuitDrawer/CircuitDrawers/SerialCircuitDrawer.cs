@@ -10,38 +10,67 @@ using ImpedanceCalculator.Elements;
 
 namespace ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers
 {
-	class SerialCircuitDrawer : SegmentDrawer
+	/// <summary>
+	/// Содержит методы для отрисовки последовательного участка цепи
+	/// </summary>
+	class SerialCircuitDrawer : SegmentDrawerBase
 	{
-		public SerialCircuitDrawer(ISegment segment) : base(segment) { }
-
 		/// <summary>
-		///     Вычисляет размер рисунка эл. цепи с последовательным соединением.
+		/// Создает объект CerialCircuitDrawer и устанавливает значение Segment
 		/// </summary>
-		/// <param name="circuit">Эл. цепь с последовательным соединением.</param>
+		/// <param name="segment"></param>
+		public SerialCircuitDrawer(ISegment segment)
+		{
+			Segment = segment;
+		}
+
+		/// <inheritdoc/>
+		public override Bitmap GetImage()
+		{
+			var size = GetSize();
+
+			var bitmap = new Bitmap(size.Width, size.Height);
+			var x = 0;
+			var y = size.Height / ImageDellimitterConst;
+
+			var g = Graphics.FromImage(bitmap);
+
+			foreach (SegmentDrawerBase node in Nodes)
+				if (node.Segment is IElement)
+				{
+					var elementImage = node.GetImage();
+					g.DrawImage(elementImage, new Point(x, y - elementImage.Height / ImageDellimitterConst));
+					x += node.GetSize().Width;
+				}
+				else if (node.Segment is CircuitBase)
+				{
+					var circuitImage = new Bitmap(EmptyImageSize.Width, EmptyImageSize.Height);
+					circuitImage = node.GetImage();
+					
+					g.DrawImage(circuitImage, new Point(x, y - circuitImage.Height / ImageDellimitterConst));
+					x += node.GetSize().Width;
+				}
+			return bitmap;
+		}
+
+		/// <inheritdoc/>
 		public override Size GetSize()
 		{
 			var size = Nodes.Count > 0 
 				? new Size(0, 0) 
 				: new Size(EmptyImageSize.Width, EmptyImageSize.Height);
 
-			foreach (var segment in Segment.SubSegments)
-				if (segment is ElementBase)
+			foreach (SegmentDrawerBase node in Nodes)
+				if (node.Segment is ElementBase)
 				{
-					var elementDrawer = new SegmentDrawer(segment);
-					size.Height = size.Height < elementDrawer.GetSize().Height
-						? elementDrawer.GetSize().Height
+					size.Height = size.Height < node.GetSize().Height
+						? node.GetSize().Height
 						: size.Height;
-					size.Width = size.Width + elementDrawer.GetSize().Width;
-
-					size.Height = size.Height + elementDrawer.GetSize().Height;
-					size.Width = size.Width < elementDrawer.GetSize().Width
-						? elementDrawer.GetSize().Width
-						: size.Width;
+					size.Width = size.Width + node.GetSize().Width;
 				}
-				else if (segment is CircuitBase)
+				else if (node.Segment is CircuitBase)
 				{
-					var circuitDrawer = new SegmentDrawer(segment);
-					var scSize = circuitDrawer.GetSize();
+					var scSize = node.GetSize();
 					size.Height = size.Height < scSize.Height ? scSize.Height : size.Height;
 					size.Width = size.Width + scSize.Width;
 				}
