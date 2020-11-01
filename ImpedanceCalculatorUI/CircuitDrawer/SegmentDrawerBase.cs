@@ -9,6 +9,7 @@ using ImpedanceCalculator;
 
 namespace ImpedanceCalculatorUI.CircuitDrawer
 {
+	//TODO: В чём логика наследования от SegmentTreeNode?
 	/// <summary>
 	/// Содержит методы для отрисовки сегментов цепи
 	/// </summary>
@@ -30,6 +31,7 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
 			}
 		}
 
+		//TODO: Все константы ниже - почему public всё?
 		/// <summary>
 		/// Стандартная кисть для линий.
 		/// </summary>

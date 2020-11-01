@@ -11,6 +11,7 @@ using ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers;
 
 namespace ImpedanceCalculatorUI.CircuitDrawer
 {
+    //TODO: RSDN
 	/// <summary>
 	/// Содержит методы для отрисовки основной цепи
 	/// </summary>

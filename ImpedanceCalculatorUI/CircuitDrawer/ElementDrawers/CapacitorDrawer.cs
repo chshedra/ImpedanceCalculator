@@ -5,9 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ImpedanceCalculator;
-
+//TODO: Несоответствие дефолтному namespace
 namespace ImpedanceCalculatorUI.CircuitDrawer
 {
+	//TODO: RSDN
 	/// <summary>
 	/// Содержит методы для отрисовки конденсатора
 	/// </summary>
@@ -26,6 +27,7 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
 		public override Bitmap GetImage()
 		{
 			var bitmap = new Bitmap(GetSize().Height, GetSize().Width);
+			//TODO: RSDN - именование
 			var g = Graphics.FromImage(bitmap);
 
 			Draw(g);
@@ -43,6 +45,7 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
 		/// Рисует конденсатор.
 		/// </summary>
 		/// <param name="graphics"></param>
+		/// //TODO Сигнатура XML комментария и метода различны
 		/// <param name="capacitorName"></param>
 		public void Draw(Graphics graphics)
 		{
