@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using ImpedanceCalculator;
-//TODO: Несоответствие дефолтному namespace
-namespace ImpedanceCalculatorUI.CircuitDrawer
+//TODO: +Несоответствие дефолтному namespace
+namespace ImpedanceCalculatorUI.CircuitDrawer.ElementDrawers
 {
-	//TODO: RSDN
+	//TODO: +RSDN
 	/// <summary>
 	/// Содержит методы для отрисовки индуктора
 	/// </summary>
-	class InductorDrawer : SegmentDrawerBase
+	public class InductorDrawer : SegmentDrawerBase
 	{
 		/// <summary>
 		/// Создает объект InductorDrawer и устанавливает значение Segment
@@ -27,10 +22,10 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
 		public override Bitmap GetImage()
 		{
 			var bitmap = new Bitmap(GetSize().Height, GetSize().Width);
-			//TODO: RSDN - именование
-			var g = Graphics.FromImage(bitmap);
+			//TODO: +RSDN - именование
+			var graphics = Graphics.FromImage(bitmap);
 
-			Draw(g);
+			Draw(graphics);
 
 			return bitmap;
 		}
@@ -39,18 +34,22 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
 		/// Рисует катушку индуктивности.
 		/// </summary>
 		/// <param name="graphics"></param>
-		/// //TODO Сигнатура XML комментария и метода различны
-		/// <param name="inductorName"></param>
+		/// //TODO +Сигнатура XML комментария и метода различны
 		public void Draw(Graphics graphics)
 		{
-            //TODO: Можно собрать в for
-			graphics.DrawBezier(StandartPen, 40, 50, 40, 40, 48, 40, 48, 50);
-			graphics.DrawBezier(StandartPen, 48, 50, 48, 40, 56, 40, 56, 50);
-			graphics.DrawBezier(StandartPen, 56, 50, 56, 40, 64, 40, 64, 50);
-			graphics.DrawBezier(StandartPen, 64, 50, 64, 40, 72, 40, 72, 50);
-			graphics.DrawBezier(StandartPen, 72, 50, 72, 40, 80, 40, 80, 50);
+            //TODO: +Можно собрать в for
+            var firstBezierX = 40;
+            var lastBezierX = 80;
+            var bezierLength = 8;
 
-			graphics.DrawLine(StandartPen, 0, 50, 40, 50);
+			for (int i = firstBezierX; i < lastBezierX; i += 8)
+            {
+	            graphics.DrawBezier(StandartPen, i, 50, i, 40, 
+		            i + bezierLength, 40, i + bezierLength, 50);
+	          
+            }
+
+            graphics.DrawLine(StandartPen, 0, 50, 40, 50);
 			graphics.DrawLine(StandartPen, 80, 50, ElementSize.Width, 50);
 
 			graphics.DrawString(Segment.Name, new Font(FontFamily.GenericSansSerif,

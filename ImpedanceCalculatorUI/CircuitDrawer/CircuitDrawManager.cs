@@ -8,14 +8,15 @@ using ImpedanceCalculator;
 using ImpedanceCalculator.Circuits;
 using ImpedanceCalculator.Elements;
 using ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers;
+using ImpedanceCalculatorUI.CircuitDrawer.ElementDrawers;
 
 namespace ImpedanceCalculatorUI.CircuitDrawer
 {
-    //TODO: RSDN
+    //TODO: +RSDN
 	/// <summary>
 	/// Содержит методы для отрисовки основной цепи
 	/// </summary>
-	class CircuitDrawManager
+	public class CircuitDrawManager
 	{
 		/// <summary>
 		/// Определяет тип сегмента и создает соответствующий отрисовщик

@@ -10,11 +10,11 @@ using ImpedanceCalculator.Elements;
 
 namespace ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers
 {
-    //TODO: RSDN
+    //TODO: +RSDN
 	/// <summary>
 	/// Содержит методы для отрисовки последовательного участка цепи
 	/// </summary>
-	class SerialCircuitDrawer : SegmentDrawerBase
+	public class SerialCircuitDrawer : SegmentDrawerBase
 	{
 		/// <summary>
 		/// Создает объект CerialCircuitDrawer и устанавливает значение Segment
@@ -34,29 +34,21 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers
 			var x = 0;
 			var y = size.Height / ImageDellimitterConst;
 
-            //TODO: RSDN - именование
-			var g = Graphics.FromImage(bitmap);
+            //TODO: +RSDN - именование
+			var graphics = Graphics.FromImage(bitmap);
 
-			//TODO: Скобочки
+			//TODO: +Скобочки
 			foreach (SegmentDrawerBase node in Nodes)
-                //TODO: switch-case
-				if (node.Segment is IElement)
-				{
-					var elementImage = node.GetImage();
-					//TODO: RSDN
-					//TODO: Дубль ниже
-					g.DrawImage(elementImage, new Point(x, y - elementImage.Height / ImageDellimitterConst));
-					x += node.GetSize().Width;
-				}
-				else if (node.Segment is CircuitBase)
-				{
-                    //TODO: RSDN
-					var circuitImage = new Bitmap(EmptyImageSize.Width, EmptyImageSize.Height);
-					circuitImage = node.GetImage();
-					//TODO: Дубль выше
-					g.DrawImage(circuitImage, new Point(x, y - circuitImage.Height / ImageDellimitterConst));
-					x += node.GetSize().Width;
-				}
+			{
+				var segmentImage = node.GetImage();
+				//TODO: +RSDN
+				//TODO: +Дубль ниже
+				graphics.DrawImage(segmentImage, 
+					new Point(x, y - segmentImage.Height / ImageDellimitterConst));
+				x += node.GetSize().Width;
+				//TODO: +switch-case
+			}
+
 			return bitmap;
 		}
 
@@ -66,23 +58,35 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers
 			var size = Nodes.Count > 0 
 				? new Size(0, 0) 
 				: new Size(EmptyImageSize.Width, EmptyImageSize.Height);
-			//TODO: Скобочки
+			//TODO: +Скобочки
 			foreach (SegmentDrawerBase node in Nodes)
-                //TODO: switch-case
-				if (node.Segment is ElementBase)
+			{
+				//TODO:+switch-case
+				switch (node.Segment)
 				{
-					size.Height = size.Height < node.GetSize().Height
-						? node.GetSize().Height
-						: size.Height;
-					size.Width = size.Width + node.GetSize().Width;
+					case ElementBase element:
+					{
+						size.Height = size.Height < node.GetSize().Height
+							? node.GetSize().Height
+							: size.Height;
+						size.Width = size.Width + node.GetSize().Width;
+
+						break;
+					}
+					case CircuitBase circuit:
+					{
+						var circuitSize = node.GetSize();
+						//TODO: +RSDN
+						size.Height = size.Height < circuitSize.Height 
+							? circuitSize.Height 
+							: size.Height;
+						size.Width = size.Width + circuitSize.Width;
+
+						break;
+					}
 				}
-				else if (node.Segment is CircuitBase)
-				{
-					var scSize = node.GetSize();
-					//TODO: RSDN
-					size.Height = size.Height < scSize.Height ? scSize.Height : size.Height;
-					size.Width = size.Width + scSize.Width;
-				}
+			}
+
 			return size;
 		}
     }

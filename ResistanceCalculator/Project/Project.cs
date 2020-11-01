@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Numerics;
 using ImpedanceCalculator.Circuits;
-using ImpedanceCalculator.Elements;
 
 namespace ImpedanceCalculator 
 {
 	/// <summary>
 	/// Класс для хранения цепи
 	/// </summary>
-	[Serializable()]
+	[Serializable]
 	public class Project : ICloneable
 	{
 		#region Public Properties

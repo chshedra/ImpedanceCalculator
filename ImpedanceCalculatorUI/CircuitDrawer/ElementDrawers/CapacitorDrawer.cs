@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using ImpedanceCalculator;
-//TODO: Несоответствие дефолтному namespace
-namespace ImpedanceCalculatorUI.CircuitDrawer
+//TODO: +Несоответствие дефолтному namespace
+namespace ImpedanceCalculatorUI.CircuitDrawer.ElementDrawers
 {
-	//TODO: RSDN
+	//TODO: +RSDN
 	/// <summary>
 	/// Содержит методы для отрисовки конденсатора
 	/// </summary>
-	class CapacitorDrawer : SegmentDrawerBase
+	public class CapacitorDrawer : SegmentDrawerBase
 	{
 		/// <summary>
 		/// Создает объект CaoacitorDrawer и устанавливает значение Segment
@@ -27,10 +22,10 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
 		public override Bitmap GetImage()
 		{
 			var bitmap = new Bitmap(GetSize().Height, GetSize().Width);
-			//TODO: RSDN - именование
-			var g = Graphics.FromImage(bitmap);
+			//TODO: +RSDN - именование
+			var graphics = Graphics.FromImage(bitmap);
 
-			Draw(g);
+			Draw(graphics);
 
 			return bitmap;
 		}
@@ -45,8 +40,7 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
 		/// Рисует конденсатор.
 		/// </summary>
 		/// <param name="graphics"></param>
-		/// //TODO Сигнатура XML комментария и метода различны
-		/// <param name="capacitorName"></param>
+		/// //TODO +Сигнатура XML комментария и метода различны
 		public void Draw(Graphics graphics)
 		{
 			graphics.DrawLine(StandartPen, 40, 35, 40, 65);

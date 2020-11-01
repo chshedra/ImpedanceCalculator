@@ -7,7 +7,7 @@ namespace ImpedanceCalculator.Elements
 	/// Класс катушки индуктивности
 	/// </summary>
 	[Serializable()]
-	public class Inductor : ElementBase
+	public class Inductor : ElementBase, ICloneable
 	{
 		#region Constructor
 
@@ -48,7 +48,7 @@ namespace ImpedanceCalculator.Elements
 
 		#region Implementation of ICloneable
 
-		/// <inheritdoc />
+		/// <inheritdoc/>
 		public object Clone()
 		{
 			return new Inductor(Name, Value);

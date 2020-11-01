@@ -1,11 +1,7 @@
 ﻿using System;
-using Newtonsoft.Json;
 using System.IO;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace ImpedanceCalculator
 {
@@ -60,7 +56,7 @@ namespace ImpedanceCalculator
 				{
 					if (deserializeFile.Length > 0)
 					{
-						project = (Project) formatter.Deserialize(deserializeFile);
+						project = (Project) formatter.Deserialize(deserializeFile);  
 						deserializeFile.Close();
 					}
 					else

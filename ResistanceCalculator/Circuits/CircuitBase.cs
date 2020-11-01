@@ -11,7 +11,7 @@ namespace ImpedanceCalculator.Circuits
     /// Базовый абстрактный класс для реализации параллелльной и
     /// полседовательной цепей
     /// </summary>
-    [Serializable()]
+    [Serializable]
     public abstract class CircuitBase : ISegment, IList<ISegment>
     {
 	    #region Private Fields

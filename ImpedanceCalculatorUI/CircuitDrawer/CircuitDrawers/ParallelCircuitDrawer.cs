@@ -9,14 +9,14 @@ using ImpedanceCalculator.Circuits;
 using ImpedanceCalculator.Elements;
 using ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers;
 
-//TODO: Несоответствие дефолтному namespace
-namespace ImpedanceCalculatorUI.CircuitDrawer
+//TODO: +Несоответствие дефолтному namespace
+namespace ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers
 {
-	//TODO: RSDN
+	//TODO: +RSDN
 	/// <summary>
 	/// Содержит методы для отрисовки параллельного участка цепи
 	/// </summary>
-	class ParallelCircuitDrawer : SegmentDrawerBase
+	public class ParallelCircuitDrawer : SegmentDrawerBase
 	{
 		/// <summary>
 		/// Создает объект ParallelCircuitDrawer и устанавливает значение Segment
@@ -34,55 +34,52 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
             var bitmap = new Bitmap(size.Width, size.Height);
             var x = InputLineLength;
             var y = 0;
-			//TODO: RSDN
-            var firstSegment = CircuitDrawManager.GetDrawSegment(((CircuitBase)Segment).FirstOrDefault());
-            var lastElement = CircuitDrawManager.GetDrawSegment(((CircuitBase)Segment).LastOrDefault());
+			//TODO: +RSDN
+            var firstSegment = 
+	            CircuitDrawManager.GetDrawSegment(((CircuitBase)Segment).FirstOrDefault());
+            var lastElement = 
+	            CircuitDrawManager.GetDrawSegment(((CircuitBase)Segment).LastOrDefault());
             
             var firstHeight = firstSegment.GetSize().Height;
             var lastHeight = lastElement.GetSize().Height;
-			//TODO: RSDN
-            var g = Graphics.FromImage(bitmap);
-			//TODO: RSDN - именование
-            g.DrawLine(StandartPen, 0, size.Height / ImageDellimitterConst, InputLineLength,
-                    size.Height / ImageDellimitterConst);
+			//TODO: +RSDN
+            var graphics = Graphics.FromImage(bitmap);
+			//TODO: +RSDN - именование
+            graphics.DrawLine(StandartPen, 0, 
+	            size.Height / ImageDellimitterConst, 
+	            InputLineLength,
+	            size.Height / ImageDellimitterConst);
 
-			g.DrawLine(StandartPen, x, y + firstHeight / ImageDellimitterConst, x,
+			graphics.DrawLine(StandartPen, x, 
+				y + firstHeight / ImageDellimitterConst, x,
 				size.Height - lastHeight / ImageDellimitterConst);
 
             foreach (SegmentDrawerBase node in Nodes)
             {
-				//TODO: switch-case
-	            if (node.Segment is ElementBase)
-	            {
-		            var elementImage = node.GetImage();
-                    //TODO: Дубль ниже
-					g.DrawImage(elementImage, new Point(x, y));
-					//TODO: RSDN
-		            g.DrawLine(StandartPen, x + elementImage.Width,
-			            y + elementImage.Height / ImageDellimitterConst, bitmap.Width - ParallelConnector,
-			            y + elementImage.Height / ImageDellimitterConst);
-		            y += elementImage.Height;
-	            }
-	            else if (node.Segment is CircuitBase)
-	            {
-		            var circuitImage = new Bitmap(1, 1);
-			            circuitImage = node.GetImage();
-						//TODO: Дубль выше
-		            g.DrawImage(circuitImage, new Point(x, y));
+	            var segmentImage = node.GetImage();
 
-		            g.DrawLine(StandartPen, x + circuitImage.Width,
-			            y + circuitImage.Height / ImageDellimitterConst, bitmap.Width - ParallelConnector,
-			            y + circuitImage.Height / ImageDellimitterConst);
-		            y += circuitImage.Height;
-	            }
+	            graphics.DrawImage(segmentImage, new Point(x, y));
+	            //TODO: +RSDN
+	            graphics.DrawLine(StandartPen, x + segmentImage.Width,
+		            y + segmentImage.Height / ImageDellimitterConst,
+		            bitmap.Width - ParallelConnector,
+		            y + segmentImage.Height / ImageDellimitterConst);
+
+	            y += segmentImage.Height;
+				//TODO: +switch-case
             }
-			//TODO: RSDN
-            g.DrawLine(StandartPen, bitmap.Width - ParallelConnector, firstHeight / ImageDellimitterConst,
-                bitmap.Width - ParallelConnector, size.Height - lastHeight / ImageDellimitterConst);
 
-			//TODO: RSDN
-            g.DrawLine(StandartPen, bitmap.Width - ParallelConnector, bitmap.Height / ImageDellimitterConst,
+			//TODO: +RSDN
+            graphics.DrawLine(StandartPen, bitmap.Width - ParallelConnector, 
+	            firstHeight / ImageDellimitterConst,
+                bitmap.Width - ParallelConnector, 
+	            size.Height - lastHeight / ImageDellimitterConst);
+
+			//TODO: +RSDN
+            graphics.DrawLine(StandartPen, bitmap.Width - ParallelConnector, 
+	            bitmap.Height / ImageDellimitterConst,
                 bitmap.Width, bitmap.Height / ImageDellimitterConst);
+
             return bitmap;
         }
 
@@ -95,21 +92,35 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
 
 			foreach (SegmentDrawerBase node in Nodes)
 			{
-                //TODO: switch-case
-				if (node.Segment is ElementBase)
+				//TODO: +switch-case
+				switch (node.Segment)
 				{
-					size.Height = size.Height + node.GetSize().Height;
-					size.Width = size.Width < node.GetSize().Width
-						? node.GetSize().Width
-						: size.Width;
+					case ElementBase element:
+					{
+						size.Height = size.Height + node.GetSize().Height;
+						size.Width = size.Width < node.GetSize().Width
+							? node.GetSize().Width
+							: size.Width;
+
+							break;
+					}
+					case CircuitBase circuit:
+					{
+						var circuitSize = node.GetSize();
+						//TODO: +RSDN
+						size.Width = size.Width < circuitSize.Width 
+							? circuitSize.Width 
+							: size.Width;
+						size.Height = size.Height + circuitSize.Height;
+
+							break;
+					}
+					default:
+					{
+						throw new ArgumentException("Unknown segment type");
+					}
 				}
-				else if (node.Segment is CircuitBase)
-				{
-					var scSize = node.GetSize();
-					//TODO: RSDN
-					size.Width = size.Width < scSize.Width ? scSize.Width : size.Width;
-					size.Height = size.Height + scSize.Height;
-				}
+				
 			}
 
 			size.Width += InputLineLength + OutputLineLength;

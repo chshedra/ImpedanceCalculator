@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using ImpedanceCalculator.Circuits;
 using ImpedanceCalculator.Elements;
 using ImpedanceCalculator;
+using ImpedanceCalculator;
 using ImpedanceCalculatorUI.CircuitDrawer;
 
 namespace ImpedanceCalculatorUI
@@ -293,24 +294,28 @@ namespace ImpedanceCalculatorUI
 		/// <param name="e"></param>
 		public void DrawCircuit(object sender, EventArgs e)
 		{
-			Image circuitImage =
-				CircuitDrawManager.GetMainCircuitImage((CircuitBase)_project.Circuits[CircuitsComboBox.SelectedIndex]);
-			
-			CircuitPictureBox.Image = circuitImage;
-			CircuitPictureBox.Size = circuitImage.Size;
+			if (_project.Circuits.Count > 0)
+			{
+				Image circuitImage =
+					CircuitDrawManager.GetMainCircuitImage(
+						(CircuitBase) _project.Circuits[CircuitsComboBox.SelectedIndex]);
 
-			if (CircuitPictureBox.Width < CircuitPictureBoxPanel.Width &&
-			    CircuitPictureBox.Height < CircuitPictureBoxPanel.Height)
-			{
-				CircuitPictureBox.SizeMode = PictureBoxSizeMode.CenterImage;
-				CircuitPictureBox.Location = new Point(
-					CircuitPictureBoxPanel.Width / 2 - CircuitPictureBox.Width / 2,
-					CircuitPictureBoxPanel.Height /2 - CircuitPictureBox.Height / 2);
-			}
-			else
-			{
-				CircuitPictureBox.Location = 
-					new Point(0, 0);
+				CircuitPictureBox.Image = circuitImage;
+				CircuitPictureBox.Size = circuitImage.Size;
+
+				if (CircuitPictureBox.Width < CircuitPictureBoxPanel.Width &&
+				    CircuitPictureBox.Height < CircuitPictureBoxPanel.Height)
+				{
+					CircuitPictureBox.SizeMode = PictureBoxSizeMode.CenterImage;
+					CircuitPictureBox.Location = new Point(
+						CircuitPictureBoxPanel.Width / 2 - CircuitPictureBox.Width / 2,
+						CircuitPictureBoxPanel.Height / 2 - CircuitPictureBox.Height / 2);
+				}
+				else
+				{
+					CircuitPictureBox.Location =
+						new Point(0, 0);
+				}
 			}
 		}
 	}

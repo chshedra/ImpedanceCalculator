@@ -11,11 +11,6 @@ namespace ImpedanceCalculatorUI.Controls
 	public partial class CircuitTreeViewControl : UserControl
 	{
 		/// <summary>
-		/// Хранит список цепей
-		/// </summary>
-		private Project _project;
-
-		/// <summary>
 		/// Конструктор CircuitTreeViewControl
 		/// </summary>
 		public CircuitTreeViewControl()
