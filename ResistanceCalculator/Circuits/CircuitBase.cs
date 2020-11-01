@@ -5,10 +5,8 @@ using System.Linq;
 using System.Numerics;
 using ImpedanceCalculator.Elements;
 
-//TODO: +Дефолтный namespace не совпадает с текущим
 namespace ImpedanceCalculator.Circuits
 {
-    //TODO: +Название не по RSDN
     /// <summary>
     /// Базовый абстрактный класс для реализации параллелльной и
     /// полседовательной цепей
@@ -81,12 +79,11 @@ namespace ImpedanceCalculator.Circuits
 
         #region Constructors
 
-        //TODO: +Публичный конструктор не имеет смысла
         /// <summary>
         /// Базовый конструктор цепи без параметров
         /// </summary>
         protected CircuitBase() : this(new List<ISegment>(), "Circuit") { }
-        //TODO: +Публичный конструктор не имеет смысла
+
         /// <summary>
         /// Базовый конструктор цепи с параметрами
         /// </summary>

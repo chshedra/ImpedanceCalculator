@@ -42,7 +42,6 @@ namespace ImpedanceCalculatorUI
 
 		private void CalculateButton_Click(object sender, EventArgs e)
 		{
-            //TODO: +Можно удалить объявление etalon и записать в параметрах парса "out _"
             if (!double.TryParse(FrequencyTextBox.Text, out _))
 			{
 				InputValidation.ShowWarningMessageBox("Frequency must have numerical format",
@@ -135,7 +134,7 @@ namespace ImpedanceCalculatorUI
 		private void RemoveCircuitButton_Click(object sender, EventArgs e)
 		{
 			var selectedCircuit = _project.Circuits[CircuitsComboBox.SelectedIndex];
-			//TODO:+ Duplication
+
 			if (MessageBox.Show($"Do you really want remove circuit {selectedCircuit.Name}?", 
 				"Circuit removing", MessageBoxButtons.OKCancel, 
 				MessageBoxIcon.Question) == DialogResult.OK)

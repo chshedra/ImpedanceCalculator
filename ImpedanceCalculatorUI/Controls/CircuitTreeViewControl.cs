@@ -55,57 +55,55 @@ namespace ImpedanceCalculatorUI.Controls
 			switch (selectedNode.Segment)
 			{
 				case ElementBase element:
+				{
+					var editForm = new ElementForm()
 					{
-						var editForm = new ElementForm()
-						{
-							//TODO: +Можно сразу использовать element
-							Element = element,
-							IsAdd = false
-						};
+						Element = element,
+						IsAdd = false
+					};
 
-						editForm.ShowDialog();
+					editForm.ShowDialog();
 
-						if (editForm.DialogResult == DialogResult.OK)
-						{
-							var editedElement = editForm.Element;
-							var selectedNodeParent = (SegmentTreeNode) selectedNode.Parent; 
-							//TODO: +Можно сразу создать нужные переменные типа
-							//TODO: +selectedNode.Parent.Segment.SubSegments и selectedNodeParent.Nodes. и работать с ними
-							var elementIndex =
-								//TODO: ?Можно сразу использовать element - element типа ISegment, нельзя получить доступ к родителю
-								selectedNodeParent.Segment.
-								SubSegments.IndexOf(selectedNode.Segment);
+					if (editForm.DialogResult == DialogResult.OK)
+					{
+						var editedElement = editForm.Element;
+						var selectedNodeParent = (SegmentTreeNode) selectedNode.Parent; 
+
+						var elementIndex =
 							//TODO: ?Можно сразу использовать element - element типа ISegment, нельзя получить доступ к родителю
 							selectedNodeParent.Segment.
-								SubSegments.Remove(selectedNode.Segment);
-							selectedNodeParent.Nodes.Remove(selectedNode);
+							SubSegments.IndexOf(selectedNode.Segment);
+						//TODO: ?Можно сразу использовать element - element типа ISegment, нельзя получить доступ к родителю
+						selectedNodeParent.Segment.
+							SubSegments.Remove(selectedNode.Segment);
+						selectedNodeParent.Nodes.Remove(selectedNode);
 
-							selectedNodeParent.Segment.
-								SubSegments.Insert(elementIndex, editedElement);
-							selectedNodeParent.Nodes.
-								Insert(elementIndex, new SegmentTreeNode(editedElement));
+						selectedNodeParent.Segment.
+							SubSegments.Insert(elementIndex, editedElement);
+						selectedNodeParent.Nodes.
+							Insert(elementIndex, new SegmentTreeNode(editedElement));
 
-							CircuitChanged?.Invoke(this, EventArgs.Empty);
-						}
-						break;
+						CircuitChanged?.Invoke(this, EventArgs.Empty);
 					}
+					break;
+				}
 				case CircuitBase circuit:
+				{
+					var circuitForm = new CircuitForm()
 					{
-						var circuitForm = new CircuitForm()
-						{
-							CircuitBase = circuit
-						};
-						circuitForm.ShowDialog();
+						CircuitBase = circuit
+					};
+					circuitForm.ShowDialog();
 
-						if (circuitForm.DialogResult == DialogResult.OK)
-						{
-							circuit.Name = circuitForm.CircuitBase.Name;
+					if (circuitForm.DialogResult == DialogResult.OK)
+					{
+						circuit.Name = circuitForm.CircuitBase.Name;
 
-							CircuitChanged?.Invoke(this, EventArgs.Empty);
-						}
-
-						break;
+						CircuitChanged?.Invoke(this, EventArgs.Empty);
 					}
+
+					break;
+				}
 			}
 		}
 

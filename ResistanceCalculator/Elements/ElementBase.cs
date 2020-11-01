@@ -6,7 +6,6 @@ using System.Numerics;
 
 namespace ImpedanceCalculator.Elements
 {
-	//TODO: +Название не по RSDN
 	/// <summary>
 	/// Абстрактный класс элемента цепи
 	/// </summary>
@@ -79,7 +78,6 @@ namespace ImpedanceCalculator.Elements
 
 		#region Constructors
 
-		//TODO: +Публичный конструктор не имеет смысла
 		/// <summary>
 		/// Устанавливает и возвращает имя и значение элемента
 		/// </summary>
