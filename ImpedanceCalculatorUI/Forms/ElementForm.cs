@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using ImpedanceCalculator.Elements;
 
+//TODO: Несоответствие дефолтному namespace
 namespace ImpedanceCalculatorUI
 {
 	public partial class ElementForm : Form

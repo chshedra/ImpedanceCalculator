@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using ImpedanceCalculator.Circuits;
 using ImpedanceCalculator;
-
+//TODO: Несоответствие дефолтному namespace
 namespace ImpedanceCalculatorUI
 {
 	public partial class CircuitForm : Form

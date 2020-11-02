@@ -297,6 +297,7 @@ namespace ImpedanceCalculator.Circuits
 	        }
 	        foreach (ISegment segment in this)
 	        {
+                //TODO: В чём логика такого клона?
 		        if (segment is ElementBase el)
 		        {
 			        circuit.Add((ElementBase)el.Clone());

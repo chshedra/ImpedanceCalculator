@@ -8,15 +8,20 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 	[TestFixture]
 	class InductorTest
 	{
+        //TODO: Все тесты правильнее оформить по методике три AAA https://habr.com/ru/post/169381/
+        //TODO: Зачем?
 		private Inductor _inductor;
 
+        //TODO: Не используется
 		private void InductorInit()
 		{
 			_inductor = new Inductor();
 		}
 
+        //TODO: В свойство
 		private Inductor CreateTestInductor()
 		{
+			//TODO: RSDN
 			var L = new Inductor("TestResistor", 0.05);
 			return L;
 		}
@@ -57,6 +62,8 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 			_inductor = CreateTestInductor();
 			var wrongFrequency = -1;
 
+            //TODO: Если так пишите - выравнивайте хотябы аргументы,
+            //а лучше переносите скобочки на отдельные строки, как в методе
 			Assert.Throws<ArgumentException>(() =>
 			{ var result = _inductor.CalculateZ(wrongFrequency); },
 			"Должно возникать исключение, если частота отрицательная");

@@ -3,6 +3,7 @@ using System.Numerics;
 
 namespace ImpedanceCalculator.Elements
 {
+    //TODO: Зачем тут ICloneable? У ISegment-a уже есть.
 	/// <summary>
 	/// Класс резистора 
 	/// </summary>

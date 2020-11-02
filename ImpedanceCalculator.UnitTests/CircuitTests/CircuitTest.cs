@@ -7,18 +7,23 @@ using ImpedanceCalculator.Elements;
 
 namespace ImpedanceCalculator.UnitTests.CircuitTests
 {
+	//TODO: RSDN
 	[TestFixture]
 	class CircuitTest
 	{
+		//TODO: Все тесты правильнее оформить по методике три AAA https://habr.com/ru/post/169381/
 		private CircuitBaseInheritor _circuit;
 
+        //TODO: Переделать в свойство
 		private void InitCircuit()
 		{
 			_circuit = new CircuitBaseInheritor(new List<ISegment>(), "Circuit");
 		}
 
+        //TODO: Переделать в свойство
 		private CircuitBase CreateTestCircuit()
 		{
+
 			var R = new Resistor("R", 10.0);
 			var L = new Inductor("L1", 0.05);
 			var C = new Capacitor("C1", 0.01);
@@ -68,6 +73,8 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 			var emptyName = "";
 
 			Assert.Throws<ArgumentException>(
+                //TODO: Если так пишите - выравнивайте хотябы аргументы,
+                //а лучше переносите скобочки на отдельные строки, как в методе
 				() => { _circuit.Name = emptyName; },
 					"Должно возникать исключение, если имя элемента пустое");
 		}
@@ -79,6 +86,8 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 			string nullName = null;
 
 			Assert.Throws<ArgumentException>(
+                //TODO: Если так пишите - выравнивайте хотябы аргументы,
+                //а лучше переносите скобочки на отдельные строки, как в методе
 				() => { _circuit.Name = nullName; },
 					"Должно возникать исключение, если имя элемента пустое");
 		}
@@ -150,6 +159,8 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 		{
 			InitCircuit();
 
+            //TODO: Если так пишите - выравнивайте хотябы аргументы,
+            //а лучше переносите скобочки на отдельные строки, как в методе
 			Assert.Throws<ArgumentException>(() => 
 			{ _circuit.Add(null); },"Должно возникать исключение, если элемент равен null");
 		}
@@ -175,6 +186,8 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 			InitCircuit();
 			var element = new Resistor();
 
+            //TODO: Если так пишите - выравнивайте хотябы аргументы,
+            //а лучше переносите скобочки на отдельные строки, как в методе
 			Assert.Throws<ArgumentException>(() =>
 			{ _circuit.Remove(element); }, "Должно возникать исключение, если элемента нет в списке");
 		}
@@ -234,6 +247,8 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 		{
 			InitCircuit();
 
+            //TODO: Если так пишите - выравнивайте хотябы аргументы,
+            //а лучше переносите скобочки на отдельные строки, как в методе
 			Assert.Throws<ArgumentException>(() =>
 			{ _circuit.Insert(0,null); }, "Должно возникать исключение, если элемент равен null");
 		}

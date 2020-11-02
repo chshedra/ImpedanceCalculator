@@ -5,6 +5,7 @@ using ImpedanceCalculator.Circuits;
 
 namespace ImpedanceCalculator.UnitTests.CircuitTests
 {
+	//TODO: RSDN
 	class CircuitBaseInheritor : CircuitBase
 	{
 		public CircuitBaseInheritor() : base() { }

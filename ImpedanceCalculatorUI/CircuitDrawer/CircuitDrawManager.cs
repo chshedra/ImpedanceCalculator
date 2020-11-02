@@ -12,7 +12,6 @@ using ImpedanceCalculatorUI.CircuitDrawer.ElementDrawers;
 
 namespace ImpedanceCalculatorUI.CircuitDrawer
 {
-    //TODO: +RSDN
 	/// <summary>
 	/// Содержит методы для отрисовки основной цепи
 	/// </summary>
@@ -25,6 +24,7 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
 		/// <returns></returns>
 		public static SegmentDrawerBase GetDrawSegment(ISegment segment)
 		{
+            //TODO: Не надо создавать экзепляр, можно возвращать сразу из case-ов
 			SegmentDrawerBase segmentDrawer;
 
 			switch (segment)

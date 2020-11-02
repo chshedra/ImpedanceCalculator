@@ -1,9 +1,8 @@
 ﻿using System.Drawing;
 using ImpedanceCalculator;
-//TODO: +Несоответствие дефолтному namespace
+
 namespace ImpedanceCalculatorUI.CircuitDrawer.ElementDrawers
 {
-	//TODO: +RSDN
 	/// <summary>
 	/// Содержит методы для отрисовки индуктора
 	/// </summary>
@@ -21,8 +20,8 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.ElementDrawers
 		/// <inheritdoc/>
 		public override Bitmap GetImage()
 		{
+            //TODO: Дубль в наследниках
 			var bitmap = new Bitmap(GetSize().Height, GetSize().Width);
-			//TODO: +RSDN - именование
 			var graphics = Graphics.FromImage(bitmap);
 
 			Draw(graphics);
@@ -34,10 +33,8 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.ElementDrawers
 		/// Рисует катушку индуктивности.
 		/// </summary>
 		/// <param name="graphics"></param>
-		/// //TODO +Сигнатура XML комментария и метода различны
 		public void Draw(Graphics graphics)
 		{
-            //TODO: +Можно собрать в for
             var firstBezierX = 40;
             var lastBezierX = 80;
             var bezierLength = 8;
@@ -59,6 +56,7 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.ElementDrawers
 		/// <inheritdoc/>
 		public override Size GetSize()
 		{
+            //TODO: Дубль в наследниках
 			return new Size(ElementSize.Width, ElementSize.Width);
 		}
 	}

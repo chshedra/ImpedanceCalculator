@@ -8,13 +8,18 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 	[TestFixture]
 	class ResistorTest
 	{
+        //TODO: Все тесты правильнее оформить по методике три AAA https://habr.com/ru/post/169381/
+
+		//TODO: Зачем?
 		private Resistor _resistor;
 
+		//TODO: Не используется
 		private void ResistorInit()
 		{
 			_resistor = new Resistor();
 		}
 
+		//TODO: В свойство
 		private Resistor CreateTestResistor()
 		{
 			var R = new Resistor("TestResistor", 10);
@@ -43,6 +48,8 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 			_resistor = CreateTestResistor();
 			var wrongFrequency = -1;
 
+            //TODO: Если так пишите - выравнивайте хотябы аргументы,
+            //а лучше переносите скобочки на отдельные строки, как в методе
 			Assert.Throws<ArgumentException>(() =>
 			{ var result = _resistor.CalculateZ(wrongFrequency); }, 
 			"Должно возникать исключение, если частота отрицательная");

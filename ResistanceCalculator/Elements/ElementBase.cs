@@ -6,6 +6,7 @@ using System.Numerics;
 
 namespace ImpedanceCalculator.Elements
 {
+    //TODO: Зачем тут ICloneable? У ISegment-a уже есть.
 	/// <summary>
 	/// Абстрактный класс элемента цепи
 	/// </summary>
@@ -65,6 +66,7 @@ namespace ImpedanceCalculator.Elements
 			{
 				if (value < 0)
 				{
+					//TODO: При чём здесь резистор?
 					throw new ArgumentException($"Resistor {Name} " +
 						$"must have positive value");
 				}
@@ -111,6 +113,7 @@ namespace ImpedanceCalculator.Elements
 		/// <inheritdoc />
 		public object Clone()
 		{
+			//TODO: В корне не верно!
 			switch (this)
 			{
 				case Resistor resistor:

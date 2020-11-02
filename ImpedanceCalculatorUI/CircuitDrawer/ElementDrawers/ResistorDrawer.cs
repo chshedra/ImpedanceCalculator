@@ -1,9 +1,8 @@
 ﻿using System.Drawing;
 using ImpedanceCalculator;
-//TODO: +Несоответствие дефолтному namespace
+
 namespace ImpedanceCalculatorUI.CircuitDrawer.ElementDrawers
 {
-	//TODO: +RSDN
 	/// <summary>
 	/// Содержит методы для отрисовки резистора
 	/// </summary>
@@ -21,8 +20,9 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.ElementDrawers
 		/// <inheritdoc/>
 		public override Bitmap GetImage()
 		{
+            //TODO: Дубль в наследниках
 			var bitmap = new Bitmap(GetSize().Height, GetSize().Width);
-			//TODO: +RSDN - именование
+
 			var graphics = Graphics.FromImage(bitmap);
 
 			Draw(graphics);
@@ -36,7 +36,6 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.ElementDrawers
 		/// <param name="graphics"></param>
 		public void Draw(Graphics graphics)
 		{
-			//TODO: +RSDN
 			graphics.DrawRectangle(StandartPen, new Rectangle(20, 34, 60, 32));
 
 			graphics.DrawLine(StandartPen, 0, 50, 20, 50);
@@ -49,6 +48,7 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.ElementDrawers
 		/// <inheritdoc/>
 		public override Size GetSize()
 		{
+            //TODO: Дубль в наследниках
 			return new Size(ElementSize.Width, ElementSize.Width);
 		}
     }

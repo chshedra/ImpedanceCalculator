@@ -2,7 +2,7 @@
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-
+//TODO: Несоответствие дефолтному namespace
 namespace ImpedanceCalculator
 {
 	/// <summary>
@@ -24,6 +24,7 @@ namespace ImpedanceCalculator
 		/// </summary>
 		public static void SaveToFile(string fileName, object container)
 		{
+			//TODO: RSDN
 			string DefaultDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
 			                          "\\ImpedanceCalculator";
 

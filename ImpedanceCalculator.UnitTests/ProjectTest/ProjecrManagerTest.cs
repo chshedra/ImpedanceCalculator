@@ -32,6 +32,7 @@ namespace ImpedanceCalculator.UnitTests.ProjectTest
 		private Project InitProject()
 		{
 			var r = new Resistor("R", 10);
+			//TODO: RSDN - длины строк
 			var circuit = new SerialCircuit(new List<ISegment>() { r }, "Circuit");
 			var project = new Project()
 			{
@@ -51,7 +52,7 @@ namespace ImpedanceCalculator.UnitTests.ProjectTest
 			var actual = ProjectManager.LoadFromFile(_etalonFileLocation);
 
 			
-
+                //TODO: Где проверка?
 		}
 	}
 }

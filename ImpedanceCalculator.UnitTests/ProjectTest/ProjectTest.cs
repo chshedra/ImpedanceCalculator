@@ -11,6 +11,7 @@ namespace ImpedanceCalculator.UnitTests.ProjectTest
 	{
 		private Project _project;
 
+		//TODO: В свойство
 		private void InitProject()
 		{
 			_project = new Project();
@@ -37,7 +38,8 @@ namespace ImpedanceCalculator.UnitTests.ProjectTest
 		{
 			List<ISegment> nullList = null;
 			InitProject();
-
+            //TODO: Если так пишите - выравнивайте хотябы аргументы,
+            //а лучше переносите скобочки на отдельные строки, как в методе
 			Assert.Throws<ArgumentException>(
 				() => { _project.Circuits = nullList; },
 				"Должно возникать исключение, если список цепей пустой");
@@ -81,7 +83,8 @@ namespace ImpedanceCalculator.UnitTests.ProjectTest
 		{
 			List<double> nullList = null;
 			InitProject();
-
+            //TODO: Если так пишите - выравнивайте хотябы аргументы,
+            //а лучше переносите скобочки на отдельные строки, как в методе
 			Assert.Throws<ArgumentException>(
 				() => { _project.Frequencies = nullList; },
 				"Должно возникать исключение, если список частот пустой");
@@ -126,6 +129,8 @@ namespace ImpedanceCalculator.UnitTests.ProjectTest
 			List<Complex> nullList = null;
 			InitProject();
 
+            //TODO: Если так пишите - выравнивайте хотябы аргументы,
+            //а лучше переносите скобочки на отдельные строки, как в методе
 			Assert.Throws<ArgumentException>(
 				() => { _project.Impendances = nullList; },
 				"Должно возникать исключение, если список импедансов пустой");

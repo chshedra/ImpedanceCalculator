@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Numerics;
 using ImpedanceCalculator.Circuits;
 
+//TODO: Несоответствие дефолтному namespace
 namespace ImpedanceCalculator 
 {
 	/// <summary>

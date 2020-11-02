@@ -9,10 +9,9 @@ using ImpedanceCalculator.Circuits;
 using ImpedanceCalculator.Elements;
 using ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers;
 
-//TODO: +Несоответствие дефолтному namespace
+
 namespace ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers
 {
-	//TODO: +RSDN
 	/// <summary>
 	/// Содержит методы для отрисовки параллельного участка цепи
 	/// </summary>
@@ -34,7 +33,7 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers
             var bitmap = new Bitmap(size.Width, size.Height);
             var x = InputLineLength;
             var y = 0;
-			//TODO: +RSDN
+			//TODO: RSDN (ниже такая же фигня по длине строки)
             var firstSegment = 
 	            CircuitDrawManager.GetDrawSegment(((CircuitBase)Segment).FirstOrDefault());
 			CircuitDrawManager.FillSegmentDrawerTreeNode(firstSegment, ((CircuitBase)Segment).FirstOrDefault());
@@ -44,9 +43,9 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers
 
 			var firstHeight = firstSegment.GetSize().Height;
             var lastHeight = lastElement.GetSize().Height;
-			//TODO: +RSDN
+
             var graphics = Graphics.FromImage(bitmap);
-			//TODO: +RSDN - именование
+
             graphics.DrawLine(StandartPen, 0, 
 	            size.Height / ImageDellimitterConst, 
 	            InputLineLength,
@@ -61,23 +60,20 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers
 	            var segmentImage = node.GetImage();
 
 	            graphics.DrawImage(segmentImage, new Point(x, y));
-	            //TODO: +RSDN
+
 	            graphics.DrawLine(StandartPen, x + segmentImage.Width,
 		            y + segmentImage.Height / ImageDellimitterConst,
 		            bitmap.Width - ParallelConnector,
 		            y + segmentImage.Height / ImageDellimitterConst);
 
 	            y += segmentImage.Height;
-				//TODO: +switch-case
             }
 
-			//TODO: +RSDN
             graphics.DrawLine(StandartPen, bitmap.Width - ParallelConnector, 
 	            firstHeight / ImageDellimitterConst,
                 bitmap.Width - ParallelConnector, 
 	            size.Height - lastHeight / ImageDellimitterConst);
 
-			//TODO: +RSDN
             graphics.DrawLine(StandartPen, bitmap.Width - ParallelConnector, 
 	            bitmap.Height / ImageDellimitterConst,
                 bitmap.Width, bitmap.Height / ImageDellimitterConst);
@@ -94,9 +90,10 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers
 
 			foreach (SegmentDrawerBase node in Nodes)
 			{
-				//TODO: +switch-case
+                //TODO: В глобальном смысле дублируется с SerialCircuitDrawer
 				switch (node.Segment)
 				{
+                    //TODO: А в чём вообще смысл такого свича? В следующем свиче разве не дубль?
 					case ElementBase element:
 					{
 						size.Height = size.Height + node.GetSize().Height;
@@ -109,7 +106,6 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers
 					case CircuitBase circuit:
 					{
 						var circuitSize = node.GetSize();
-						//TODO: +RSDN
 						size.Width = size.Width < circuitSize.Width 
 							? circuitSize.Width 
 							: size.Width;

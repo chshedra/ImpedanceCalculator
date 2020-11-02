@@ -7,8 +7,11 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 	[TestFixture]
 	public class ElementTest
 	{
+        //TODO: Все тесты правильнее оформить по методике три AAA https://habr.com/ru/post/169381/
+
 		private ElementBaseInheritor _element;
 
+        //TODO: В чём смысл собирать в метод простой вызов конструктора?
 		private void InitElement()
 		{
 			_element = new ElementBaseInheritor();
@@ -49,6 +52,8 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 			InitElement();
 			var emptyName = "";
 
+            //TODO: Если так пишите - выравнивайте хотябы аргументы,
+            //а лучше переносите скобочки на отдельные строки, как в методе
 			Assert.Throws<ArgumentException>(
 				() => { _element.Name = emptyName; },
 					"Должно возникать исключение, если имя элемента пустое");
@@ -60,6 +65,8 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 			InitElement();
 			string nullName = null;
 
+            //TODO: Если так пишите - выравнивайте хотябы аргументы,
+            //а лучше переносите скобочки на отдельные строки, как в методе
 			Assert.Throws<ArgumentException>(
 				() => { _element.Name = nullName; },
 					"Должно возникать исключение, если имя элемента пустое");
@@ -99,7 +106,8 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 		{
 			InitElement();
 			double negativeValue = -1;
-
+            //TODO: Если так пишите - выравнивайте хотябы аргументы,
+            //а лучше переносите скобочки на отдельные строки, как в методе
 			Assert.Throws<ArgumentException>(
 				() => { _element.Value = negativeValue; },
 					"Должно возникать исключение, если значение отрицательное");
@@ -134,6 +142,8 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 		public void TestElementConstructor_NullName()
 		{
 			string nullName = null;
+            //TODO: Если так пишите - выравнивайте хотябы аргументы,
+            //а лучше переносите скобочки на отдельные строки, как в методе
 			Assert.Throws<ArgumentException>(
 			   () => {
 				   var actual = new ElementBaseInheritor(nullName, 0);
@@ -145,7 +155,8 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 		public void TestElementConstructor_EmptyName()
 		{
 			string emptyName = "";
-
+            //TODO: Если так пишите - выравнивайте хотябы аргументы,
+            //а лучше переносите скобочки на отдельные строки, как в методе
 			Assert.Throws<ArgumentException>(
 			   () => {
 				   var actual = new ElementBaseInheritor(emptyName, 0);
@@ -157,6 +168,8 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 		public void TestElementConstructor_negativeValue()
 		{
 			var negativeValue = -3;
+            //TODO: Если так пишите - выравнивайте хотябы аргументы,
+            //а лучше переносите скобочки на отдельные строки, как в методе
 			Assert.Throws<ArgumentException>(
 			   () => {
 				   var actual = new ElementBaseInheritor("Name", negativeValue);

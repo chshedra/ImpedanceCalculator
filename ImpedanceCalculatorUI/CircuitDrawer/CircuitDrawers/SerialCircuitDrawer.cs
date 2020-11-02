@@ -10,7 +10,6 @@ using ImpedanceCalculator.Elements;
 
 namespace ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers
 {
-    //TODO: +RSDN
 	/// <summary>
 	/// Содержит методы для отрисовки последовательного участка цепи
 	/// </summary>
@@ -34,19 +33,14 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers
 			var x = 0;
 			var y = size.Height / ImageDellimitterConst;
 
-            //TODO: +RSDN - именование
 			var graphics = Graphics.FromImage(bitmap);
 
-			//TODO: +Скобочки
 			foreach (SegmentDrawerBase node in Nodes)
 			{
 				var segmentImage = node.GetImage();
-				//TODO: +RSDN
-				//TODO: +Дубль ниже
 				graphics.DrawImage(segmentImage, 
 					new Point(x, y - segmentImage.Height / ImageDellimitterConst));
 				x += node.GetSize().Width;
-				//TODO: +switch-case
 			}
 
 			return bitmap;
@@ -59,12 +53,12 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers
 				? new Size(0, 0) 
 				: new Size(EmptyImageSize.Width, EmptyImageSize.Height);
 
-			//TODO: +Скобочки
 			foreach (SegmentDrawerBase node in Nodes)
 			{
-				//TODO:+switch-case
+                //TODO: В глобальном смысле дублируется с ParallelCircuitDrawer
 				switch (node.Segment)
 				{
+					//TODO: А в чём вообще смысл такого свича? В следующем свиче разве не дубль?
 					case ElementBase element:
 					{
 						size.Height = size.Height < node.GetSize().Height
@@ -77,7 +71,6 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers
 					case CircuitBase circuit:
 					{
 						var circuitSize = node.GetSize();
-						//TODO: +RSDN
 						size.Height = size.Height < circuitSize.Height 
 							? circuitSize.Height 
 							: size.Height;

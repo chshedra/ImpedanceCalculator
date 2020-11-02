@@ -7,6 +7,7 @@ using ImpedanceCalculator;
 using ImpedanceCalculator;
 using ImpedanceCalculatorUI.CircuitDrawer;
 
+//TODO: Несоответствие дефолтному namespace
 namespace ImpedanceCalculatorUI
 {
 	public partial class MainForm : Form
