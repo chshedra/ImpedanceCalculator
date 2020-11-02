@@ -316,6 +316,8 @@ namespace ImpedanceCalculatorUI
 					CircuitPictureBox.Location =
 						new Point(0, 0);
 				}
+
+				RefreshLists();
 			}
 		}
 	}
