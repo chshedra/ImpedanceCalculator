@@ -37,10 +37,12 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers
 			//TODO: +RSDN
             var firstSegment = 
 	            CircuitDrawManager.GetDrawSegment(((CircuitBase)Segment).FirstOrDefault());
+			CircuitDrawManager.FillSegmentDrawerTreeNode(firstSegment, ((CircuitBase)Segment).FirstOrDefault());
             var lastElement = 
 	            CircuitDrawManager.GetDrawSegment(((CircuitBase)Segment).LastOrDefault());
-            
-            var firstHeight = firstSegment.GetSize().Height;
+            CircuitDrawManager.FillSegmentDrawerTreeNode(lastElement, ((CircuitBase)Segment).LastOrDefault());
+
+			var firstHeight = firstSegment.GetSize().Height;
             var lastHeight = lastElement.GetSize().Height;
 			//TODO: +RSDN
             var graphics = Graphics.FromImage(bitmap);
@@ -102,7 +104,7 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers
 							? node.GetSize().Width
 							: size.Width;
 
-							break;
+						break;
 					}
 					case CircuitBase circuit:
 					{
@@ -113,7 +115,7 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers
 							: size.Width;
 						size.Height = size.Height + circuitSize.Height;
 
-							break;
+						break;
 					}
 					default:
 					{

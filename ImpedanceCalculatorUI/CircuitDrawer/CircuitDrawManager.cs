@@ -73,16 +73,19 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
 		/// </summary>
 		/// <param name="drawerTreeNode"></param>
 		/// <param name="segment"></param>
-		private static void FillSegmentDrawerTreeNode(SegmentDrawerBase drawerTreeNode, ISegment segment)
+		public static void FillSegmentDrawerTreeNode(SegmentDrawerBase drawerTreeNode, ISegment segment)
 		{
-			foreach (var subSegment in segment.SubSegments)
+			if (drawerTreeNode.Segment.SubSegments != null)
 			{
-				var segmentTreeNode = GetDrawSegment(subSegment);
-
-				drawerTreeNode.Nodes.Add(segmentTreeNode);
-				if (!(subSegment is ElementBase element))
+				foreach (var subSegment in segment.SubSegments)
 				{
-					FillSegmentDrawerTreeNode(segmentTreeNode, subSegment);
+					var segmentTreeNode = GetDrawSegment(subSegment);
+
+					drawerTreeNode.Nodes.Add(segmentTreeNode);
+					if (!(subSegment is ElementBase element))
+					{
+						FillSegmentDrawerTreeNode(segmentTreeNode, subSegment);
+					}
 				}
 			}
 		}

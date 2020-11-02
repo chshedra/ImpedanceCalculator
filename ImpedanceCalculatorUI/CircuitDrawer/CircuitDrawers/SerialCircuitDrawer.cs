@@ -55,9 +55,10 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers
 		/// <inheritdoc/>
 		public override Size GetSize()
 		{
-			var size = Nodes.Count > 0 
+			var size = Segment.SubSegments.Count > 0 
 				? new Size(0, 0) 
 				: new Size(EmptyImageSize.Width, EmptyImageSize.Height);
+
 			//TODO: +Скобочки
 			foreach (SegmentDrawerBase node in Nodes)
 			{
