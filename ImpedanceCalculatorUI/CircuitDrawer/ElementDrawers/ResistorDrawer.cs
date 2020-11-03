@@ -6,7 +6,7 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.ElementDrawers
 	/// <summary>
 	/// Содержит методы для отрисовки резистора
 	/// </summary>
-	public class ResistorDrawer : SegmentDrawerBase
+	public class ResistorDrawer : ElementDrawer
 	{
 		/// <summary>
 		/// Создает объект ResistorDrawer и устанавливает значение Segment
@@ -17,24 +17,11 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.ElementDrawers
 			Segment = segment;
 		}
 
-		/// <inheritdoc/>
-		public override Bitmap GetImage()
-		{
-            //TODO: Дубль в наследниках
-			var bitmap = new Bitmap(GetSize().Height, GetSize().Width);
-
-			var graphics = Graphics.FromImage(bitmap);
-
-			Draw(graphics);
-
-			return bitmap;
-		}
-
 		/// <summary>
 		/// Рисует резистор
 		/// </summary>
 		/// <param name="graphics"></param>
-		public void Draw(Graphics graphics)
+		public override void Draw(Graphics graphics)
 		{
 			graphics.DrawRectangle(StandartPen, new Rectangle(20, 34, 60, 32));
 
@@ -44,12 +31,5 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.ElementDrawers
 			graphics.DrawString(Segment.Name, new Font(FontFamily.GenericSansSerif,
 				10, FontStyle.Regular), new SolidBrush(Color.Black), 40, 10);
 		}
-
-		/// <inheritdoc/>
-		public override Size GetSize()
-		{
-            //TODO: Дубль в наследниках
-			return new Size(ElementSize.Width, ElementSize.Width);
-		}
-    }
+	}
 }

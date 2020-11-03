@@ -9,11 +9,11 @@ using ImpedanceCalculator;
 
 namespace ImpedanceCalculatorUI.CircuitDrawer
 {
-	//TODO: В чём логика наследования от TreeNode?
+	//TODO: В чём логика наследования от TreeNode? - позволяет проходить ро дереву при отрисовке
 	/// <summary>
 	/// Содержит методы для отрисовки сегментов цепи
 	/// </summary>
-	public abstract class SegmentDrawerBase : TreeNode, ISegmentDrawer
+	public abstract class SegmentDrawerBase :TreeNode, ISegmentDrawer
 	{
 		/// <summary>
 		/// Хранит значение сегмента данного узла

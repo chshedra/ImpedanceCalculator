@@ -7,7 +7,7 @@ namespace ImpedanceCalculator.Circuits
     /// <summary>
 	/// Класс параллельной цепи
 	/// </summary>
-    [Serializable()]
+    [Serializable]
     public class ParallelCircuit : CircuitBase
     {
 	    #region Constructors

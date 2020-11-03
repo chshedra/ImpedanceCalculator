@@ -33,18 +33,6 @@ namespace ImpedanceCalculator.UnitTests.ProjectTest
 				"Сеттер Circuit неправильно устанавливает значение");
 		}
 
-		[Test(Description = "Позитивный тест cеттера свойства Circuits")]
-		public void TestCircuitsSet_NullList()
-		{
-			List<ISegment> nullList = null;
-			InitProject();
-            //TODO: Если так пишите - выравнивайте хотябы аргументы,
-            //а лучше переносите скобочки на отдельные строки, как в методе
-			Assert.Throws<ArgumentException>(
-				() => { _project.Circuits = nullList; },
-				"Должно возникать исключение, если список цепей пустой");
-		}
-
 		[Test(Description = "Позитивный тест геттера свойства Circuits")]
 		public void TestCircuitsGet_PositiveTest()
 		{
@@ -78,18 +66,6 @@ namespace ImpedanceCalculator.UnitTests.ProjectTest
 				"Сеттер Frequencies неправильно устанавливает значение");
 		}
 
-		[Test(Description = "Позитивный тест cеттера свойства Circuits")]
-		public void TestFrequenciesSet_NullList()
-		{
-			List<double> nullList = null;
-			InitProject();
-            //TODO: Если так пишите - выравнивайте хотябы аргументы,
-            //а лучше переносите скобочки на отдельные строки, как в методе
-			Assert.Throws<ArgumentException>(
-				() => { _project.Frequencies = nullList; },
-				"Должно возникать исключение, если список частот пустой");
-		}
-
 		[Test(Description = "Позитивный тест геттера свойства Circuits")]
 		public void TestFrequenciesGet_PositiveTest()
 		{
@@ -121,19 +97,6 @@ namespace ImpedanceCalculator.UnitTests.ProjectTest
 
 			Assert.AreEqual(expected, _project.Impendances,
 				"Сеттер Frequencies неправильно устанавливает значение");
-		}
-
-		[Test(Description = "Позитивный тест cеттера свойства Circuits")]
-		public void TestImpedancesSet_NullList()
-		{
-			List<Complex> nullList = null;
-			InitProject();
-
-            //TODO: Если так пишите - выравнивайте хотябы аргументы,
-            //а лучше переносите скобочки на отдельные строки, как в методе
-			Assert.Throws<ArgumentException>(
-				() => { _project.Impendances = nullList; },
-				"Должно возникать исключение, если список импедансов пустой");
 		}
 
 		[Test(Description = "Позитивный тест геттера Impedances")]

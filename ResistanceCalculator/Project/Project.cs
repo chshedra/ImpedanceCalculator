@@ -13,13 +13,37 @@ namespace ImpedanceCalculator
 	[Serializable]
 	public class Project : ICloneable
 	{
+		#region Private Fields
+
+		/// <summary>
+		/// Хранит список цепей
+		/// </summary>
+		private List<ISegment> _circuits;
+
+		/// <summary>
+		/// Хранит список импедансов
+		/// </summary>
+		private List<Complex> _impedances;
+
+		/// <summary>
+		/// Хранит список частот
+		/// </summary>
+		private List<double> _frequencies;
+
+		#endregion
+
+
 		#region Public Properties
 
 		/// <summary>
 		/// Устанавливает и возвращает список цепей
 		/// </summary>
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-		public List<ISegment> Circuits { get; set; }
+		public List<ISegment> Circuits
+		{
+			get;
+			set;
+		}
 
 		/// <summary>
 		/// Устанавливает и возвращает список частот
@@ -51,7 +75,7 @@ namespace ImpedanceCalculator
 		/// <inheritdoc />
 		public object Clone()
 		{
-			var proj = new Project
+			var project = new Project
 			{
 				Circuits = new List<ISegment>(),
 				Frequencies = new List<double>(),
@@ -59,21 +83,21 @@ namespace ImpedanceCalculator
 			};
 			foreach (double f in Frequencies)
 			{
-				proj.Frequencies.Add(f);
+				project.Frequencies.Add(f);
 			}
 			foreach (Complex impedance in Impendances)
 			{
-				proj.Impendances.Add(impedance);
+				project.Impendances.Add(impedance);
 			}
 
 			foreach (ISegment segment in Circuits)
 			{
 				if (segment is CircuitBase circuit)
 				{
-					proj.Circuits.Add((CircuitBase)circuit.Clone());
+					project.Circuits.Add((CircuitBase)circuit.Clone());
 				}
 			}
-			return proj;
+			return project;
 		}
 
 		#endregion

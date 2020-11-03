@@ -22,14 +22,6 @@ namespace ImpedanceCalculator.Elements
 		/// <param name="name"></param>
 		/// <param name="value"></param>
 		public Capacitor(string name, double value) : base(name, value) { }
-
-
-        //TODO: Убрать!
-		/// <summary>
-		/// Метод, расчитывающий емкость конденсатора в комплексной форме
-		/// </summary>
-		/// <param name="frequence"></param>
-
 		#endregion
 
 		#region Methods
@@ -45,16 +37,6 @@ namespace ImpedanceCalculator.Elements
 			Complex complexFormResult = new Complex(0, result);
 
 			return complexFormResult;
-		}
-
-		#endregion
-
-		#region Implementation of ICloneable
-
-		/// <inheritdoc />
-		public object Clone()
-		{
-			return new Capacitor(Name, Value);
 		}
 
 		#endregion

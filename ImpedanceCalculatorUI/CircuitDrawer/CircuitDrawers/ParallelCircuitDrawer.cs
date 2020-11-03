@@ -33,13 +33,16 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers
             var bitmap = new Bitmap(size.Width, size.Height);
             var x = InputLineLength;
             var y = 0;
-			//TODO: RSDN (ниже такая же фигня по длине строки)
+			//TODO: +RSDN (ниже такая же фигня по длине строки)
             var firstSegment = 
 	            CircuitDrawManager.GetDrawSegment(((CircuitBase)Segment).FirstOrDefault());
-			CircuitDrawManager.FillSegmentDrawerTreeNode(firstSegment, ((CircuitBase)Segment).FirstOrDefault());
+            CircuitDrawManager.FillSegmentDrawerTreeNode(firstSegment, 
+	            ((CircuitBase) Segment).FirstOrDefault());
+
             var lastElement = 
 	            CircuitDrawManager.GetDrawSegment(((CircuitBase)Segment).LastOrDefault());
-            CircuitDrawManager.FillSegmentDrawerTreeNode(lastElement, ((CircuitBase)Segment).LastOrDefault());
+            CircuitDrawManager.FillSegmentDrawerTreeNode(lastElement, 
+	            ((CircuitBase)Segment).LastOrDefault());
 
 			var firstHeight = firstSegment.GetSize().Height;
             var lastHeight = lastElement.GetSize().Height;
@@ -105,11 +108,10 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers
 					}
 					case CircuitBase circuit:
 					{
-						var circuitSize = node.GetSize();
-						size.Width = size.Width < circuitSize.Width 
-							? circuitSize.Width 
+						size.Width = size.Width < node.GetSize().Width 
+							? node.GetSize().Width 
 							: size.Width;
-						size.Height = size.Height + circuitSize.Height;
+						size.Height = size.Height + node.GetSize().Height;
 
 						break;
 					}

@@ -34,21 +34,23 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 
 			_circuit = new ParallelCircuit(expextedSubSegments, expextedName);
 
-			Assert.AreEqual(expextedName, _circuit.Name, "Контсруктор параллельной цепи " +
+			var actualName = _circuit.Name;
+			var actualSubSegments = _circuit.SubSegments;
+			Assert.AreEqual(expextedName, actualName, "Контсруктор параллельной цепи " +
 				"неправильно устанавливает значение Name");
-			Assert.AreEqual(expextedSubSegments, _circuit.SubSegments, "Контсруктор параллельной цепи " +
+			Assert.AreEqual(expextedSubSegments, actualSubSegments, "Контсруктор параллельной цепи " +
 				"неправильно устанавливает значение SubSegments");
 		}
 
 		[Test(Description = "Тест метода CalculateZ последовательной цепи")]
 		public void TestCalculateZ_CorrectValue()
 		{
-			//TODO: RSDN
-			var R = new Resistor("R", 10);
-			var C = new Capacitor("C", 0.05);
+			//TODO:+RSDN
+			var r = new Resistor("R", 10);
+			var c = new Capacitor("C", 0.05);
 			var frequency = 3;
 
-			Complex expected = 1 / (1 / R.CalculateZ(frequency) + 1 / C.CalculateZ(frequency));
+			Complex expected = 1 / (1 / r.CalculateZ(frequency) + 1 / c.CalculateZ(frequency));
 
 			InitParallelCircuit();
 			Complex actual = _circuit.CalculateZ(frequency);

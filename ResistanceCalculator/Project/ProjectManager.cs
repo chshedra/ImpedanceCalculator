@@ -24,9 +24,10 @@ namespace ImpedanceCalculator
 		/// </summary>
 		public static void SaveToFile(string fileName, object container)
 		{
-			//TODO: RSDN
-			string DefaultDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-			                          "\\ImpedanceCalculator";
+			//TODO: +RSDN
+			string DefaultDirectory = 
+				Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
+				"\\ImpedanceCalculator";
 
 			if (!Directory.Exists(DefaultDirectory))
 			{
@@ -57,7 +58,7 @@ namespace ImpedanceCalculator
 				{
 					if (deserializeFile.Length > 0)
 					{
-						project = (Project) formatter.Deserialize(deserializeFile);  
+						project = (Project) formatter.Deserialize(deserializeFile);
 						deserializeFile.Close();
 					}
 					else

@@ -193,8 +193,7 @@ namespace ImpedanceCalculatorUI
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			var saveProject = _project.Clone();
-			ProjectManager.SaveToFile(ProjectManager.DefaultPath, saveProject);
+			ProjectManager.SaveToFile(ProjectManager.DefaultPath, _project);
 		}
 
 		/// <summary>

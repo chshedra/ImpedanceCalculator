@@ -66,8 +66,8 @@ namespace ImpedanceCalculator.Elements
 			{
 				if (value < 0)
 				{
-					//TODO: При чём здесь резистор?
-					throw new ArgumentException($"Resistor {Name} " +
+					//TODO: +При чём здесь резистор?
+					throw new ArgumentException($"Element {Name} " +
 						$"must have positive value");
 				}
 				_value = value;

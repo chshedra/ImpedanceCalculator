@@ -70,11 +70,10 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers
 					}
 					case CircuitBase circuit:
 					{
-						var circuitSize = node.GetSize();
-						size.Height = size.Height < circuitSize.Height 
-							? circuitSize.Height 
+						size.Height = size.Height < node.GetSize().Height 
+							? node.GetSize().Height 
 							: size.Height;
-						size.Width = size.Width + circuitSize.Width;
+						size.Width = size.Width + node.GetSize().Width;
 
 						break;
 					}

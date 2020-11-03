@@ -7,15 +7,15 @@ using ImpedanceCalculator.Elements;
 
 namespace ImpedanceCalculator.UnitTests.CircuitTests
 {
-	//TODO: RSDN
+	//TODO: +RSDN
 	[TestFixture]
-	class CircuitTest
+	public class CircuitTest
 	{
 		//TODO: Все тесты правильнее оформить по методике три AAA https://habr.com/ru/post/169381/
 		private CircuitBaseInheritor _circuit;
 
         //TODO: Переделать в свойство
-		private void InitCircuit()
+		private void InitCircuit ()
 		{
 			_circuit = new CircuitBaseInheritor(new List<ISegment>(), "Circuit");
 		}
@@ -72,11 +72,13 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 			InitCircuit();
 			var emptyName = "";
 
-			Assert.Throws<ArgumentException>(
-                //TODO: Если так пишите - выравнивайте хотябы аргументы,
+			Assert.Throws<ArgumentException>
+			(
+                //TODO: +Если так пишите - выравнивайте хотябы аргументы,
                 //а лучше переносите скобочки на отдельные строки, как в методе
-				() => { _circuit.Name = emptyName; },
-					"Должно возникать исключение, если имя элемента пустое");
+                () => { _circuit.Name = emptyName; },
+					"Должно возникать исключение, если имя элемента пустое"
+            );
 		}
 
 		[Test(Description = "Негативный тест геттера Name")]
@@ -86,10 +88,10 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 			string nullName = null;
 
 			Assert.Throws<ArgumentException>(
-                //TODO: Если так пишите - выравнивайте хотябы аргументы,
+                //TODO: +Если так пишите - выравнивайте хотябы аргументы,
                 //а лучше переносите скобочки на отдельные строки, как в методе
 				() => { _circuit.Name = nullName; },
-					"Должно возникать исключение, если имя элемента пустое");
+				"Должно возникать исключение, если имя элемента пустое");
 		}
 
 		[Test(Description = "Позитивный тест сеттера Name")]
@@ -159,10 +161,13 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 		{
 			InitCircuit();
 
-            //TODO: Если так пишите - выравнивайте хотябы аргументы,
+            //TODO: +Если так пишите - выравнивайте хотябы аргументы,
             //а лучше переносите скобочки на отдельные строки, как в методе
-			Assert.Throws<ArgumentException>(() => 
-			{ _circuit.Add(null); },"Должно возникать исключение, если элемент равен null");
+			Assert.Throws<ArgumentException>
+			(
+				() => { _circuit.Add(null); },
+				"Должно возникать исключение, если элемент равен null"
+			);
 		}
 
 		[Test(Description = "Позитивный тест метода Add")]
@@ -186,10 +191,13 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 			InitCircuit();
 			var element = new Resistor();
 
-            //TODO: Если так пишите - выравнивайте хотябы аргументы,
+            //TODO: +Если так пишите - выравнивайте хотябы аргументы,
             //а лучше переносите скобочки на отдельные строки, как в методе
-			Assert.Throws<ArgumentException>(() =>
-			{ _circuit.Remove(element); }, "Должно возникать исключение, если элемента нет в списке");
+			Assert.Throws<ArgumentException>
+			(
+				() => { _circuit.Remove(element); }, 
+				"Должно возникать исключение, если элемента нет в списке"
+			);
 		}
 
 		[Test(Description = "Тест переопределенного метода Contains")]
@@ -247,10 +255,13 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 		{
 			InitCircuit();
 
-            //TODO: Если так пишите - выравнивайте хотябы аргументы,
+            //TODO:+ Если так пишите - выравнивайте хотябы аргументы,
             //а лучше переносите скобочки на отдельные строки, как в методе
-			Assert.Throws<ArgumentException>(() =>
-			{ _circuit.Insert(0,null); }, "Должно возникать исключение, если элемент равен null");
+			Assert.Throws<ArgumentException>
+			(
+				() => { _circuit.Insert(0,null); }, 
+				"Должно возникать исключение, если элемент равен null"
+			);
 		}
 
 		[Test(Description = "Позитивный тест метода ISReadOnly")]
