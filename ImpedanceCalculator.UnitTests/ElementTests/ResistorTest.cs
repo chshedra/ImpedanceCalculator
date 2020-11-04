@@ -8,23 +8,10 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 	[TestFixture]
 	class ResistorTest
 	{
-        //TODO: Все тесты правильнее оформить по методике три AAA https://habr.com/ru/post/169381/
+        //TODO: +Все тесты правильнее оформить по методике три AAA https://habr.com/ru/post/169381/
 
-		//TODO: Зачем?
-		private Resistor _resistor;
-
-		//TODO: Не используется
-		private void ResistorInit()
-		{
-			_resistor = new Resistor();
-		}
-
-		//TODO: В свойство
-		private Resistor CreateTestResistor()
-		{
-			var R = new Resistor("TestResistor", 10);
-			return R;
-		}
+		//TODO: +В свойство
+		private Resistor TestResistor => new Resistor("TestResistor", 10);
 
 		[Test(Description = "Позитивный тест vметода CalculateZ")]
 		public void TestCalculateZ_CorrectValue()
@@ -32,12 +19,15 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 			string name = "Test";
 			double value = 1;
 			double frequency = 1;
-			Complex expected = new Complex(value, 0);
 
+			//Arrange
+			Complex expected = new Complex(value, 0);
 			Resistor resistor = new Resistor(name, value);
 
+			//Act
 			Complex actual = resistor.CalculateZ(frequency);
 
+			//Assert
 			Assert.AreEqual(expected, actual,
 				"Метод CalculateZ неправильно расчитывает значения");
 		}
@@ -45,14 +35,20 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 		[Test(Description = "Тест метода CalculateZ с отрицательной частотой")]
 		public void TestCalculatez_NegativeFrequency()
 		{
-			_resistor = CreateTestResistor();
+			//Arrange
 			var wrongFrequency = -1;
 
-            //TODO: Если так пишите - выравнивайте хотябы аргументы,
+            //TODO: +Если так пишите - выравнивайте хотябы аргументы,
             //а лучше переносите скобочки на отдельные строки, как в методе
-			Assert.Throws<ArgumentException>(() =>
-			{ var result = _resistor.CalculateZ(wrongFrequency); }, 
-			"Должно возникать исключение, если частота отрицательная");
+			//Assert
+			Assert.Throws<ArgumentException>
+			(
+				() =>
+				{
+					var result = TestResistor.CalculateZ(wrongFrequency);
+				}, 
+				"Должно возникать исключение, если частота отрицательная"
+			);
 		}
 	}
 }

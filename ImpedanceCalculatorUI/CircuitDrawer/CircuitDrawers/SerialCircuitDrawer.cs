@@ -55,30 +55,11 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers
 
 			foreach (SegmentDrawerBase node in Nodes)
 			{
-                //TODO: В глобальном смысле дублируется с ParallelCircuitDrawer
-				switch (node.Segment)
-				{
-					//TODO: А в чём вообще смысл такого свича? В следующем свиче разве не дубль?
-					case ElementBase element:
-					{
-						size.Height = size.Height < node.GetSize().Height
+				size.Width = size.Width + node.GetSize().Width;
+				//TODO: +В глобальном смысле дублируется с ParallelCircuitDrawer
+				size.Height = size.Height < node.GetSize().Height
 							? node.GetSize().Height
 							: size.Height;
-						size.Width = size.Width + node.GetSize().Width;
-
-						break;
-					}
-					case CircuitBase circuit:
-					{
-						var circuitSize = node.GetSize();
-						size.Height = size.Height < circuitSize.Height 
-							? circuitSize.Height 
-							: size.Height;
-						size.Width = size.Width + circuitSize.Width;
-
-						break;
-					}
-				}
 			}
 
 			return size;

@@ -9,50 +9,52 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 {
 	public class ParallelCircuitTest
 	{
-        //TODO: Все тесты правильнее оформить по методике три AAA https://habr.com/ru/post/169381/
-		
-		//TODO: Переделать в свойства
-        private ParallelCircuit _circuit;
-		private List<ISegment> CreateElements()
-		{
-			List<ISegment> elements = new List<ISegment>();
-			elements.Add(new Resistor("R", 10));
-			elements.Add(new Capacitor("C", 0.05));
-			return elements;
-		}
+        //TODO: +Все тесты правильнее оформить по методике три AAA https://habr.com/ru/post/169381/
 
-		private void InitParallelCircuit()
-		{
-			_circuit = new ParallelCircuit(CreateElements(), "TestCircuit");
-		}
+        private List<ISegment> CreateElements => 
+			
+			new List<ISegment>
+            {
+                new Resistor("R", 10),
+                new Capacitor("C", 0.05)
+            };
+
+        private CircuitBase Circuit => new ParallelCircuit(CreateElements, "TestCircuit");
 
 		[Test(Description = "Тест конструктора последовательной цепи")]
 		public void TestParallelCircuitConstructor_CorrectValue()
 		{
+			//Arrange
 			var expextedName = "TestName";
-			var expextedSubSegments = CreateElements();
+			var expextedSubSegments = CreateElements;
+			var circuit = new ParallelCircuit(expextedSubSegments, expextedName);
 
-			_circuit = new ParallelCircuit(expextedSubSegments, expextedName);
+			//Act
+			var actualName = circuit.Name;
+			var actualSubSegments = circuit.SubSegments;
 
-			Assert.AreEqual(expextedName, _circuit.Name, "Контсруктор параллельной цепи " +
+			//Assert
+			Assert.AreEqual(expextedName, circuit.Name, "Контсруктор параллельной цепи " +
 				"неправильно устанавливает значение Name");
-			Assert.AreEqual(expextedSubSegments, _circuit.SubSegments, "Контсруктор параллельной цепи " +
+			Assert.AreEqual(expextedSubSegments, circuit.SubSegments, "Контсруктор параллельной цепи " +
 				"неправильно устанавливает значение SubSegments");
 		}
 
 		[Test(Description = "Тест метода CalculateZ последовательной цепи")]
 		public void TestCalculateZ_CorrectValue()
 		{
-			//TODO: RSDN
-			var R = new Resistor("R", 10);
-			var C = new Capacitor("C", 0.05);
+			//TODO: +RSDN
+			var r = new Resistor("R", 10);
+			var c = new Capacitor("C", 0.05);
 			var frequency = 3;
+			
+			//Arrange
+			Complex expected = 1 / (1 / c.CalculateZ(frequency) + 1 / r.CalculateZ(frequency));
 
-			Complex expected = 1 / (1 / R.CalculateZ(frequency) + 1 / C.CalculateZ(frequency));
+			//Act
+			Complex actual = Circuit.CalculateZ(frequency);
 
-			InitParallelCircuit();
-			Complex actual = _circuit.CalculateZ(frequency);
-
+			//Assert
 			Assert.AreEqual(expected, actual, 
 				"Неправильное значение импеданса параллельной цепи");
 		}

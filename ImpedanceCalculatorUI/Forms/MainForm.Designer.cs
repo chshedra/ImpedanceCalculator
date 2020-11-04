@@ -1,4 +1,4 @@
-﻿namespace ImpedanceCalculatorUI
+﻿namespace ImpedanceCalculatorUI.Forms
 {
 	partial class MainForm
 	{

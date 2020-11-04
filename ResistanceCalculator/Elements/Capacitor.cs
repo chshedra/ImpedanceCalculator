@@ -23,13 +23,6 @@ namespace ImpedanceCalculator.Elements
 		/// <param name="value"></param>
 		public Capacitor(string name, double value) : base(name, value) { }
 
-
-        //TODO: Убрать!
-		/// <summary>
-		/// Метод, расчитывающий емкость конденсатора в комплексной форме
-		/// </summary>
-		/// <param name="frequence"></param>
-
 		#endregion
 
 		#region Methods

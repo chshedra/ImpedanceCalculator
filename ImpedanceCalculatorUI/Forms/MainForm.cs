@@ -4,11 +4,11 @@ using System.Windows.Forms;
 using ImpedanceCalculator.Circuits;
 using ImpedanceCalculator.Elements;
 using ImpedanceCalculator;
-using ImpedanceCalculator;
+using ImpedanceCalculator.Projects;
 using ImpedanceCalculatorUI.CircuitDrawer;
 
-//TODO: Несоответствие дефолтному namespace
-namespace ImpedanceCalculatorUI
+//TODO: +Несоответствие дефолтному namespace
+namespace ImpedanceCalculatorUI.Forms
 {
 	public partial class MainForm : Form
 	{
@@ -24,6 +24,8 @@ namespace ImpedanceCalculatorUI
 			_project = ProjectManager.LoadFromFile(ProjectManager.DefaultPath);
 
 			RefreshLists();
+			RefreshCircuitComboBox();
+			DrawCircuit(this, EventArgs.Empty);
 
 			CircuitTreeView.SegmentSelected += ChangeSegmentMessageTextBoxText;
 			CircuitTreeView.CircuitChanged += DrawCircuit;
@@ -106,7 +108,6 @@ namespace ImpedanceCalculatorUI
 				}
 
 				CircuitTreeView.CircuitTreeViewDataBind(selectedCircuitNode,  selectedCircuit.SubSegments);
-				DrawCircuit(this, EventArgs.Empty);
 			}
 		}
 
@@ -122,6 +123,7 @@ namespace ImpedanceCalculatorUI
 				CircuitTreeView.Nodes.Add(circuitNode);
 				_project.Circuits.Add(circuit);
 				RefreshLists();
+				RefreshCircuitComboBox();
 				CircuitsComboBox.SelectedIndex = _project.Circuits.IndexOf(circuit);
 
 				if (!CircuitTreeView.AddFirstElement())
@@ -135,27 +137,32 @@ namespace ImpedanceCalculatorUI
 
 		private void RemoveCircuitButton_Click(object sender, EventArgs e)
 		{
-			var selectedCircuit = _project.Circuits[CircuitsComboBox.SelectedIndex];
-
-			if (MessageBox.Show($"Do you really want remove circuit {selectedCircuit.Name}?", 
-				"Circuit removing", MessageBoxButtons.OKCancel, 
-				MessageBoxIcon.Question) == DialogResult.OK)
+			if (_project.Circuits.Count > 0)
 			{
-				_project.Circuits.RemoveAt(CircuitsComboBox.SelectedIndex);
-				RefreshLists();
-				if (_project.Circuits.Count > 0)
-				{
-					CircuitsComboBox.SelectedIndex = 0;
-				}
-				else
-				{
-					_project.Frequencies.Clear();
-					_project.Impendances.Clear();
-					RefreshLists();
-				}
+				var selectedCircuit = _project.Circuits[CircuitsComboBox.SelectedIndex];
 
-				CircuitPictureBox.Image = null;
-				SegmentInfoTextbox.Text = null;
+				if (MessageBox.Show($"Do you really want remove circuit {selectedCircuit.Name}?",
+					"Circuit removing", MessageBoxButtons.OKCancel,
+					MessageBoxIcon.Question) == DialogResult.OK)
+				{
+					_project.Circuits.RemoveAt(CircuitsComboBox.SelectedIndex);
+					RefreshLists();
+					RefreshCircuitComboBox();
+					CircuitPictureBox.Image = null;
+					SegmentInfoTextbox.Text = null;
+
+					if (_project.Circuits.Count > 0)
+					{
+						CircuitsComboBox.SelectedIndex = 0;
+					}
+					else
+					{
+						_project.Frequencies.Clear();
+						_project.Impendances.Clear();
+						RefreshLists();
+						RefreshCircuitComboBox();
+					}
+				}
 			}
 		}
 
@@ -193,8 +200,8 @@ namespace ImpedanceCalculatorUI
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			var saveProject = _project.Clone();
-			ProjectManager.SaveToFile(ProjectManager.DefaultPath, saveProject);
+			//var saveProject = _project.Clone();
+			ProjectManager.SaveToFile(ProjectManager.DefaultPath, _project);
 		}
 
 		/// <summary>
@@ -205,10 +212,6 @@ namespace ImpedanceCalculatorUI
 			FrequenciesListBox.DataSource = null;
 			FrequenciesListBox.DataSource = _project.Frequencies;
 
-			CircuitsComboBox.DataSource = null;
-			CircuitsComboBox.DataSource = _project.Circuits;
-			CircuitsComboBox.DisplayMember = "Name";
-
 			ImpedanceListBox.Items.Clear();
 			foreach (var impedance in _project.Impendances)
 			{
@@ -217,6 +220,13 @@ namespace ImpedanceCalculatorUI
 				($"{Math.Round(impedance.Real, 4, MidpointRounding.ToEven)} " + 
 					sign + $"{Math.Round(impedance.Imaginary, 4, MidpointRounding.ToEven)} i");
 			}
+		}
+
+		private void RefreshCircuitComboBox()
+		{
+			CircuitsComboBox.DataSource = null;
+			CircuitsComboBox.DataSource = _project.Circuits;
+			CircuitsComboBox.DisplayMember = "Name";
 		}
 
 		/// <summary>
@@ -295,7 +305,8 @@ namespace ImpedanceCalculatorUI
 		/// <param name="e"></param>
 		public void DrawCircuit(object sender, EventArgs e)
 		{
-			if (_project.Circuits.Count > 0)
+			if (_project.Circuits.Count > 0 && 
+			    _project.Circuits[CircuitsComboBox.SelectedIndex].SubSegments.Count > 0)
 			{
 				Image circuitImage =
 					CircuitDrawManager.GetMainCircuitImage(

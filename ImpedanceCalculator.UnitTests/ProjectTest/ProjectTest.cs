@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using  System.Numerics;
 using ImpedanceCalculator.Circuits;
+using ImpedanceCalculator.Projects;
+using ImpedanceCalculator.Projects;
 
 namespace ImpedanceCalculator.UnitTests.ProjectTest
 {
@@ -11,53 +13,42 @@ namespace ImpedanceCalculator.UnitTests.ProjectTest
 	{
 		private Project _project;
 
-		//TODO: В свойство
-		private void InitProject()
-		{
-			_project = new Project();
-		}
+		//TODO: +В свойство
+		private Project TestProject => new Project();
 
 		[Test(Description = "Позитивный тест cеттера свойства Circuits")]
 		public void TestCircuitsSet_PositiveTest()
 		{
+			//Arrange
 			var expected = new List<ISegment>()
 			{
 				new SerialCircuit(),
 				new ParallelCircuit()
 			};
+			var project = new Project();
+			project.Circuits = expected;
 
-			InitProject();
-			_project.Circuits = expected;
-
-			Assert.AreEqual(expected, _project.Circuits,
+			//Assert, Act
+			Assert.AreEqual(expected, project.Circuits,
 				"Сеттер Circuit неправильно устанавливает значение");
-		}
-
-		[Test(Description = "Позитивный тест cеттера свойства Circuits")]
-		public void TestCircuitsSet_NullList()
-		{
-			List<ISegment> nullList = null;
-			InitProject();
-            //TODO: Если так пишите - выравнивайте хотябы аргументы,
-            //а лучше переносите скобочки на отдельные строки, как в методе
-			Assert.Throws<ArgumentException>(
-				() => { _project.Circuits = nullList; },
-				"Должно возникать исключение, если список цепей пустой");
 		}
 
 		[Test(Description = "Позитивный тест геттера свойства Circuits")]
 		public void TestCircuitsGet_PositiveTest()
 		{
+			//Arrange
 			var expected = new List<ISegment>()
 			{
 				new SerialCircuit(),
 				new ParallelCircuit()
 			};
-			InitProject();
-			_project.Circuits = expected;
-			var actual = _project.Circuits;
-			
+			var project = new Project();
+			project.Circuits = expected;
 
+			//Act
+			var actual = project.Circuits;
+			
+			//Assert
 			Assert.AreEqual(expected, actual,
 				"Геттер Circuit неправильно возвращает значение");
 		}
@@ -65,44 +56,36 @@ namespace ImpedanceCalculator.UnitTests.ProjectTest
 		[Test(Description = "Позитивный тест сеттера свойства Frequencies")]
 		public void TestFrequenciesSet_PositiveTest()
 		{
+			//Arrange
 			var expected = new List<double>()
 			{
 				1.1,
 				2.2
 			};
+			var project = new Project();
+			project.Frequencies = expected;
 
-			InitProject();
-			_project.Frequencies = expected;
-
-			Assert.AreEqual(expected, _project.Frequencies,
+			//Assert, Act
+			Assert.AreEqual(expected, project.Frequencies,
 				"Сеттер Frequencies неправильно устанавливает значение");
-		}
-
-		[Test(Description = "Позитивный тест cеттера свойства Circuits")]
-		public void TestFrequenciesSet_NullList()
-		{
-			List<double> nullList = null;
-			InitProject();
-            //TODO: Если так пишите - выравнивайте хотябы аргументы,
-            //а лучше переносите скобочки на отдельные строки, как в методе
-			Assert.Throws<ArgumentException>(
-				() => { _project.Frequencies = nullList; },
-				"Должно возникать исключение, если список частот пустой");
 		}
 
 		[Test(Description = "Позитивный тест геттера свойства Circuits")]
 		public void TestFrequenciesGet_PositiveTest()
 		{
+			//Arrange
 			var expected = new List<double>()
 			{
 				1.1,
 				2.2
 			};
-			InitProject();
-			_project.Frequencies = expected;
-			var actual = _project.Frequencies;
+			var project = new Project();
+			project.Frequencies = expected;
 
+			//Act
+			var actual = project.Frequencies;
 
+			//Assert
 			Assert.AreEqual(expected, actual,
 				"Геттер Frequencies неправильно возвращает значение");
 		}
@@ -110,45 +93,39 @@ namespace ImpedanceCalculator.UnitTests.ProjectTest
 		[Test(Description = "Позитивный тест сеттера Impedancies")]
 		public void TestImpedancesSet_PositiveTest()
 		{
+			//Arrange
 			var expected = new List<Complex>()
 			{
 				new Complex(1, 1),
 				new Complex(2, 2)
 			};
+			var project = new Project();
+			project.Impendances = expected;
 
-			InitProject();
-			_project.Impendances = expected;
+			//Act
+			var actualImpedances = project.Impendances;
 
-			Assert.AreEqual(expected, _project.Impendances,
+			//Assert
+			Assert.AreEqual(expected, actualImpedances,
 				"Сеттер Frequencies неправильно устанавливает значение");
-		}
-
-		[Test(Description = "Позитивный тест cеттера свойства Circuits")]
-		public void TestImpedancesSet_NullList()
-		{
-			List<Complex> nullList = null;
-			InitProject();
-
-            //TODO: Если так пишите - выравнивайте хотябы аргументы,
-            //а лучше переносите скобочки на отдельные строки, как в методе
-			Assert.Throws<ArgumentException>(
-				() => { _project.Impendances = nullList; },
-				"Должно возникать исключение, если список импедансов пустой");
 		}
 
 		[Test(Description = "Позитивный тест геттера Impedances")]
 		public void TestImpedancesGet_PositiveTest()
 		{
+			//Arrange
 			var expected = new List<Complex>()
 			{
 				new Complex(1, 1),
 				new Complex(2, 2)
 			};
+			var project = new Project();
+			project.Impendances = expected;
 
-			InitProject();
-			_project.Impendances = expected;
-			var actual = _project.Impendances;
+			//Act
+			var actual = project.Impendances;
 
+			//Assert
 			Assert.AreEqual(expected, actual,
 				"Геттер Frequencies неправильно устанавливает значение");
 		}

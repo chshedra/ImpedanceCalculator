@@ -8,31 +8,24 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 	[TestFixture]
 	public class CapacitorTest
 	{
-        //TODO: Все тесты правильнее оформить по методике три AAA https://habr.com/ru/post/169381/
-		//TODO: Зачем это поле?
-		private Capacitor _capacitor;
+        //TODO: +Все тесты правильнее оформить по методике три AAA https://habr.com/ru/post/169381/
+		//TODO: +Зачем это поле?
 
-        //TODO: Не используется!
-		private void CapacitorInit()
-		{
-			_capacitor = new Capacitor();
-		}
-
-        //TODO: В свойство
-		private Capacitor CreateTestCapacitor()
-		{
-			var C = new Capacitor("TestCapacitor", 0.05);
-			return C;
-		}
+		//TODO: +В свойство
+		private Capacitor TestCapacitor => new Capacitor("TestCapacitor", 0.05);
+		
 
 		[Test(Description = "Позитивный тест конструктора Capacitor ")]
 		public void TestConstructor_PositiveTest()
 		{
+			//Arrange
 			var expectedName = "C";
 			double expectedValue = 0;
 
+			//Act
 			var actualCapacitor = new Capacitor();
 
+			//Assert
 			Assert.AreEqual(expectedName, actualCapacitor.Name,
 				"Конструктор Capacitor неправильно устанавливает значение имени");
 			Assert.AreEqual(expectedValue, actualCapacitor.Value,
@@ -45,12 +38,14 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 			double value = 0.05;
 			double frequency = 1;
 			var result = -(1 / (2 * Math.PI * frequency * value));
+
+			//Assert
 			var expected = new Complex(0, result);
 
-			_capacitor = CreateTestCapacitor();
+			//Act
+			Complex actual = TestCapacitor.CalculateZ(frequency);
 
-			Complex actual = _capacitor.CalculateZ(frequency);
-
+			//Assert
 			Assert.AreEqual(expected, actual,
 				"Метод CalculateZ неправильно расчитывает значения");
 		}
@@ -58,13 +53,20 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 		[Test(Description = "Тест метода CalculateZ с отрицательной частотой")]
 		public void TestCalculatez_NegativeFrequency()
 		{
-			_capacitor = CreateTestCapacitor();
+			//Arrange
 			var wrongFrequency = -1;
-            //TODO: Если так пишите - выравнивайте хотябы аргументы,
+            //TODO: +Если так пишите - выравнивайте хотябы аргументы,
             //а лучше переносите скобочки на отдельные строки, как в методе
-			Assert.Throws<ArgumentException>(() =>
-			{ var result = _capacitor.CalculateZ(wrongFrequency); },
-			"Должно возникать исключение, если частота отрицательная");
+
+			//Assert, Act
+			Assert.Throws<ArgumentException>
+			(
+				() =>
+				{
+					var result = TestCapacitor.CalculateZ(wrongFrequency);
+				},
+				"Должно возникать исключение, если частота отрицательная"
+			);
 		}
 	}
 }

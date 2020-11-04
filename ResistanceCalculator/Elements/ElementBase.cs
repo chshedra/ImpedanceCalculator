@@ -6,7 +6,7 @@ using System.Numerics;
 
 namespace ImpedanceCalculator.Elements
 {
-    //TODO: Зачем тут ICloneable? У ISegment-a уже есть.
+    //TODO: +Зачем тут ICloneable? У ISegment-a уже есть.
 	/// <summary>
 	/// Абстрактный класс элемента цепи
 	/// </summary>
@@ -66,8 +66,8 @@ namespace ImpedanceCalculator.Elements
 			{
 				if (value < 0)
 				{
-					//TODO: При чём здесь резистор?
-					throw new ArgumentException($"Resistor {Name} " +
+					//TODO: +При чём здесь резистор?
+					throw new ArgumentException($"Element {Name} " +
 						$"must have positive value");
 				}
 				_value = value;
@@ -105,35 +105,6 @@ namespace ImpedanceCalculator.Elements
 		/// <param name="frequence"></param>
 		/// <returns></returns>
 		public abstract Complex CalculateZ(double frequency);
-
-		#endregion
-
-		#region Implementation of ICloneable
-
-		/// <inheritdoc />
-		public object Clone()
-		{
-			//TODO: В корне не верно!
-			switch (this)
-			{
-				case Resistor resistor:
-				{
-					return resistor.Clone(); 
-				}
-				case Inductor inductor:
-				{
-					return inductor.Clone();
-				}
-				case Capacitor capacitor:
-				{
-					return capacitor.Clone();
-				}
-				default:
-				{
-					return null;
-				}
-			}
-		}
 
 		#endregion
 	}

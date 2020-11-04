@@ -3,12 +3,12 @@ using System.Numerics;
 
 namespace ImpedanceCalculator.Elements
 {
-    //TODO: Зачем тут ICloneable? У ISegment-a уже есть.
+    //TODO: +Зачем тут ICloneable? У ISegment-a уже есть.
 	/// <summary>
 	/// Класс резистора 
 	/// </summary>
 	[Serializable]
-	public class Resistor : ElementBase, ICloneable
+	public class Resistor : ElementBase
 	{
 		#region Constructors
 
@@ -41,16 +41,6 @@ namespace ImpedanceCalculator.Elements
 			}
 			var resistance = new Complex(Value, 0);
 			return resistance;
-		}
-
-		#endregion
-
-		#region Implementation of ICloneable
-
-		/// <inheritdoc />
-		public object Clone()
-		{
-			return new Resistor(Name, Value);
 		}
 
 		#endregion

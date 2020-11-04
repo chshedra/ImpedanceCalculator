@@ -24,39 +24,34 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
 		/// <returns></returns>
 		public static SegmentDrawerBase GetDrawSegment(ISegment segment)
 		{
-            //TODO: Не надо создавать экзепляр, можно возвращать сразу из case-ов
+            //TODO: +Не надо создавать экзепляр, можно возвращать сразу из case-ов
 			SegmentDrawerBase segmentDrawer;
 
 			switch (segment)
 			{
-				case Resistor _:
+				case Resistor resistor:
 				{
-					segmentDrawer = new ResistorDrawer(segment);
-					break;
+					return new ResistorDrawer(resistor);
 				}
 
-				case Inductor _:
+				case Inductor inductor:
 				{
-					segmentDrawer = new InductorDrawer(segment);
-					break;
+					return new InductorDrawer(inductor);
 				}
 
-				case Capacitor _:
+				case Capacitor capacitor:
 				{
-					segmentDrawer = new CapacitorDrawer(segment);
-					break;
+					return new CapacitorDrawer(capacitor);
 				}
 
-				case ParallelCircuit _:
+				case ParallelCircuit parallelCircuit:
 				{
-					segmentDrawer = new ParallelCircuitDrawer(segment);
-					break;
+					return new ParallelCircuitDrawer(parallelCircuit);
 				}
 
-				case SerialCircuit _:
+				case SerialCircuit serialCircuit:
 				{
-					segmentDrawer = new SerialCircuitDrawer(segment);
-					break;
+					return new SerialCircuitDrawer(serialCircuit);
 				}
 
 				default:
@@ -64,8 +59,6 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
 					throw new ArgumentException("Unknown Segment");
 				}
 			}
-
-			return segmentDrawer;
 		}
 
 		/// <summary>

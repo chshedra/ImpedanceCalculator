@@ -1,4 +1,4 @@
-﻿namespace ImpedanceCalculatorUI
+﻿namespace ImpedanceCalculatorUI.Forms
 {
 	partial class ElementForm
 	{
@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ElementForm));
 			this.EditNameLabel = new System.Windows.Forms.Label();
 			this.EditValueLabel = new System.Windows.Forms.Label();
 			this.EditNameTextBox = new System.Windows.Forms.TextBox();
@@ -191,6 +192,11 @@
 			this.Controls.Add(this.ElementTypeGroupBox);
 			this.Controls.Add(this.CancelEditButton);
 			this.Controls.Add(this.OkButton);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.MaximizeBox = false;
+			this.MaximumSize = new System.Drawing.Size(313, 179);
+			this.MinimizeBox = false;
+			this.MinimumSize = new System.Drawing.Size(313, 179);
 			this.Name = "ElementForm";
 			this.Text = "AddEditForm";
 			this.ElementTypeGroupBox.ResumeLayout(false);

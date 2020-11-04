@@ -8,32 +8,22 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 	[TestFixture]
 	class InductorTest
 	{
-        //TODO: Все тесты правильнее оформить по методике три AAA https://habr.com/ru/post/169381/
-        //TODO: Зачем?
-		private Inductor _inductor;
+        //TODO: +Все тесты правильнее оформить по методике три AAA https://habr.com/ru/post/169381/
 
-        //TODO: Не используется
-		private void InductorInit()
-		{
-			_inductor = new Inductor();
-		}
-
-        //TODO: В свойство
-		private Inductor CreateTestInductor()
-		{
-			//TODO: RSDN
-			var L = new Inductor("TestResistor", 0.05);
-			return L;
-		}
+		//TODO: +В свойство
+		private Inductor TestInductor => new Inductor("TestResistor", 0.05);
 
 		[Test(Description = "Позитивный тест конструктора Inductor ")]
 		public void TestConstructor_PositiveTest()
 		{
+			//Arrange
 			var expectedName = "L";
 			double expectedValue = 0;
 
+			//Act
 			var actualCapacitor = new Inductor();
 
+			//Assert
 			Assert.AreEqual(expectedName, actualCapacitor.Name,
 				"Конструктор Inductor неправильно устанавливает значение имени");
 			Assert.AreEqual(expectedValue, actualCapacitor.Value,
@@ -46,12 +36,14 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 			double value = 0.05;
 			double frequency = 1;
 			var result = 2 * Math.PI * frequency * value;
+
+			//Arrange
 			var expected = new Complex(0, result);
 
-			_inductor = CreateTestInductor();
+			//Act
+			Complex actual = TestInductor.CalculateZ(frequency);
 
-			Complex actual = _inductor.CalculateZ(frequency);
-
+			//Assert
 			Assert.AreEqual(expected, actual,
 				"Метод CalculateZ неправильно расчитывает значения");
 		}
@@ -59,14 +51,20 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 		[Test(Description = "Тест метода CalculateZ с отрицательной частотой")]
 		public void TestCalculateZ_NegativeFrequency()
 		{
-			_inductor = CreateTestInductor();
+			//Arrange
 			var wrongFrequency = -1;
 
-            //TODO: Если так пишите - выравнивайте хотябы аргументы,
+            //TODO: +Если так пишите - выравнивайте хотябы аргументы,
             //а лучше переносите скобочки на отдельные строки, как в методе
-			Assert.Throws<ArgumentException>(() =>
-			{ var result = _inductor.CalculateZ(wrongFrequency); },
-			"Должно возникать исключение, если частота отрицательная");
+			//Assert
+			Assert.Throws<ArgumentException>
+			(
+				() =>
+				{
+					var result = TestInductor.CalculateZ(wrongFrequency);
+				},
+			"Должно возникать исключение, если частота отрицательная"
+			);
 		}
 	}
 }

@@ -7,24 +7,23 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 	[TestFixture]
 	public class ElementTest
 	{
-        //TODO: Все тесты правильнее оформить по методике три AAA https://habr.com/ru/post/169381/
+        //TODO: +Все тесты правильнее оформить по методике три AAA https://habr.com/ru/post/169381/
 
-		private ElementBaseInheritor _element;
-
-        //TODO: В чём смысл собирать в метод простой вызов конструктора?
-		private void InitElement()
-		{
-			_element = new ElementBaseInheritor();
-		}
+        //TODO: +В чём смысл собирать в метод простой вызов конструктора?
+		private ElementBaseInheritor Element => new ElementBaseInheritor();
 
 		[Test(Description = "Позитивный тест геттера Name")]
 		public void TestNameGet_CorrectValue()
 		{
-			InitElement();
-
+			var element = new ElementBaseInheritor();
+			//Arrange
 			var expected = "Name";
-			_element.Name = expected;
-			var actual = _element.Name;
+
+			//Act
+			element.Name = expected;
+			var actual = element.Name;
+
+			//Assert
 			Assert.AreEqual(expected, actual,
 				"Геттер Name возвращает неправильное название");
 		}
@@ -32,15 +31,18 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 		[Test(Description = "Позитивный тест сеттера Name")]
 		public void TestNameSet_CorrectValue()
 		{
-			InitElement();
-
+			var element = new ElementBaseInheritor(); ;
 			var isCalled = false;
-			_element.SegmentChanged += (sender, e) => isCalled = true;
+			element.SegmentChanged += (sender, e) => isCalled = true;
 
+			//Arrange
 			var expected = "Name";
-			_element.Name = expected;
+			element.Name = expected;
 
-			var actual = _element.Name;
+			//Act
+			var actual = element.Name;
+
+			//Assert
 			Assert.AreEqual(expected, actual,
 				"Сеттер Name устанавливает неправильное название");
 			Assert.IsTrue(isCalled, "Сеттер Name не вызывает событие SegmentChanged");
@@ -49,37 +51,46 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 		[Test(Description = "Негативный тест геттера Name")]
 		public void TestNameSet_EmptyName()
 		{
-			InitElement();
+			//Arrange
 			var emptyName = "";
 
-            //TODO: Если так пишите - выравнивайте хотябы аргументы,
+            //TODO: +Если так пишите - выравнивайте хотябы аргументы,
             //а лучше переносите скобочки на отдельные строки, как в методе
-			Assert.Throws<ArgumentException>(
-				() => { _element.Name = emptyName; },
-					"Должно возникать исключение, если имя элемента пустое");
+			//Assert, Act
+			Assert.Throws<ArgumentException>
+			(
+				() => { Element.Name = emptyName; },
+				"Должно возникать исключение, если имя элемента пустое"
+			);
 		}
 
 		[Test(Description = "Негативный тест геттера Name")]
 		public void TestNameSet_NullName()
 		{
-			InitElement();
 			string nullName = null;
 
-            //TODO: Если так пишите - выравнивайте хотябы аргументы,
+            //TODO: +Если так пишите - выравнивайте хотябы аргументы,
             //а лучше переносите скобочки на отдельные строки, как в методе
-			Assert.Throws<ArgumentException>(
-				() => { _element.Name = nullName; },
-					"Должно возникать исключение, если имя элемента пустое");
+			Assert.Throws<ArgumentException>
+			(
+				() => { Element.Name = nullName; },
+				"Должно возникать исключение, если имя элемента пустое"
+			);
 		}
 
 		[Test(Description = "Позитивный тест геттера value")]
 		public void TestValueGet_CorrectValue()
 		{
-			InitElement();
+			var element = new ElementBaseInheritor();
 
+			//Arrange
 			var expected = 12.99;
-			_element.Value = expected;
-			var actual = _element.Value;
+			element.Value = expected;
+
+			//Act
+			var actual = element.Value;
+
+			//Assert
 			Assert.AreEqual(expected, actual,
 				"Геттер Value возвращает неправильное название");
 		}
@@ -87,15 +98,18 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 		[Test(Description = "Позитивный тест сеттера Value")]
 		public void TestValueSet_CorrectValue()
 		{
-			InitElement();
-
+			var element = new ElementBaseInheritor();
 			var isCalled = false;
-			_element.SegmentChanged += (sender, e) => isCalled = true;
+			element.SegmentChanged += (sender, e) => isCalled = true;
 
+			//Arrange
 			var expected = 0.45;
-			_element.Value = expected;
-			var actual = _element.Value;
 
+			//Act
+			element.Value = expected;
+			var actual = element.Value;
+
+			//Assert
 			Assert.AreEqual(expected, actual,
 				"Сеттер Value устанавливает неправильное название");
 			Assert.IsTrue(isCalled, "Сеттер Value не вызывает событие SegmentChanged");
@@ -104,22 +118,28 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 		[Test(Description = "Негативный тест геттера Name")]
 		public void TestValueSet_NegativeValue()
 		{
-			InitElement();
+			//Arrange
 			double negativeValue = -1;
-            //TODO: Если так пишите - выравнивайте хотябы аргументы,
+            //TODO: +Если так пишите - выравнивайте хотябы аргументы,
             //а лучше переносите скобочки на отдельные строки, как в методе
-			Assert.Throws<ArgumentException>(
-				() => { _element.Value = negativeValue; },
-					"Должно возникать исключение, если значение отрицательное");
+			//Assert
+			Assert.Throws<ArgumentException>
+			(
+				() => { Element.Value = negativeValue; },
+				"Должно возникать исключение, если значение отрицательное"
+			);
 		}
 
 		[Test(Description = "Позитивный тест геттера SubSegments")]
 		public void TestSubSegmentsGet_CorrectValue()
 		{
-			InitElement();
-
+			//Arrange
 			List<ISegment> expected = null;
-			var actual = _element.SubSegments;
+
+			//Act
+			var actual = Element.SubSegments;
+
+			//Assert
 			Assert.AreEqual(expected, actual,
 				"Геттер Name возвращает неправильное название");
 		}
@@ -127,54 +147,74 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 		[Test(Description = "Позитивный тест конструктора")]
 		public void TestElementConstructor_CorrectValue()
 		{
+			//Arrange
 			var expectedName = "Element";
 			var expectedValue = 10;
 
-			_element = new ElementBaseInheritor(expectedName, expectedValue);
+			//Act
+			var element = new ElementBaseInheritor(expectedName, expectedValue);
 
-			Assert.AreEqual(expectedName, _element.Name,
+			//Assert
+			Assert.AreEqual(expectedName, element.Name,
 				"Конструктор устанавливает неправильное значение имени");
-			Assert.AreEqual(expectedValue, _element.Value,
+			Assert.AreEqual(expectedValue, element.Value,
 				"Конструктор устанавливает неправильное значение");
 		}
 
 		[Test(Description = "Негативный тест конструктора Element с null именем")]
 		public void TestElementConstructor_NullName()
 		{
+			//Arrange
 			string nullName = null;
-            //TODO: Если так пишите - выравнивайте хотябы аргументы,
+
+            //TODO: +Если так пишите - выравнивайте хотябы аргументы,
             //а лучше переносите скобочки на отдельные строки, как в методе
-			Assert.Throws<ArgumentException>(
-			   () => {
+			//Assert
+			Assert.Throws<ArgumentException>
+			(
+			   () => 
+			   {
 				   var actual = new ElementBaseInheritor(nullName, 0);
 			   },
-				   "Должно возникать исключение, если имя null");
+				"Должно возникать исключение, если имя null"
+			);
 		}
 
 		[Test(Description = "Негативный тест конструктора Element с пустым именем")]
 		public void TestElementConstructor_EmptyName()
 		{
+			//Arrange
 			string emptyName = "";
-            //TODO: Если так пишите - выравнивайте хотябы аргументы,
+            //TODO: +Если так пишите - выравнивайте хотябы аргументы,
             //а лучше переносите скобочки на отдельные строки, как в методе
-			Assert.Throws<ArgumentException>(
-			   () => {
+
+			//Assert
+			Assert.Throws<ArgumentException>
+			(
+			   () => 
+			   {
 				   var actual = new ElementBaseInheritor(emptyName, 0);
 			   },
-				   "Должно возникать исключение, если имя пустое");
+				"Должно возникать исключение, если имя пустое"
+			   );
 		}
 
 		[Test(Description = "Негативный тест конструктора Element с пустым именем")]
 		public void TestElementConstructor_negativeValue()
 		{
+			//Arrange
 			var negativeValue = -3;
-            //TODO: Если так пишите - выравнивайте хотябы аргументы,
+            //TODO: +Если так пишите - выравнивайте хотябы аргументы,
             //а лучше переносите скобочки на отдельные строки, как в методе
-			Assert.Throws<ArgumentException>(
-			   () => {
+			//Assert
+			Assert.Throws<ArgumentException>
+			(
+			   () => 
+			   {
 				   var actual = new ElementBaseInheritor("Name", negativeValue);
 			   },
-				   "Должно возникать исключение, если значение отрицательное");
+				"Должно возникать исключение, если значение отрицательное"
+			);
 		}
 	}
 }

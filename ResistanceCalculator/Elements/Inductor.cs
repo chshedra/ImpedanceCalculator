@@ -3,12 +3,12 @@ using System.Numerics;
 
 namespace ImpedanceCalculator.Elements
 {
-	//TODO: Зачем тут ICloneable? У ISegment-a уже есть.
+	//TODO:+Зачем тут ICloneable? У ISegment-a уже есть.
 	/// <summary>
 	/// Класс катушки индуктивности
 	/// </summary>
 	[Serializable()]
-	public class Inductor : ElementBase, ICloneable
+	public class Inductor : ElementBase
 	{
 		#region Constructor
 
@@ -43,16 +43,6 @@ namespace ImpedanceCalculator.Elements
 			Complex complexFormResult = new Complex(0, result);
 
 			return complexFormResult;
-		}
-
-		#endregion
-
-		#region Implementation of ICloneable
-
-		/// <inheritdoc/>
-		public object Clone()
-		{
-			return new Inductor(Name, Value);
 		}
 
 		#endregion

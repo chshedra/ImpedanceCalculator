@@ -4,14 +4,14 @@ using System.ComponentModel;
 using System.Numerics;
 using ImpedanceCalculator.Circuits;
 
-//TODO: Несоответствие дефолтному namespace
-namespace ImpedanceCalculator 
+//TODO: +Несоответствие дефолтному namespace
+namespace ImpedanceCalculator.Projects 
 {
 	/// <summary>
 	/// Класс для хранения цепи
 	/// </summary>
 	[Serializable]
-	public class Project : ICloneable
+	public class Project 
 	{
 		#region Public Properties
 
@@ -46,36 +46,5 @@ namespace ImpedanceCalculator
 
 		#endregion
 
-		#region Methods
-
-		/// <inheritdoc />
-		public object Clone()
-		{
-			var proj = new Project
-			{
-				Circuits = new List<ISegment>(),
-				Frequencies = new List<double>(),
-				Impendances = new List<Complex>()
-			};
-			foreach (double f in Frequencies)
-			{
-				proj.Frequencies.Add(f);
-			}
-			foreach (Complex impedance in Impendances)
-			{
-				proj.Impendances.Add(impedance);
-			}
-
-			foreach (ISegment segment in Circuits)
-			{
-				if (segment is CircuitBase circuit)
-				{
-					proj.Circuits.Add((CircuitBase)circuit.Clone());
-				}
-			}
-			return proj;
-		}
-
-		#endregion
 	}
 }
