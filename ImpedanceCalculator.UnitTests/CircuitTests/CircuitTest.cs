@@ -7,24 +7,19 @@ using ImpedanceCalculator.Elements;
 
 namespace ImpedanceCalculator.UnitTests.CircuitTests
 {
-	//TODO: +RSDN
 	[TestFixture]
 	public class CircuitTest
 	{
-		//TODO: +Все тесты правильнее оформить по методике три AAA https://habr.com/ru/post/169381/
-
-        //TODO: +Переделать в свойство
+        //TODO: RSDN - длины строк
 		private CircuitBase EmptyCircuit => new CircuitBaseInheritor(new List<ISegment>(), "Circuit");
 		
-
-        //TODO: +Переделать в свойство
 		private CircuitBase TestCircuit =>
-		new SerialCircuit
+		    new SerialCircuit
 			{
 				new ParallelCircuit
 				{
-				new Resistor("R", 10.0),
-				new Inductor("L1", 0.05)
+					new Resistor("R", 10.0),
+					new Inductor("L1", 0.05)
 				},
 				new Capacitor("C1", 0.01)
 			};
@@ -76,8 +71,6 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 			//Act, Assert
 			Assert.Throws<ArgumentException>
 			(
-                //TODO: +Если так пишите - выравнивайте хотябы аргументы,
-                //а лучше переносите скобочки на отдельные строки, как в методе
                 () => { EmptyCircuit.Name = emptyName; },
 				"Должно возникать исключение, если имя элемента пустое"
             );
@@ -92,8 +85,6 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 			//Act, Assert
 			Assert.Throws<ArgumentException>
 			(
-                //TODO: +Если так пишите - выравнивайте хотябы аргументы,
-                //а лучше переносите скобочки на отдельные строки, как в методе
 				() => { EmptyCircuit.Name = nullName; },
 				"Должно возникать исключение, если имя элемента пустое"
             );
@@ -183,10 +174,7 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 		[Test(Description = "Тест метода Add с null объектом")]
 		public void TestAdd_NullObject()
 		{
-			//TODO: +Если так пишите - выравнивайте хотябы аргументы,
-            //а лучше переносите скобочки на отдельные строки, как в методе
-
-			//Assert
+            //Assert
 			Assert.Throws<ArgumentException>
 			(
 				//Act
@@ -218,8 +206,6 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 			//Arrange
 			var element = new Resistor();
 
-            //TODO:+Если так пишите - выравнивайте хотябы аргументы,
-            //а лучше переносите скобочки на отдельные строки, как в методе
 			//Assert
 			Assert.Throws<ArgumentException>
 			(
@@ -298,8 +284,6 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 		[Test(Description = "Тест метода Inert с null объектом")]
 		public void TestInsert_NullObject()
 		{
-			//TODO:+Если так пишите - выравнивайте хотябы аргументы,
-            //а лучше переносите скобочки на отдельные строки, как в методе
 			//Assert
 			Assert.Throws<ArgumentException>
 			(

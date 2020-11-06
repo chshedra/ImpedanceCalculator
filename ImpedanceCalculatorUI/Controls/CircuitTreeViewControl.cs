@@ -208,7 +208,6 @@ namespace ImpedanceCalculatorUI.Controls
 			CircuitChanged?.Invoke(this, EventArgs.Empty);
 		}
 
-        //TODO: +XML
 		/// <summary>
 		/// Проверяет наличие второго узла в подузлах первого
 		/// </summary>
@@ -225,6 +224,7 @@ namespace ImpedanceCalculatorUI.Controls
 		/// <summary>
 		/// Удаляет узел дерева цепи
 		/// </summary>
+		/// //TODO Сигнатура XML комментария и метода различны
 		/// <param name="removingNode"></param>
 		private void RemoveNode(SegmentTreeNode selectedNode)
 		{
@@ -316,7 +316,6 @@ namespace ImpedanceCalculatorUI.Controls
 				{
 					switch (((SegmentTreeNode)CircuitTreeView.SelectedNode.Parent).Segment)
 					{
-                        //TODO: +Сместить блоки в case-ах на один таб
 						case SerialCircuit serialCircuit:
 						{
 							if (addForm.IsSerial)
@@ -380,7 +379,6 @@ namespace ImpedanceCalculatorUI.Controls
 
 			if (addForm.IsSerial)
 			{
-				//TODO: +Сместить блоки в case-ах на один таб
 				switch (selectedNode.Segment)
 				{
 					case SerialCircuit serial:
@@ -398,7 +396,6 @@ namespace ImpedanceCalculatorUI.Controls
 			}
 			else
 			{
-                //TODO: +Сместить блоки в case-ах на один таб
 				switch (selectedNode.Segment)
 				{
 					case SerialCircuit serial:
@@ -453,7 +450,6 @@ namespace ImpedanceCalculatorUI.Controls
 			addForm.ShowDialog();
 			if (addForm.DialogResult == DialogResult.OK)
 			{
-				//TODO: +Не используется
 				AddElements(((SegmentTreeNode)CircuitTreeView.Nodes[0]).Segment.SubSegments,
 					CircuitTreeView.Nodes[0].Nodes, new SegmentTreeNode(addForm.Element));
 				CircuitChanged?.Invoke(this, EventArgs.Empty);

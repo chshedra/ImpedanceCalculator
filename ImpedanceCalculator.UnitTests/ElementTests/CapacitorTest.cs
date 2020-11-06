@@ -8,10 +8,6 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 	[TestFixture]
 	public class CapacitorTest
 	{
-        //TODO: +Все тесты правильнее оформить по методике три AAA https://habr.com/ru/post/169381/
-		//TODO: +Зачем это поле?
-
-		//TODO: +В свойство
 		private Capacitor TestCapacitor => new Capacitor("TestCapacitor", 0.05);
 		
 
@@ -55,8 +51,6 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 		{
 			//Arrange
 			var wrongFrequency = -1;
-            //TODO: +Если так пишите - выравнивайте хотябы аргументы,
-            //а лучше переносите скобочки на отдельные строки, как в методе
 
 			//Assert, Act
 			Assert.Throws<ArgumentException>

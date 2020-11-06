@@ -18,8 +18,6 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers
 
 			foreach (SegmentDrawerBase node in Nodes)
 			{
-				//TODO: +В глобальном смысле дублируется с SerialCircuitDrawer
-				//TODO: +А в чём вообще смысл такого свича? В следующем свиче разве не дубль?
 				size.Height = size.Height + node.GetSize().Height;
 				size.Width = size.Width < node.GetSize().Width
 					? node.GetSize().Width

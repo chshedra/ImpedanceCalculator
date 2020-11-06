@@ -33,7 +33,7 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers
             var bitmap = new Bitmap(size.Width, size.Height);
             var x = InputLineLength;
             var y = 0;
-			//TODO: +RSDN (ниже такая же фигня по длине строки)
+
             var firstSegment = 
 	            CircuitDrawManager.
 		        GetDrawSegment(((CircuitBase)Segment).FirstOrDefault());
@@ -95,8 +95,6 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers
 
 			foreach (SegmentDrawerBase node in Nodes)
 			{
-                //TODO: +В глобальном смысле дублируется с SerialCircuitDrawer
-                //TODO: +А в чём вообще смысл такого свича? В следующем свиче разве не дубль?
                 size.Height = size.Height + node.GetSize().Height;
 						size.Width = size.Width < node.GetSize().Width
 							? node.GetSize().Width

@@ -56,7 +56,6 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.CircuitDrawers
 			foreach (SegmentDrawerBase node in Nodes)
 			{
 				size.Width = size.Width + node.GetSize().Width;
-				//TODO: +В глобальном смысле дублируется с ParallelCircuitDrawer
 				size.Height = size.Height < node.GetSize().Height
 							? node.GetSize().Height
 							: size.Height;

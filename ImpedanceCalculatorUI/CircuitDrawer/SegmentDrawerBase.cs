@@ -9,7 +9,6 @@ using ImpedanceCalculator;
 
 namespace ImpedanceCalculatorUI.CircuitDrawer
 {
-	//TODO: +В чём логика наследования от TreeNode? 
 	/// <summary>
 	/// Содержит методы для отрисовки сегментов цепи
 	/// </summary>

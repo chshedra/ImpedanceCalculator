@@ -5,12 +5,10 @@ using ImpedanceCalculator.Elements;
 
 namespace ImpedanceCalculator.UnitTests.ElementTests
 {
+	//TODO: RSDN
 	[TestFixture]
 	class InductorTest
 	{
-        //TODO: +Все тесты правильнее оформить по методике три AAA https://habr.com/ru/post/169381/
-
-		//TODO: +В свойство
 		private Inductor TestInductor => new Inductor("TestResistor", 0.05);
 
 		[Test(Description = "Позитивный тест конструктора Inductor ")]
@@ -54,8 +52,6 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 			//Arrange
 			var wrongFrequency = -1;
 
-            //TODO: +Если так пишите - выравнивайте хотябы аргументы,
-            //а лучше переносите скобочки на отдельные строки, как в методе
 			//Assert
 			Assert.Throws<ArgumentException>
 			(
@@ -63,7 +59,7 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 				{
 					var result = TestInductor.CalculateZ(wrongFrequency);
 				},
-			"Должно возникать исключение, если частота отрицательная"
+			    "Должно возникать исключение, если частота отрицательная"
 			);
 		}
 	}

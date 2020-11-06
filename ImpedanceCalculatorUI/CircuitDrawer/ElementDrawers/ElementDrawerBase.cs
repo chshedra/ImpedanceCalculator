@@ -27,7 +27,6 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.ElementDrawers
 		/// <inheritdoc/>
 		public override Size GetSize()
 		{
-			//TODO: +Дубль в наследниках
 			return new Size(ElementSize.Width, ElementSize.Width);
 		}
 	}

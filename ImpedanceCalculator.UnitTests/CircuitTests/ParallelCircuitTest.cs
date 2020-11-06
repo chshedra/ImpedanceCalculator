@@ -9,16 +9,14 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 {
 	public class ParallelCircuitTest
 	{
-        //TODO: +Все тесты правильнее оформить по методике три AAA https://habr.com/ru/post/169381/
-
-        private List<ISegment> CreateElements => 
-			
-			new List<ISegment>
+        private List<ISegment> CreateElements =>
+            new List<ISegment>
             {
                 new Resistor("R", 10),
                 new Capacitor("C", 0.05)
             };
-
+		
+        //TODO: RSDN - длины строк
         private CircuitBase Circuit => new ParallelCircuit(CreateElements, "TestCircuit");
 
 		[Test(Description = "Тест конструктора последовательной цепи")]
@@ -43,7 +41,6 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 		[Test(Description = "Тест метода CalculateZ последовательной цепи")]
 		public void TestCalculateZ_CorrectValue()
 		{
-			//TODO: +RSDN
 			var r = new Resistor("R", 10);
 			var c = new Capacitor("C", 0.05);
 			var frequency = 3;

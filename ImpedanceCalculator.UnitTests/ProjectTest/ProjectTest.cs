@@ -4,16 +4,15 @@ using NUnit.Framework;
 using  System.Numerics;
 using ImpedanceCalculator.Circuits;
 using ImpedanceCalculator.Projects;
-using ImpedanceCalculator.Projects;
 
 namespace ImpedanceCalculator.UnitTests.ProjectTest
 {
 	[TestFixture]
 	public class ProjectTest
 	{
+		//TODO: Глобальные поле и свойство не используются!
 		private Project _project;
 
-		//TODO: +В свойство
 		private Project TestProject => new Project();
 
 		[Test(Description = "Позитивный тест cеттера свойства Circuits")]

@@ -8,20 +8,13 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 {
 	public class SerialCircuitTest
 	{
-        //TODO: +Все тесты правильнее оформить по методике три AAA https://habr.com/ru/post/169381/
-
-        //TODO: +Переделать в приватное свойство
-
-		private List<ISegment> Elements =>
-			//TODO: +Можно инициализировать сразу
+        private List<ISegment> Elements =>
             new List<ISegment>
             {
 	            new Resistor("R", 10),
 	            new Capacitor("C", 0.05)
             };
-
 		
-
 		private SerialCircuit Circuit => new SerialCircuit(Elements, "TestCircuit");
 		
 
@@ -37,7 +30,6 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 			var actualName = circuit.Name;
 			var actualSubSegments = circuit.SubSegments;
 
-            //TODO: +RSDN - длины строк
 			//Assert
 			Assert.AreEqual(expextedName, actualName, 
 				"Контсруктор полседовательной цепи " +
@@ -50,7 +42,6 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 		[Test(Description = "Тест метода CalculateZ последовательной цепи")]
 		public void TestCalculateZ_CorrectValue()
 		{
-			//TODO: +RSDN
 			var r = new Resistor("R", 10);
 			var l = new Capacitor("C", 0.05);
 			var frequency = 3;

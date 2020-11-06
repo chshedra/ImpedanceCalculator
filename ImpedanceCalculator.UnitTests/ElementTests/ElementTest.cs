@@ -7,10 +7,7 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 	[TestFixture]
 	public class ElementTest
 	{
-        //TODO: +Все тесты правильнее оформить по методике три AAA https://habr.com/ru/post/169381/
-
-        //TODO: +В чём смысл собирать в метод простой вызов конструктора?
-		private ElementBaseInheritor Element => new ElementBaseInheritor();
+        private ElementBaseInheritor Element => new ElementBaseInheritor();
 
 		[Test(Description = "Позитивный тест геттера Name")]
 		public void TestNameGet_CorrectValue()
@@ -54,8 +51,6 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 			//Arrange
 			var emptyName = "";
 
-            //TODO: +Если так пишите - выравнивайте хотябы аргументы,
-            //а лучше переносите скобочки на отдельные строки, как в методе
 			//Assert, Act
 			Assert.Throws<ArgumentException>
 			(
@@ -67,10 +62,9 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 		[Test(Description = "Негативный тест геттера Name")]
 		public void TestNameSet_NullName()
 		{
+            //TODO: AAA
 			string nullName = null;
 
-            //TODO: +Если так пишите - выравнивайте хотябы аргументы,
-            //а лучше переносите скобочки на отдельные строки, как в методе
 			Assert.Throws<ArgumentException>
 			(
 				() => { Element.Name = nullName; },
@@ -120,8 +114,7 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 		{
 			//Arrange
 			double negativeValue = -1;
-            //TODO: +Если так пишите - выравнивайте хотябы аргументы,
-            //а лучше переносите скобочки на отдельные строки, как в методе
+
 			//Assert
 			Assert.Throws<ArgumentException>
 			(
@@ -167,8 +160,6 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 			//Arrange
 			string nullName = null;
 
-            //TODO: +Если так пишите - выравнивайте хотябы аргументы,
-            //а лучше переносите скобочки на отдельные строки, как в методе
 			//Assert
 			Assert.Throws<ArgumentException>
 			(
@@ -185,8 +176,6 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 		{
 			//Arrange
 			string emptyName = "";
-            //TODO: +Если так пишите - выравнивайте хотябы аргументы,
-            //а лучше переносите скобочки на отдельные строки, как в методе
 
 			//Assert
 			Assert.Throws<ArgumentException>
@@ -204,8 +193,7 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 		{
 			//Arrange
 			var negativeValue = -3;
-            //TODO: +Если так пишите - выравнивайте хотябы аргументы,
-            //а лучше переносите скобочки на отдельные строки, как в методе
+
 			//Assert
 			Assert.Throws<ArgumentException>
 			(
