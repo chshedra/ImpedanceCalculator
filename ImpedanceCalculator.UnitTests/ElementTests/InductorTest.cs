@@ -5,9 +5,9 @@ using ImpedanceCalculator.Elements;
 
 namespace ImpedanceCalculator.UnitTests.ElementTests
 {
-	//TODO: RSDN
+	//TODO: +RSDN
 	[TestFixture]
-	class InductorTest
+	public class InductorTest
 	{
 		private Inductor TestInductor => new Inductor("TestResistor", 0.05);
 

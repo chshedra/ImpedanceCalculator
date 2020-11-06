@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace ImpedanceCalculator.Projects
@@ -23,9 +24,10 @@ namespace ImpedanceCalculator.Projects
 		/// </summary>
 		public static void SaveToFile(string fileName, object container)
 		{
-			//TODO: !RSDN
+			//TODO: +!RSDN
 			string DefaultDirectory = 
-				Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
+				Environment.GetFolderPath(Environment.
+					SpecialFolder.ApplicationData) +
 				"\\ImpedanceCalculator";
 
 			if (!Directory.Exists(DefaultDirectory))
@@ -52,18 +54,25 @@ namespace ImpedanceCalculator.Projects
 			}
 			else
 			{
-				var formatter = new BinaryFormatter();
-				using (var deserializeFile = new FileStream(fileName, FileMode.OpenOrCreate))
+				try
 				{
-					if (deserializeFile.Length > 0)
+					var formatter = new BinaryFormatter();
+					using (var deserializeFile = new FileStream(fileName, FileMode.OpenOrCreate))
 					{
-						project = (Project) formatter.Deserialize(deserializeFile);  
-						deserializeFile.Close();
+						if (deserializeFile.Length > 0)
+						{
+							project = (Project) formatter.Deserialize(deserializeFile);
+							deserializeFile.Close();
+						}
+						else
+						{
+							project = new Project();
+						}
 					}
-					else
-					{
-						throw new ArgumentException("Empty file");
-					}
+				}
+				catch (SerializationException)
+				{
+					project= new Project();
 				}
 			}
 

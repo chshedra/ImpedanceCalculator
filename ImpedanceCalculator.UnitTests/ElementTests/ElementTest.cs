@@ -62,9 +62,11 @@ namespace ImpedanceCalculator.UnitTests.ElementTests
 		[Test(Description = "Негативный тест геттера Name")]
 		public void TestNameSet_NullName()
 		{
-            //TODO: AAA
+            //TODO: +AAA
+			//Arrange
 			string nullName = null;
 
+			//Assert, Act
 			Assert.Throws<ArgumentException>
 			(
 				() => { Element.Name = nullName; },
