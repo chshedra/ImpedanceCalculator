@@ -28,8 +28,12 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.ElementDrawers
 			graphics.DrawLine(StandartPen, 0, 50, 30, 50);
 			graphics.DrawLine(StandartPen, 92, 50, ElementSize.Width, 50);
 
+			var emSize = 3;
+			var nameLocationX = ElementSize.Width / 2 - 
+									(Segment.Name.Length * emSize) / 2;
+
 			graphics.DrawString(Segment.Name, new Font(FontFamily.GenericSansSerif,
-				10, FontStyle.Regular), new SolidBrush(Color.Black), 55, 10);
+				10, FontStyle.Regular), new SolidBrush(Color.Black), nameLocationX, 10);
 		}
 	}
 }

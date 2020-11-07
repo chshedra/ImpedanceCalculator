@@ -69,7 +69,7 @@ namespace ImpedanceCalculatorUI.Controls
 							var selectedSegment = selectedNode.Segment;
 							var editedElement = editForm.Element;
 							InsertElements(selectedSubSegments, treeNodes,
-								selectedSegment, insertingIndex);
+								editedElement, insertingIndex);
 
 							CircuitChanged?.Invoke(this, EventArgs.Empty);
 						}
@@ -204,8 +204,11 @@ namespace ImpedanceCalculatorUI.Controls
 					treeNode.Nodes.Add(node);
 					CircuitTreeViewDataBind(node, segment.SubSegments);
 				}
+
+				treeNode.Expand();
 			}
 			CircuitChanged?.Invoke(this, EventArgs.Empty);
+
 		}
 
 		/// <summary>
