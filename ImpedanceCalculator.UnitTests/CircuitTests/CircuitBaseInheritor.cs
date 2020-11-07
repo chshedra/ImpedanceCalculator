@@ -7,7 +7,7 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 {
 	public class CircuitBaseInheritor : CircuitBase
 	{
-		public CircuitBaseInheritor() : base() { }
+		public CircuitBaseInheritor(){ }
 
 		public CircuitBaseInheritor(List<ISegment> subSegments, string name) :
 			base(subSegments, name) { }

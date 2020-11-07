@@ -14,7 +14,7 @@ namespace ImpedanceCalculator.Projects
 		/// <summary>
 		/// Хранит путь к файлу для записи
 		/// </summary>
-		public static string DefaultPath { get; private set; } =
+		public static string DefaultPath { get; } =
 			Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
 			"\\ImpedanceCalculator\\ImpedanceCalculator.note";
 
@@ -24,15 +24,15 @@ namespace ImpedanceCalculator.Projects
 		/// </summary>
 		public static void SaveToFile(string fileName, object container)
 		{
-			//TODO: !!RSDN
-			string DefaultDirectory = 
+			//TODO: +!!RSDN, ааа, вот в чем дело
+			string defaultDirectory = 
 				Environment.GetFolderPath(Environment.
 					SpecialFolder.ApplicationData) +
 				"\\ImpedanceCalculator";
 
-			if (!Directory.Exists(DefaultDirectory))
+			if (!Directory.Exists(defaultDirectory))
 			{
-				Directory.CreateDirectory(DefaultDirectory);
+				Directory.CreateDirectory(defaultDirectory);
 			}
 
 			var formatter = new BinaryFormatter();

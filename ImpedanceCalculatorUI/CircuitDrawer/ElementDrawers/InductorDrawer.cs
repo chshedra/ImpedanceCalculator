@@ -23,7 +23,7 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.ElementDrawers
 		/// <param name="graphics"></param>
 		public override void Draw(Graphics graphics)
 		{
-            var firstBezierX = 40;
+            var firstBezierX = 45;
             var lastBezierX = 80;
             var bezierLength = 8;
 
@@ -34,11 +34,11 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.ElementDrawers
 	          
             }
 
-            graphics.DrawLine(StandartPen, 0, 50, 40, 50);
-			graphics.DrawLine(StandartPen, 80, 50, ElementSize.Width, 50);
+            graphics.DrawLine(StandartPen, 0, 50, 45, 50);
+			graphics.DrawLine(StandartPen, 85, 50, ElementSize.Width, 50);
 
 			graphics.DrawString(Segment.Name, new Font(FontFamily.GenericSansSerif,
-				10, FontStyle.Regular), new SolidBrush(Color.Black), 50, 20);
+				10, FontStyle.Regular), new SolidBrush(Color.Black), 55, 20);
 		}
 	}
 }

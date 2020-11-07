@@ -23,13 +23,13 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.ElementDrawers
 		/// <param name="graphics"></param>
 		public override void Draw(Graphics graphics)
 		{
-			graphics.DrawRectangle(StandartPen, new Rectangle(20, 34, 60, 32));
+			graphics.DrawRectangle(StandartPen, new Rectangle(32, 34, 60, 32));
 
-			graphics.DrawLine(StandartPen, 0, 50, 20, 50);
-			graphics.DrawLine(StandartPen, 80, 50, ElementSize.Width, 50);
+			graphics.DrawLine(StandartPen, 0, 50, 30, 50);
+			graphics.DrawLine(StandartPen, 92, 50, ElementSize.Width, 50);
 
 			graphics.DrawString(Segment.Name, new Font(FontFamily.GenericSansSerif,
-				10, FontStyle.Regular), new SolidBrush(Color.Black), 40, 10);
+				10, FontStyle.Regular), new SolidBrush(Color.Black), 55, 10);
 		}
 	}
 }

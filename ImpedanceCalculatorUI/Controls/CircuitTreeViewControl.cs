@@ -224,8 +224,8 @@ namespace ImpedanceCalculatorUI.Controls
 		/// <summary>
 		/// Удаляет узел дерева цепи
 		/// </summary>
-		/// //TODO Сигнатура XML комментария и метода различны
-		/// <param name="removingNode"></param>
+		/// //TODO +Сигнатура XML комментария и метода различны
+		/// <param name="selectedNode"></param>
 		private void RemoveNode(SegmentTreeNode selectedNode)
 		{
 			var (removingNode, removingSubSegments, treeNodes)
