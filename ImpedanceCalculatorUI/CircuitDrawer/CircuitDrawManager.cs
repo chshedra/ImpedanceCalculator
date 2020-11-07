@@ -24,7 +24,6 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
 		/// <returns></returns>
 		public static SegmentDrawerBase GetDrawSegment(ISegment segment)
 		{
-            //TODO: +Рука-лицо о_О   
             switch (segment)
 			{
 				case Resistor resistor:

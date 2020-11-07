@@ -16,7 +16,6 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
                 new Capacitor("C", 0.05)
             };
 		
-        //TODO: +RSDN - длины строк
         private CircuitBase Circuit => 
 	        new ParallelCircuit(CreateElements, "TestCircuit");
 

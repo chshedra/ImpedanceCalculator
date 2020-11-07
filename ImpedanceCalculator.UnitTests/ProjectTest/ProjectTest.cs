@@ -10,9 +10,7 @@ namespace ImpedanceCalculator.UnitTests.ProjectTest
 	[TestFixture]
 	public class ProjectTest
 	{
-		//TODO: +Глобальные поле и свойство не используются!
-
-		[Test(Description = "Позитивный тест cеттера свойства Circuits")]
+        [Test(Description = "Позитивный тест cеттера свойства Circuits")]
 		public void TestCircuitsSet_PositiveTest()
 		{
 			//Arrange
