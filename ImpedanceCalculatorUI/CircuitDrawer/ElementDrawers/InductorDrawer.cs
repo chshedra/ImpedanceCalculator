@@ -37,7 +37,7 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.ElementDrawers
             graphics.DrawLine(StandartPen, 0, 50, 45, 50);
 			graphics.DrawLine(StandartPen, 85, 50, ElementSize.Width, 50);
 
-			var symbolSize = 6;
+			var symbolSize = 7;
 			var elementCenter = firstBezierX + 
 			                    (lastBezierX - firstBezierX) / 2;
 			var nameLocationX = elementCenter - 
