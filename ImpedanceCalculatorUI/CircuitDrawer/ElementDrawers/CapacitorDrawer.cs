@@ -7,7 +7,7 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.ElementDrawers
 	/// Содержит методы для отрисовки конденсатора
 	/// </summary>
 	public class CapacitorDrawer : ElementDrawerBase
-	{
+	{ 
 		/// <summary>
 		/// Создает объект CaoacitorDrawer и устанавливает значение Segment
 		/// </summary>
