@@ -43,12 +43,12 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
 		/// <summary>
 		/// Длина входной линии.
 		/// </summary>
-		protected const int InputLineLength = 20;
+		protected const int InputLineLength = 30;
 
 		/// <summary>
 		/// Длина выходной линии.
 		/// </summary>
-		protected const int OutputLineLength = 40;
+		protected const int OutputLineLength = 30;
 
 		/// <summary>
 		///  Делитель изображения. Определяет в какой части будет находится входная и выходная линии.
@@ -58,7 +58,7 @@ namespace ImpedanceCalculatorUI.CircuitDrawer
 		/// <summary>
 		/// Определяет где будет находиться выходная вертикальная линий у параллельной цепи.
 		/// </summary>
-		protected const int ParallelConnector = 10;
+		protected const int ParallelConnector = 5;
 
 		/// <inheritdoc/>
 		public abstract Bitmap GetImage();

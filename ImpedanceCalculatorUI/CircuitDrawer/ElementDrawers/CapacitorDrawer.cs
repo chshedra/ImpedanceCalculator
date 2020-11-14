@@ -29,13 +29,15 @@ namespace ImpedanceCalculatorUI.CircuitDrawer.ElementDrawers
 			graphics.DrawLine(StandartPen, 0, 50, 55, 50);
 			graphics.DrawLine(StandartPen, 75, 50, ElementSize.Width, 50);
 
-			var symbolSize = 7;
-			var elementCenter = 52;
-			var nameLocationX = elementCenter - 
-				(Segment.Name.Length * symbolSize) / 2 + 11;
+			var textBorder = new Rectangle(35, 15, 60, 15);
+
+			var format = new StringFormat
+			{
+				Alignment = StringAlignment.Center,
+			};
 
 			graphics.DrawString(Segment.Name, new Font(FontFamily.GenericSansSerif,
-				10, FontStyle.Regular), new SolidBrush(Color.Black), nameLocationX, 10);
+				10, FontStyle.Regular), new SolidBrush(Color.Black), textBorder, format);
 		}
     }
 }
