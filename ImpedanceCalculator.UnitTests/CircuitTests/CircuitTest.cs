@@ -10,7 +10,6 @@ namespace ImpedanceCalculator.UnitTests.CircuitTests
 	[TestFixture]
 	public class CircuitTest
 	{
-        //TODO: +RSDN - длины строк
 		private CircuitBase EmptyCircuit => 
 			new CircuitBaseInheritor(new List<ISegment>(), "Circuit");
 		

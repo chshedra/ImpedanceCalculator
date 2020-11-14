@@ -24,7 +24,6 @@ namespace ImpedanceCalculator.Projects
 		/// </summary>
 		public static void SaveToFile(string fileName, object container)
 		{
-			//TODO: +!!RSDN, ааа, вот в чем дело
 			string defaultDirectory = 
 				Environment.GetFolderPath(Environment.
 					SpecialFolder.ApplicationData) +
