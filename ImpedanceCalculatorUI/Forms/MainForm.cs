@@ -131,6 +131,7 @@ namespace ImpedanceCalculatorUI.Forms
 					_project.Circuits.Remove(circuit);
 					RefreshLists();
 				}
+				RefreshCircuitComboBox();
 			}
 		}
 
